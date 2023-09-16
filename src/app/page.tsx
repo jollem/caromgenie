@@ -1,3 +1,7 @@
-const Home = () => <p>clean slate</p>;
+import NavBar from "../components/navbar";
+import ShotClock from "../components/shotclock";
+import styles from "./page.module.css";
 
-export default Home;
+const Game = () => <div className={styles.game}>Game</div>;
+
+export default Game;

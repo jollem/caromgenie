@@ -1,0 +1,5 @@
+.game {
+  width: 100%;
+  background-color: white;
+  flex-grow: 8;
+}

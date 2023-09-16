@@ -1,0 +1,5 @@
+.shotclock {
+  width: 100%;
+  background-color: yellow;
+  flex-grow: 1;
+}
