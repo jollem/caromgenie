@@ -2,3 +2,10 @@
   width: 100%;
   flex-grow: 8;
 }
+
+.scoreBoard {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}

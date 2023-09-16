@@ -1,0 +1,73 @@
+.player {
+  height: 100%;
+  border: gray solid thick;
+  border-radius: 1rem;
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  flex-grow: 1;
+}
+
+.white {
+  background: white;
+}
+
+.yellow {
+  background: yellow;
+}
+
+.red {
+  background: red;
+}
+
+.active {
+  border: red solid thick;
+}
+
+.scoreCard {
+  flex-grow: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(75vw / 3);
+  border-radius: 1rem;
+  position: relative;
+}
+
+.overlayTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 50%;
+  border-bottom: thin black solid;
+}
+
+.overlayBottom {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  width: 100%;
+  height: 50%;
+  border-top: thin black solid;
+}
+
+.nameContainer {
+  font-weight: bold;
+  color: white;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.statusContainer {
+  font-weight: bold;
+  color: white;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
