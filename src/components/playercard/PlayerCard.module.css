@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   padding: 0.5rem;
-  flex-grow: 1;
+  flex-grow: 4;
 }
 
 .first {
@@ -68,6 +68,7 @@
 }
 
 .nameContainer {
+  font-size: calc(8vw / 3);
   font-weight: bold;
   color: white;
   flex-grow: 1;

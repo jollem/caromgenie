@@ -25,6 +25,18 @@
   border-bottom: gray solid thick;
 }
 
+.timebox {
+  height: 100%;
+  border: gray solid thick;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+  font-weight: bold;
+  color: gray;
+}
+
 .toggle {
   justify-content: center;
   align-items: center;

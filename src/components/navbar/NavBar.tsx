@@ -14,6 +14,38 @@ const MenuBurger = () => (
   </div>
 );
 
+const StartTime = ({ timestamp }: { timestamp: number }) => (
+  <div>Started: {new Date(timestamp).toLocaleTimeString()}</div>
+);
+
+const TimeElapsed = ({ duration }: { duration: number }) => (
+  <div>
+    Time elapsed:{" "}
+    {Math.floor(duration / 360)
+      .toString()
+      .padStart(2, "0")}
+    :
+    {Math.floor((duration % 360) / 60)
+      .toString()
+      .padStart(2, "0")}
+    :{(duration % 60).toString().padStart(2, "0")}
+  </div>
+);
+
+const TimeBox = ({
+  timestamp,
+  duration,
+}: {
+  timestamp: number;
+  duration: number;
+}) => (
+  <div className={styles.timebox}>
+    <StartTime timestamp={timestamp} />
+    {"/"}
+    <TimeElapsed duration={duration} />
+  </div>
+);
+
 const PauseToggle = ({
   toggle,
   running,
@@ -25,17 +57,18 @@ const PauseToggle = ({
     <span className={classnames(running ? styles.pause : styles.play)} />
   </div>
 );
-/*<p>
-Innings:{" "}
-{Math.max(...gameState.players.map((player) => player.innings.length))}
-</p>
-<p>Started: {gameState.timestamp}</p>
-<p>Duration: {gameState.duration}</p> */
+
 const NavBar = () => {
   const gameState = useContext(GameContext);
   return (
     <nav className={styles.navbar}>
       <MenuBurger />
+      {gameState.active >= 0 && (
+        <TimeBox
+          timestamp={gameState.timestamp}
+          duration={gameState.duration}
+        />
+      )}
       {gameState.active >= 0 && (
         <PauseToggle
           toggle={gameState.pauseToggle}
