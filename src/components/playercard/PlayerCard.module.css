@@ -9,16 +9,16 @@
   flex-grow: 1;
 }
 
-.white {
-  background: white;
+.first {
+  order: 2;
 }
 
-.yellow {
-  background: yellow;
+.second {
+  order: 4;
 }
 
-.red {
-  background: red;
+.third {
+  order: 6;
 }
 
 .active {
@@ -33,6 +33,18 @@
   font-size: calc(75vw / 3);
   border-radius: 1rem;
   position: relative;
+}
+
+.white {
+  background: white;
+}
+
+.yellow {
+  background: yellow;
+}
+
+.red {
+  background: red;
 }
 
 .overlayTop {

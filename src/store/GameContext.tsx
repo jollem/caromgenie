@@ -30,6 +30,7 @@ const initialValues = {
   players: [
     { name: "Heikki", innings: [] },
     { name: "Risto", innings: [] },
+    { name: "Pertti", innings: [] },
   ],
 };
 

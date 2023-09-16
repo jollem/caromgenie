@@ -1,0 +1,29 @@
+.status {
+  height: 100%;
+  border: gray solid thick;
+  border-radius: 1rem;
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  flex-grow: 1;
+  font-weight: bold;
+  color: white;
+  justify-content: center;
+  align-items: center;
+}
+
+.status > div {
+  width: 80%;
+  color: darkgray;
+  border: darkgray solid thick;
+  border-radius: 1rem;
+  font-size: calc(45vw / 3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.middle {
+  order: 3;
+}

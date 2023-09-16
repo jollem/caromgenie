@@ -18,6 +18,9 @@ const PlayerCard = ({
     <div
       className={classnames(styles.player, {
         [styles.active]: active,
+        [styles.first]: number === 0,
+        [styles.second]: number === 1,
+        [styles.third]: number === 2,
       })}
       onClick={() => {
         if (gameState.innings % gameState.players.length === number) {
