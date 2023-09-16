@@ -1,3 +1,48 @@
 .navbar {
   flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+
+.menu {
+  height: 100%;
+  border: gray solid thick;
+  border-radius: 0.5rem;
+  aspect-ratio: 1;
+  display: flex;
+}
+
+.burger {
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0 0.2rem;
+}
+
+.menu.burger > span {
+  display: block;
+  width: 100%;
+  border-bottom: gray solid thick;
+}
+
+.toggle {
+  justify-content: center;
+  align-items: center;
+}
+
+.pause {
+  display: block;
+  height: 40%;
+  aspect-ratio: 1;
+  border-left: gray solid thick;
+  border-right: gray solid thick;
+}
+
+.play {
+  border: 6px solid transparent;
+  border-left-color: gray;
+  display: block;
+  width: 0px;
+  height: 0px;
+  transform: translate(25%);
 }
