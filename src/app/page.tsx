@@ -1,7 +1,16 @@
+"use client";
+
+import GameContextProvider from "../store/GameContext";
 import NavBar from "../components/navbar";
+import Game from "../components/game";
 import ShotClock from "../components/shotclock";
-import styles from "./page.module.css";
 
-const Game = () => <div className={styles.game}>Game</div>;
+const Page = () => (
+  <GameContextProvider>
+    <NavBar />
+    <Game />
+    <ShotClock />
+  </GameContextProvider>
+);
 
-export default Game;
+export default Page;
