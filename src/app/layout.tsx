@@ -6,7 +6,7 @@ import styles from "./layout.module.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Carom counter",
+  title: "CaromGenie",
   description: "Webapp for carom billiards game management",
 };
 
