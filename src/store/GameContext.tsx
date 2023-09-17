@@ -18,6 +18,8 @@ type GameState = {
   decrement?: () => void;
   setNextActive?: () => void;
   pauseToggle?: () => void;
+  start?: (players: string[]) => void;
+  reset?: () => void;
 };
 
 const initialValues = {
@@ -27,11 +29,7 @@ const initialValues = {
   shotclock: 0,
   active: -1,
   innings: 0,
-  players: [
-    { name: "Heikki", innings: [] },
-    { name: "Risto", innings: [] },
-    { name: "Pertti", innings: [] },
-  ],
+  players: [],
 };
 
 const clone = (state: GameState): GameState => ({
@@ -106,12 +104,23 @@ const provider = ({ children }: { children: React.ReactNode }) => {
       return state;
     });
 
+  const start = (formData: string[]) => {
+    const players = formData
+      .filter(Boolean)
+      .map((name) => ({ name, innings: [] }));
+    setGameState((prev) => ({ ...prev, ...initialValues, players }));
+  };
+
+  const reset = () => setGameState((prev) => ({ ...prev, players: [] }));
+
   const [gameState, setGameState] = useState<GameState>({
     ...initialValues,
     increment,
     decrement,
     setNextActive,
     pauseToggle,
+    start,
+    reset,
   });
 
   return (

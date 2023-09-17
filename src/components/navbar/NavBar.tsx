@@ -3,11 +3,8 @@ import classnames from "classnames";
 import { GameContext } from "../../store/GameContext";
 import styles from "./NavBar.module.css";
 
-const MenuBurger = () => (
-  <div
-    className={`${styles.menu} ${styles.burger}`}
-    onClick={() => console.log("rai")}
-  >
+const MenuBurger = ({ reset }: { reset?: () => void }) => (
+  <div className={`${styles.menu} ${styles.burger}`} onClick={reset}>
     <span />
     <span />
     <span />
@@ -62,7 +59,7 @@ const NavBar = () => {
   const gameState = useContext(GameContext);
   return (
     <nav className={styles.navbar}>
-      <MenuBurger />
+      <MenuBurger reset={gameState.reset} />
       {gameState.active >= 0 && (
         <TimeBox
           timestamp={gameState.timestamp}
