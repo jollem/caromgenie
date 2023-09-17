@@ -11,6 +11,7 @@
   border-radius: 0.5rem;
   aspect-ratio: 1;
   display: flex;
+  cursor: pointer;
 }
 
 .burger {

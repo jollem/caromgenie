@@ -21,6 +21,8 @@ const PlayerCard = ({
         [styles.first]: number === 0,
         [styles.second]: number === 1,
         [styles.third]: number === 2,
+        [styles.actionable]:
+          gameState.innings % gameState.players.length === number,
       })}
       onClick={() => {
         if (gameState.innings % gameState.players.length === number) {
@@ -37,7 +39,9 @@ const PlayerCard = ({
         })}
       >
         <div
-          className={styles.overlayTop}
+          className={classnames(styles.overlayTop, {
+            [styles.actionable]: active,
+          })}
           onClick={() => {
             if (active) {
               gameState.increment?.();
@@ -45,7 +49,9 @@ const PlayerCard = ({
           }}
         />
         <div
-          className={styles.overlayBottom}
+          className={classnames(styles.overlayBottom, {
+            [styles.actionable]: active,
+          })}
           onClick={() => {
             if (active) {
               gameState.decrement?.();
