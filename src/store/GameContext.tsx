@@ -1,5 +1,4 @@
 import { createContext, useState, useEffect } from "react";
-import { clearInterval } from "timers";
 
 export type Player = {
   name: string;
@@ -9,7 +8,6 @@ export type Player = {
 type GameState = {
   running: boolean;
   timestamp: number;
-  duration: number;
   shotclock: number;
   active: number;
   innings: number;
@@ -25,7 +23,6 @@ type GameState = {
 const initialValues = {
   running: false,
   timestamp: 0,
-  duration: 0,
   shotclock: 0,
   active: -1,
   innings: 0,
@@ -42,20 +39,38 @@ const clone = (state: GameState): GameState => ({
 
 export const GameContext = createContext<GameState>({ ...initialValues });
 
+let shotclock: ReturnType<typeof setInterval> | undefined = undefined;
+
 const provider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
-    const timer = setInterval(() => {
-      setGameState((prev) => {
-        const state = clone(prev);
-        if (state.running) {
-          state.shotclock += 1;
-          state.duration += 1;
-        }
-        return state;
-      });
-    }, 1000);
+    const timer = setInterval(() => setGameState((prev) => clone(prev)), 1000);
     return () => clearInterval(timer);
   }, []);
+
+  const setShotClock = (seconds: number) =>
+    setGameState((prev) => {
+      const state = clone(prev);
+      state.shotclock = seconds;
+      return state;
+    });
+
+  const startShotClock = (seconds: number) => {
+    clearInterval(shotclock);
+    setShotClock(seconds);
+    shotclock = setInterval(
+      () =>
+        setGameState((prev) => {
+          if (prev.shotclock === 0) {
+            clearInterval(shotclock);
+            return prev;
+          }
+          const state = clone(prev);
+          state.shotclock -= 1;
+          return state;
+        }),
+      1000
+    );
+  };
 
   const increment = () =>
     setGameState((prev) => {
@@ -63,7 +78,8 @@ const provider = ({ children }: { children: React.ReactNode }) => {
       state.players[prev.active].innings[
         state.players[prev.active].innings.length - 1
       ]++;
-      state.shotclock = 0;
+      startShotClock(40);
+      state.running = true;
       return state;
     });
 
@@ -85,7 +101,7 @@ const provider = ({ children }: { children: React.ReactNode }) => {
       if (!state.timestamp) {
         state.timestamp = Date.now();
       }
-      state.shotclock = 0;
+      startShotClock(40);
       state.innings += 1;
       state.active =
         state.players.reduce((acc, player) => acc + player.innings.length, 0) %
@@ -97,12 +113,14 @@ const provider = ({ children }: { children: React.ReactNode }) => {
       return state;
     });
 
-  const pauseToggle = () =>
+  const pauseToggle = () => {
     setGameState((prev) => {
       const state = clone(prev);
+      state.running ? clearInterval(shotclock) : startShotClock(prev.shotclock);
       state.running = !state.running;
       return state;
     });
+  };
 
   const start = (formData: string[]) => {
     const players = formData

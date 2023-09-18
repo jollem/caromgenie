@@ -15,19 +15,19 @@ const StartTime = ({ timestamp }: { timestamp: number }) => (
   <div>Started: {new Date(timestamp).toLocaleTimeString().slice(0, -3)}</div>
 );
 
-const TimeElapsed = ({ duration }: { duration: number }) => (
-  <div>
-    Time elapsed:{" "}
-    {Math.floor(duration / 360)
-      .toString()
-      .padStart(2, "0")}
-    :
-    {Math.floor((duration % 360) / 60)
-      .toString()
-      .padStart(2, "0")}
-    :{(duration % 60).toString().padStart(2, "0")}
-  </div>
-);
+const TimeElapsed = ({ duration }: { duration: number }) => {
+  const hours = Math.floor(duration / 360);
+  const minutes = Math.floor((duration % 360) / 60);
+  const seconds = Math.floor(duration % 60);
+  return (
+    <div>
+      Time elapsed:{" "}
+      {[hours, minutes, seconds]
+        .map((item) => item.toString().padStart(2, "0"))
+        .join(":")}
+    </div>
+  );
+};
 
 const TimeBox = ({
   timestamp,
@@ -63,7 +63,7 @@ const NavBar = () => {
       {gameState.active >= 0 && (
         <TimeBox
           timestamp={gameState.timestamp}
-          duration={gameState.duration}
+          duration={(Date.now() - gameState.timestamp) / 1000}
         />
       )}
       {gameState.active >= 0 && (
