@@ -12,7 +12,7 @@ const MenuBurger = ({ reset }: { reset?: () => void }) => (
 );
 
 const StartTime = ({ timestamp }: { timestamp: number }) => (
-  <div>Started: {new Date(timestamp).toLocaleTimeString()}</div>
+  <div>Started: {new Date(timestamp).toLocaleTimeString().slice(0, -3)}</div>
 );
 
 const TimeElapsed = ({ duration }: { duration: number }) => (
