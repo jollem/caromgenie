@@ -68,7 +68,7 @@
 }
 
 .nameContainer {
-  font-size: calc(8vw / 3);
+  font-size: 2rem;
   font-weight: bold;
   color: white;
   flex-grow: 1;
@@ -76,12 +76,14 @@
 }
 
 .statusContainer {
+  font-size: 1rem;
   font-weight: bold;
   color: white;
   flex-grow: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-top: 0.5rem;
 }
 
 .actionable {

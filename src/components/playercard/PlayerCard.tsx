@@ -61,10 +61,10 @@ const PlayerCard = ({
         {player.innings.reduce((acc, curr) => acc + curr, 0)}
       </div>
       <div className={styles.statusContainer}>
+        <div>HR: {Math.max(...player.innings, 0)}</div>
+        <div>{player.innings[player.innings.length - 1] || 0}</div>
         <div>
-          {player.innings ? player.innings[player.innings.length - 1] : 0}
-        </div>
-        <div>
+          AVG:{" "}
           {(
             player.innings.reduce((acc, curr) => acc + curr, 0) /
               player.innings.length || 0
