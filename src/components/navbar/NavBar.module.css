@@ -28,3 +28,7 @@
   font-weight: bold;
   color: gray;
 }
+
+.hide {
+  visibility: hidden;
+}
