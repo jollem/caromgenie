@@ -8,7 +8,13 @@ const ShotClockContainer = () => {
 
   const ShotClock = () => (
     <>
-      <div className={styles.shotclock}>{gameState.shotclock}</div>
+      <div
+        className={classnames(styles.shotclock, {
+          [styles.hurry]: (gameState.shotclock || 0) < 10,
+        })}
+      >
+        {gameState.shotclock}
+      </div>
       <div className={styles.shotclockBar}>
         {Array.from(
           { length: gameState.config.shotclock },

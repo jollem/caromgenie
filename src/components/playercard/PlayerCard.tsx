@@ -29,7 +29,19 @@ const PlayerCard = ({
       })}
       onClick={() => isNext && gameState.setNextActive?.()}
     >
-      <div className={styles.nameContainer}>{player.name}</div>
+      <div className={styles.nameContainer}>
+        <span>{player.name}</span>
+        {gameState.config.extensions && (
+          <button
+            disabled={
+              !player.extensions || gameState.shotclock === 0 || !isActive
+            }
+            onClick={() => gameState.extension?.()}
+          >
+            {player.extensions}
+          </button>
+        )}
+      </div>
       <div
         className={classnames(styles.scoreCard, {
           [styles.white]: playerIndex === 0,

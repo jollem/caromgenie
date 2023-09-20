@@ -3,6 +3,7 @@ import { createContext, useState, useEffect } from "react";
 export type Player = {
   name: string;
   innings: number[];
+  extensions: number;
 };
 
 type GameState = {
@@ -20,6 +21,7 @@ type GameState = {
   next?: (state: GameState) => number;
   increment?: () => void;
   decrement?: () => void;
+  extension?: () => void;
   setNextActive?: () => void;
   pauseToggle?: () => void;
   start?: (players: string[]) => void;
@@ -117,6 +119,16 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
       return state;
     });
 
+  const extension = () =>
+    setGameState((prev) => {
+      const state = clone(prev);
+      if (state.shotclock) {
+        state.shotclock += prev.config.extension;
+        state.players[active(prev)].extensions--;
+      }
+      return state;
+    });
+
   const setNextActive = () =>
     setGameState((prev) => {
       const state = clone(prev);
@@ -165,6 +177,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
     next,
     increment,
     decrement,
+    extension,
     setNextActive,
     pauseToggle,
     start,

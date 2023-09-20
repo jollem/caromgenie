@@ -14,6 +14,16 @@ const StatusDisplay = () => {
       <div>
         {Math.max(...gameState.players.map((player) => player.innings.length))}
       </div>
+
+      <button
+        onClick={() => gameState.extension?.()}
+        disabled={
+          !!!gameState.shotclock ||
+          gameState.players[gameState.active?.(gameState) || 0]?.extensions <= 0
+        }
+      >
+        Extension
+      </button>
     </div>
   );
 };

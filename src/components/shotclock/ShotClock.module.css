@@ -15,8 +15,8 @@
   color: green;
 }
 
-.shotclock .warn {
-  color: red;
+.hurry {
+  color: red !important;
 }
 
 .shotclockBar {
