@@ -34,7 +34,7 @@ npm run dev
 Make static export (production build)
 
 ```bash
-npx next build
+npm run build
 ```
 
 ## Future development
