@@ -31,7 +31,7 @@ const PlayerCard = ({
     >
       <div className={styles.nameContainer}>
         <span>{player.name}</span>
-        {gameState.config.extensions && (
+        {!!gameState.config.extensions && (
           <button
             disabled={
               !gameState.running ||
