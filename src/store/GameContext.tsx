@@ -6,6 +6,12 @@ export type Player = {
 };
 
 type GameState = {
+  config: {
+    innings: number;
+    shotclock: number;
+    extension: number;
+    extensions: number;
+  };
   running: boolean;
   timestamp?: number;
   shotclock?: number;
@@ -21,6 +27,12 @@ type GameState = {
 };
 
 const initialValues = {
+  config: {
+    innings: 40,
+    shotclock: 40,
+    extension: 40,
+    extensions: 1,
+  },
   running: false,
   timestamp: undefined,
   shotclock: undefined,
@@ -30,6 +42,7 @@ const initialValues = {
 
 const clone = (state: GameState): GameState => ({
   ...state,
+  config: { ...state.config },
   players: state.players.map((player) => ({
     ...player,
     innings: [...player.innings],
@@ -64,7 +77,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
             return prev;
           }
           const state = clone(prev);
-          state.shotclock = (state.shotclock ?? 40) - 1;
+          state.shotclock = (state.shotclock ?? state.config.shotclock) - 1;
           return state;
         }),
       1000
@@ -90,7 +103,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
       state.players[active(prev)].innings[
         state.players[active(prev)].innings.length - 1
       ]++;
-      startShotClock(40);
+      startShotClock(prev.config.shotclock);
       state.running = true;
       return state;
     });
@@ -114,7 +127,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
         state.timestamp = Date.now();
       }
 
-      startShotClock(40);
+      startShotClock(state.config.shotclock);
       const nextPlayer = next(state);
       state.players[nextPlayer].innings = [
         ...state.players[nextPlayer].innings,
@@ -128,18 +141,21 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
       const state = clone(prev);
       state.running
         ? clearInterval(shotclock)
-        : startShotClock(prev.shotclock ?? 40);
+        : startShotClock(prev.shotclock ?? prev.config.shotclock);
       state.running = !state.running;
       return state;
     });
   };
 
-  const start = (formData: string[]) => {
-    const players = formData
-      .filter(Boolean)
-      .map((name) => ({ name, innings: [] }));
-    setGameState((prev) => ({ ...prev, ...initialValues, players }));
-  };
+  const start = (formData: string[]) =>
+    setGameState((prev) => {
+      const players = formData.filter(Boolean).map((name) => ({
+        name,
+        innings: [],
+        extensions: prev.config.extensions,
+      }));
+      return { ...prev, ...initialValues, players };
+    });
 
   const reset = () => setGameState((prev) => ({ ...prev, players: [] }));
 

@@ -10,19 +10,20 @@ const ShotClockContainer = () => {
     <>
       <div className={styles.shotclock}>{gameState.shotclock}</div>
       <div className={styles.shotclockBar}>
-        {Array.from({ length: 40 }, (value, _index) => value).map(
-          (_, index) => {
-            return (
-              <span
-                key={index}
-                className={classnames({
-                  [styles.warn]: index < 10,
-                  [styles.hide]: index >= (gameState.shotclock || 0),
-                })}
-              />
-            );
-          }
-        )}
+        {Array.from(
+          { length: gameState.config.shotclock },
+          (value, _index) => value
+        ).map((_, index) => {
+          return (
+            <span
+              key={index}
+              className={classnames({
+                [styles.warn]: index < 10,
+                [styles.hide]: index >= (gameState.shotclock || 0),
+              })}
+            />
+          );
+        })}
       </div>
     </>
   );
