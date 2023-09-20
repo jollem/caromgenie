@@ -3,36 +3,47 @@ import classnames from "classnames";
 import { GameContext } from "../../store/GameContext";
 import styles from "./ShotClock.module.css";
 
-const ShotClock = () => {
+const ShotClockContainer = () => {
   const gameState = useContext(GameContext);
+
+  const ShotClock = () => (
+    <>
+      <div className={styles.shotclock}>{gameState.shotclock}</div>
+      <div className={styles.shotclockBar}>
+        {Array.from({ length: 40 }, (value, _index) => value).map(
+          (_, index) => {
+            return (
+              <span
+                key={index}
+                className={classnames({
+                  [styles.warn]: index < 10,
+                  [styles.hide]: index >= (gameState.shotclock || 0),
+                })}
+              />
+            );
+          }
+        )}
+      </div>
+    </>
+  );
+
+  const TimeOver = () => (
+    <div className={styles.timeover}>Shotclock exceeded!</div>
+  );
+
+  const InfoBlock = () => (
+    <div className={styles.info}>
+      Click on {gameState.players[0]?.name} to start the game
+    </div>
+  );
+
   return (
     <div className={styles.shotclockContainer}>
-      {gameState.shotclock > 0 ? (
-        <>
-          <div className={styles.shotclock}>{gameState.shotclock}</div>
-          <div className={styles.shotclockBar}>
-            {Array.from({ length: 40 }, (value, _index) => value).map(
-              (_, index) => {
-                return (
-                  <span
-                    key={index}
-                    className={classnames({
-                      [styles.warn]: index < 10,
-                      [styles.hide]: index >= gameState.shotclock,
-                    })}
-                  />
-                );
-              }
-            )}
-          </div>
-        </>
-      ) : (
-        gameState.running && (
-          <div className={styles.timeover}>Timelimit reached!</div>
-        )
-      )}
+      {!gameState.timestamp && <InfoBlock />}
+      {gameState.timestamp && (gameState.shotclock ?? 0) > 0 && <ShotClock />}
+      {gameState.timestamp && (gameState.shotclock ?? 0) <= 0 && <TimeOver />}
     </div>
   );
 };
 
-export default ShotClock;
+export default ShotClockContainer;

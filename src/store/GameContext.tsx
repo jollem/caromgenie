@@ -7,8 +7,8 @@ export type Player = {
 
 type GameState = {
   running: boolean;
-  timestamp: number;
-  shotclock: number;
+  timestamp?: number;
+  shotclock?: number;
   active: number;
   innings: number;
   players: Player[];
@@ -22,8 +22,8 @@ type GameState = {
 
 const initialValues = {
   running: false,
-  timestamp: 0,
-  shotclock: 0,
+  timestamp: undefined,
+  shotclock: undefined,
   active: -1,
   innings: 0,
   players: [],
@@ -65,7 +65,8 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
             return prev;
           }
           const state = clone(prev);
-          state.shotclock -= 1;
+          console.log("foo?", state.shotclock);
+          state.shotclock = (state.shotclock ?? 40) - 1;
           return state;
         }),
       1000
@@ -116,7 +117,9 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
   const pauseToggle = () => {
     setGameState((prev) => {
       const state = clone(prev);
-      state.running ? clearInterval(shotclock) : startShotClock(prev.shotclock);
+      state.running
+        ? clearInterval(shotclock)
+        : startShotClock(prev.shotclock ?? 40);
       state.running = !state.running;
       return state;
     });
