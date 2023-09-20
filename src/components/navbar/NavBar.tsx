@@ -30,13 +30,16 @@ const TimeElapsed = ({ duration }: { duration: number }) => {
 };
 
 const TimeBox = ({
+  innings,
   timestamp,
   duration,
 }: {
+  innings: number;
   timestamp: number;
   duration: number;
 }) => (
   <div className={styles.timebox}>
+    Innings: {innings} /
     <StartTime timestamp={timestamp} />
     {"/"}
     <TimeElapsed duration={duration} />
@@ -64,6 +67,7 @@ const NavBar = () => {
       {gameState.timestamp && (
         <>
           <TimeBox
+            innings={gameState.config.innings}
             timestamp={gameState.timestamp || 0}
             duration={(Date.now() - (gameState.timestamp || 0)) / 1000}
           />
