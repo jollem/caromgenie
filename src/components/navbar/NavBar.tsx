@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { FaPlay, FaPause, FaReply } from "react-icons/fa";
+import { FaPlay, FaPause, FaArrowLeft } from "react-icons/fa";
 import { GameContext } from "../../store/GameContext";
 import styles from "./NavBar.module.css";
 
 const MenuBurger = ({ reset }: { reset?: () => void }) => (
   <div className={styles.menu} onClick={reset}>
-    <FaReply />
+    <FaArrowLeft />
   </div>
 );
 

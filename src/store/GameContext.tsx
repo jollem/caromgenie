@@ -6,13 +6,15 @@ export type Player = {
   extensions: number;
 };
 
+export type Config = {
+  innings: number;
+  shotclock: number;
+  extension: number;
+  extensions: number;
+};
+
 type GameState = {
-  config: {
-    innings: number;
-    shotclock: number;
-    extension: number;
-    extensions: number;
-  };
+  config: Config;
   running: boolean;
   timestamp?: number;
   shotclock?: number;
@@ -26,6 +28,7 @@ type GameState = {
   pauseToggle?: () => void;
   start?: (players: string[]) => void;
   reset?: () => void;
+  configure?: (config: Config) => void;
 };
 
 const initialValues = {
@@ -166,10 +169,13 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
         innings: [],
         extensions: prev.config.extensions,
       }));
-      return { ...prev, ...initialValues, players };
+      return { ...prev, ...initialValues, config: prev.config, players };
     });
 
   const reset = () => setGameState((prev) => ({ ...prev, players: [] }));
+
+  const configure = (config: Config) =>
+    setGameState((prev) => ({ ...prev, config }));
 
   const [gameState, setGameState] = useState<GameState>({
     ...initialValues,
@@ -182,6 +188,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
     pauseToggle,
     start,
     reset,
+    configure,
   });
 
   return (
