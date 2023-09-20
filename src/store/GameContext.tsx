@@ -9,9 +9,9 @@ type GameState = {
   running: boolean;
   timestamp?: number;
   shotclock?: number;
-  active: number;
-  innings: number;
   players: Player[];
+  active?: (state: GameState) => number;
+  next?: (state: GameState) => number;
   increment?: () => void;
   decrement?: () => void;
   setNextActive?: () => void;
@@ -24,7 +24,6 @@ const initialValues = {
   running: false,
   timestamp: undefined,
   shotclock: undefined,
-  active: -1,
   innings: 0,
   players: [],
 };
@@ -65,7 +64,6 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
             return prev;
           }
           const state = clone(prev);
-          console.log("foo?", state.shotclock);
           state.shotclock = (state.shotclock ?? 40) - 1;
           return state;
         }),
@@ -73,11 +71,24 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
+  const active = (state: GameState): number => {
+    if (!state?.timestamp) {
+      return -1;
+    }
+    return (
+      state.players.reduce((acc, player) => acc + player.innings.length, -1) %
+      state.players.length
+    );
+  };
+
+  const next = (state: GameState): number =>
+    (active(state) + 1) % state.players.length;
+
   const increment = () =>
     setGameState((prev) => {
       const state = clone(prev);
-      state.players[prev.active].innings[
-        state.players[prev.active].innings.length - 1
+      state.players[active(prev)].innings[
+        state.players[active(prev)].innings.length - 1
       ]++;
       startShotClock(40);
       state.running = true;
@@ -87,8 +98,8 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
   const decrement = () =>
     setGameState((prev) => {
       const state = clone(prev);
-      state.players[prev.active].innings[
-        state.players[prev.active].innings.length - 1
+      state.players[active(prev)].innings[
+        state.players[active(prev)].innings.length - 1
       ]--;
       return state;
     });
@@ -102,13 +113,11 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
       if (!state.timestamp) {
         state.timestamp = Date.now();
       }
+
       startShotClock(40);
-      state.innings += 1;
-      state.active =
-        state.players.reduce((acc, player) => acc + player.innings.length, 0) %
-        state.players.length;
-      state.players[state.active].innings = [
-        ...state.players[state.active].innings,
+      const nextPlayer = next(state);
+      state.players[nextPlayer].innings = [
+        ...state.players[nextPlayer].innings,
         0,
       ];
       return state;
@@ -136,6 +145,8 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
 
   const [gameState, setGameState] = useState<GameState>({
     ...initialValues,
+    active,
+    next,
     increment,
     decrement,
     setNextActive,

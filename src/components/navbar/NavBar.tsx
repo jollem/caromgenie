@@ -57,20 +57,21 @@ const PauseToggle = ({
 
 const NavBar = () => {
   const gameState = useContext(GameContext);
+
   return (
     <nav className={styles.navbar}>
       <MenuBurger reset={gameState.reset} />
-      {gameState.active >= 0 && (
-        <TimeBox
-          timestamp={gameState.timestamp}
-          duration={(Date.now() - gameState.timestamp) / 1000}
-        />
-      )}
-      {gameState.active >= 0 && (
-        <PauseToggle
-          toggle={gameState.pauseToggle}
-          running={gameState.running}
-        />
+      {gameState.timestamp && (
+        <>
+          <TimeBox
+            timestamp={gameState.timestamp || 0}
+            duration={(Date.now() - (gameState.timestamp || 0)) / 1000}
+          />
+          <PauseToggle
+            toggle={gameState.pauseToggle}
+            running={gameState.running}
+          />
+        </>
       )}
     </nav>
   );

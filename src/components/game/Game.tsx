@@ -11,12 +11,7 @@ const Game = () => {
       <div className={styles.scoreBoard}>
         <StatusDisplay />
         {gameState.players.map((player, index) => (
-          <PlayerCard
-            player={player}
-            active={gameState.active === index}
-            number={index}
-            key={index}
-          />
+          <PlayerCard player={player} playerIndex={index} key={index} />
         ))}
       </div>
     </div>

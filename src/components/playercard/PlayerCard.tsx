@@ -6,54 +6,53 @@ import styles from "./PlayerCard.module.css";
 
 const PlayerCard = ({
   player,
-  active,
-  number,
+
+  playerIndex,
 }: {
   player: Player;
-  active: boolean;
-  number: number;
+
+  playerIndex: number;
 }) => {
   const gameState = useContext(GameContext);
+
+  const isActive = gameState.active?.(gameState) === playerIndex;
+  const isNext = gameState.next?.(gameState) === playerIndex;
+
   return (
     <div
       className={classnames(styles.player, {
-        [styles.active]: active,
-        [styles.first]: number === 0,
-        [styles.second]: number === 1,
-        [styles.third]: number === 2,
-        [styles.actionable]:
-          gameState.innings % gameState.players.length === number,
+        [styles.active]: isActive,
+        [styles.first]: playerIndex === 0,
+        [styles.second]: playerIndex === 1,
+        [styles.third]: playerIndex === 2,
+        [styles.actionable]: isNext,
       })}
-      onClick={() => {
-        if (gameState.innings % gameState.players.length === number) {
-          gameState.setNextActive?.();
-        }
-      }}
+      onClick={() => isNext && gameState.setNextActive?.()}
     >
       <div className={styles.nameContainer}>{player.name}</div>
       <div
         className={classnames(styles.scoreCard, {
-          [styles.white]: number === 0,
-          [styles.yellow]: number === 1,
-          [styles.red]: number === 2,
+          [styles.white]: playerIndex === 0,
+          [styles.yellow]: playerIndex === 1,
+          [styles.red]: playerIndex === 2,
         })}
       >
         <div
           className={classnames(styles.overlayTop, {
-            [styles.actionable]: active,
+            [styles.actionable]: isActive,
           })}
           onClick={() => {
-            if (active) {
+            if (isActive) {
               gameState.increment?.();
             }
           }}
         />
         <div
           className={classnames(styles.overlayBottom, {
-            [styles.actionable]: active,
+            [styles.actionable]: isActive,
           })}
           onClick={() => {
-            if (active) {
+            if (isActive) {
               gameState.decrement?.();
             }
           }}
