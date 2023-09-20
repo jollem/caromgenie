@@ -41,7 +41,7 @@ export const GameContext = createContext<GameState>({ ...initialValues });
 
 let shotclock: ReturnType<typeof setInterval> | undefined = undefined;
 
-const provider = ({ children }: { children: React.ReactNode }) => {
+const Provider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const timer = setInterval(() => setGameState((prev) => clone(prev)), 1000);
     return () => clearInterval(timer);
@@ -146,4 +146,4 @@ const provider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default provider;
+export default Provider;
