@@ -41,10 +41,15 @@ npx next build
 
 What _could_ be done in the future
 
-- Support for extension
-- Configurability
-  - Innings limit (game length)
-  - Shotclock length
-- "Raisa" support (in-house handicap system)
 - Sharing the state
   - Different UI for observing running game
+- PWA support
+- SEO
+- Support for shotclock extension
+- Configurability
+  - Innings limit (game length)
+  - Shotclock duration
+- "Raisa" support (in-house handicap system)
+- Winning screen (how to handle draw?)
+- Codebase cleanup
+- Tests!
