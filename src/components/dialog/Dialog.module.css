@@ -20,6 +20,7 @@
 }
 
 .dialog > input {
+  max-width: 90vw;
   font-size: 2rem;
   border-radius: 1rem;
   padding: 0.5rem;

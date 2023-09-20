@@ -13,7 +13,7 @@ const Dialog = () => {
 
   return (
     <div className={styles.dialog}>
-      <h1>Carom Genie</h1>
+      <h1>CaromGenie</h1>
       <Image src="carom.svg" alt="logo" width="200" height="200" />
       {["Player 1", "Player 2", "Player 3 (Optional)"].map(
         (placeholder, index) => (
