@@ -34,7 +34,10 @@ const PlayerCard = ({
         {gameState.config.extensions && (
           <button
             disabled={
-              !player.extensions || gameState.shotclock === 0 || !isActive
+              !gameState.running ||
+              !player.extensions ||
+              gameState.shotclock === 0 ||
+              !isActive
             }
             onClick={() => gameState.extension?.()}
           >

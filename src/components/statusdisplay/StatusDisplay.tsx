@@ -18,6 +18,8 @@ const StatusDisplay = () => {
       <button
         onClick={() => gameState.extension?.()}
         disabled={
+          !gameState.running ||
+          !gameState.timestamp ||
           !!!gameState.shotclock ||
           gameState.players[gameState.active?.(gameState) || 0]?.extensions <= 0
         }
