@@ -7,7 +7,18 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "CaromGenie",
-  description: "Webapp for carom billiards game management",
+  description:
+    "Free webapp for managing point calculations for three cushion carom billiards",
+  keywords: [
+    "Carom",
+    "Three cushion carom",
+    "Points calculator",
+    "Pistelaskuri",
+    "Kara",
+    "Puhveli",
+    "Puh.Veli",
+    "Puhveliklubi",
+  ],
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
