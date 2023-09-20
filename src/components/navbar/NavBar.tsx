@@ -1,13 +1,11 @@
 import { useContext } from "react";
-import classnames from "classnames";
+import { FaPlay, FaPause, FaReply } from "react-icons/fa";
 import { GameContext } from "../../store/GameContext";
 import styles from "./NavBar.module.css";
 
 const MenuBurger = ({ reset }: { reset?: () => void }) => (
-  <div className={`${styles.menu} ${styles.burger}`} onClick={reset}>
-    <span />
-    <span />
-    <span />
+  <div className={styles.menu} onClick={reset}>
+    <FaReply />
   </div>
 );
 
@@ -53,8 +51,8 @@ const PauseToggle = ({
   toggle?: () => void;
   running: boolean;
 }) => (
-  <div onClick={toggle} className={`${styles.menu} ${styles.toggle}`}>
-    <span className={classnames(running ? styles.pause : styles.play)} />
+  <div onClick={toggle} className={styles.menu}>
+    {running ? <FaPause /> : <FaPlay />}
   </div>
 );
 
