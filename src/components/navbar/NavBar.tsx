@@ -11,6 +11,9 @@ import classnames from "classnames";
 import { GameContext } from "../../store/GameContext";
 import styles from "./NavBar.module.css";
 
+const SECONDS_IN_MINUTE = 60;
+const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * SECONDS_IN_MINUTE;
+
 const MenuBurger = ({ reset }: { reset?: () => void }) => (
   <div className={styles.menu} onClick={reset}>
     <FaArrowLeft />
@@ -27,9 +30,9 @@ const StartTime = ({ timestamp }: { timestamp: number }) => (
 const Separator = () => <span>/</span>;
 
 const TimeElapsed = ({ duration }: { duration: number }) => {
-  const hours = Math.floor(duration / 360);
-  const minutes = Math.floor((duration % 360) / 60);
-  const seconds = Math.floor(duration % 60);
+  const hours = Math.floor(duration / SECONDS_IN_HOUR);
+  const minutes = Math.floor((duration % SECONDS_IN_HOUR) / SECONDS_IN_MINUTE);
+  const seconds = Math.floor(duration % SECONDS_IN_MINUTE);
   return (
     <div>
       <FaStopwatch />
