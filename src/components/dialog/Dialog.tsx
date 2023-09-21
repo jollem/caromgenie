@@ -1,6 +1,6 @@
 import { useState, useContext, Fragment } from "react";
 import Image from "next/image";
-import { FaCog } from "react-icons/fa";
+import { FaCog, FaFlagCheckered } from "react-icons/fa";
 import { GameContext, type Config } from "../../store/GameContext";
 import styles from "./Dialog.module.css";
 
@@ -105,7 +105,7 @@ const Dialog = () => {
             disabled={formState.filter(Boolean).length < 2}
             onClick={() => gameState.start?.(formState)}
           >
-            Game On!
+            <FaFlagCheckered />
           </button>
           <button onClick={() => setConfig(true)}>
             <FaCog />

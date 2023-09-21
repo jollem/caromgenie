@@ -1,4 +1,10 @@
 import { useContext } from "react";
+import {
+  FaHourglassEnd,
+  FaHandPointRight,
+  FaHandPointLeft,
+  FaUser,
+} from "react-icons/fa";
 import classnames from "classnames";
 import { GameContext } from "../../store/GameContext";
 import styles from "./ShotClock.module.css";
@@ -35,12 +41,17 @@ const ShotClockContainer = () => {
   );
 
   const TimeOver = () => (
-    <div className={styles.timeover}>Shotclock exceeded!</div>
+    <div className={styles.timeover}>
+      {" "}
+      <FaHourglassEnd />{" "}
+    </div>
   );
 
   const InfoBlock = () => (
     <div className={styles.info}>
-      Click on {gameState.players[0]?.name} to start the game
+      <FaHandPointRight />
+      <FaUser />
+      <FaHandPointLeft />
     </div>
   );
 

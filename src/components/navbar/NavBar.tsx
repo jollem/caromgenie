@@ -1,5 +1,12 @@
 import { useContext } from "react";
-import { FaPlay, FaPause, FaArrowLeft } from "react-icons/fa";
+import {
+  FaPlay,
+  FaPause,
+  FaArrowLeft,
+  FaClock,
+  FaStopwatch,
+  FaCrosshairs,
+} from "react-icons/fa";
 import classnames from "classnames";
 import { GameContext } from "../../store/GameContext";
 import styles from "./NavBar.module.css";
@@ -12,10 +19,12 @@ const MenuBurger = ({ reset }: { reset?: () => void }) => (
 
 const StartTime = ({ timestamp }: { timestamp: number }) => (
   <div>
-    {"/ Started: "}
+    <FaClock />
     {new Date(timestamp).toLocaleTimeString().slice(0, -3)}
   </div>
 );
+
+const Separator = () => <span>/</span>;
 
 const TimeElapsed = ({ duration }: { duration: number }) => {
   const hours = Math.floor(duration / 360);
@@ -23,7 +32,7 @@ const TimeElapsed = ({ duration }: { duration: number }) => {
   const seconds = Math.floor(duration % 60);
   return (
     <div>
-      {"/ Time elapsed: "}
+      <FaStopwatch />
       {[hours, minutes, seconds]
         .map((item) => item.toString().padStart(2, "0"))
         .join(":")}
@@ -32,7 +41,10 @@ const TimeElapsed = ({ duration }: { duration: number }) => {
 };
 
 const Innings = ({ innings }: { innings: number }) => (
-  <span>Innings: {innings}</span>
+  <span>
+    <FaCrosshairs />
+    {innings}
+  </span>
 );
 
 const TimeBox = ({
@@ -47,7 +59,9 @@ const TimeBox = ({
   <div className={styles.timebox}>
     {[
       <Innings key="innings" innings={innings} />,
+      !!timestamp && <Separator key="separator1" />,
       !!timestamp && <StartTime key="starttime" timestamp={timestamp} />,
+      !!timestamp && <Separator key="separator2" />,
       !!timestamp && <TimeElapsed key="duration" duration={duration} />,
     ].filter(Boolean)}
   </div>

@@ -1,6 +1,7 @@
 import { useContext } from "react";
-import { GameContext } from "../../store/GameContext";
+import { FaStopwatch } from "react-icons/fa";
 import classnames from "classnames";
+import { GameContext } from "../../store/GameContext";
 import styles from "./StatusDisplay.module.css";
 
 const StatusDisplay = () => {
@@ -26,7 +27,7 @@ const StatusDisplay = () => {
               0
           }
         >
-          Extension
+          <FaStopwatch />
         </button>
       )}
     </div>

@@ -33,6 +33,7 @@
   font-size: calc(75vw / 3);
   border-radius: 1rem;
   position: relative;
+  margin: 0.5rem 0;
 }
 
 .white {
@@ -67,45 +68,15 @@
   border-top: thin black solid;
 }
 
-.nameContainer {
-  font-size: 2rem;
-  font-weight: bold;
-  color: white;
-  flex-grow: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 0.5rem;
-}
-
-.nameContainer > button {
-  background-color: green;
-  height: 2rem;
-  width: 2rem;
-  border-radius: 50%;
-  font-size: 1rem;
-  font-weight: bold;
-  color: white;
-  border: white solid thin;
-  cursor: pointer;
-}
-
-.nameContainer > button:disabled {
-  background-color: gray;
-  cursor: default;
-}
-
-.statusContainer {
-  font-size: 1rem;
-  font-weight: bold;
-  color: white;
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 0.5rem;
-}
-
 .actionable {
   cursor: pointer;
+}
+
+.statusRow {
+  font-weight: bold;
+  color: white;
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

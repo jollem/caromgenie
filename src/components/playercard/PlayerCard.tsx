@@ -1,6 +1,7 @@
 import { useContext } from "react";
-import { GameContext } from "../../store/GameContext";
+import { FaStopwatch, FaChartLine, FaStar, FaUser } from "react-icons/fa";
 import classnames from "classnames";
+import { GameContext } from "../../store/GameContext";
 import type { Player } from "../../store/GameContext";
 import styles from "./PlayerCard.module.css";
 
@@ -29,20 +30,14 @@ const PlayerCard = ({
       })}
       onClick={() => isNext && gameState.setNextActive?.()}
     >
-      <div className={styles.nameContainer}>
-        <span>{player.name}</span>
+      <div className={styles.statusRow}>
+        <span>
+          <FaUser /> {player.name}
+        </span>
         {!!gameState.config.extensions && (
-          <button
-            disabled={
-              !gameState.running ||
-              !player.extensions ||
-              gameState.shotclock === 0 ||
-              !isActive
-            }
-            onClick={() => gameState.extension?.()}
-          >
-            {player.extensions}
-          </button>
+          <span>
+            {player.extensions} x <FaStopwatch />
+          </span>
         )}
       </div>
       <div
@@ -74,16 +69,18 @@ const PlayerCard = ({
         />
         {player.innings.reduce((acc, curr) => acc + curr, 0)}
       </div>
-      <div className={styles.statusContainer}>
-        <div>HR: {Math.max(...player.innings, 0)}</div>
-        <div>{player.innings[player.innings.length - 1] || 0}</div>
-        <div>
-          AVG:{" "}
+      <div className={styles.statusRow}>
+        <span>
+          <FaStar /> {Math.max(...player.innings, 0)}
+        </span>
+        <span>{player.innings[player.innings.length - 1] || 0}</span>
+        <span>
           {(
             player.innings.reduce((acc, curr) => acc + curr, 0) /
               player.innings.length || 0
-          ).toFixed(3)}
-        </div>
+          ).toFixed(3)}{" "}
+          <FaChartLine />
+        </span>
       </div>
     </div>
   );
