@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa";
 import classnames from "classnames";
 import { GameContext } from "../../store/GameContext";
-import styles from "./ShotClock.module.css";
+import styles from "./ShotClock.module.scss";
 
 const ShotClockContainer = () => {
   const gameState = useContext(GameContext);

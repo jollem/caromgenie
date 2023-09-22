@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa";
 import classnames from "classnames";
 import { GameContext } from "../../store/GameContext";
-import styles from "./NavBar.module.css";
+import styles from "./NavBar.module.scss";
 
 const SECONDS_IN_MINUTE = 60;
 const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * SECONDS_IN_MINUTE;

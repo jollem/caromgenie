@@ -3,7 +3,7 @@ import { FaStopwatch, FaChartLine, FaStar, FaUser } from "react-icons/fa";
 import classnames from "classnames";
 import { GameContext } from "../../store/GameContext";
 import type { Player } from "../../store/GameContext";
-import styles from "./PlayerCard.module.css";
+import styles from "./PlayerCard.module.scss";
 
 const PlayerCard = ({
   player,

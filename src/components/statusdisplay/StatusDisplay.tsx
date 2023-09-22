@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { FaStopwatch } from "react-icons/fa";
 import classnames from "classnames";
 import { GameContext } from "../../store/GameContext";
-import styles from "./StatusDisplay.module.css";
+import styles from "./StatusDisplay.module.scss";
 
 const StatusDisplay = () => {
   const gameState = useContext(GameContext);

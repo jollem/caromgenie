@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "../components/dialog/Dialog.module.css";
+import styles from "../components/dialog/Dialog.module.scss";
 
 const NotFound = () => (
   <div className={styles.dialog}>

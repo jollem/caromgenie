@@ -2,7 +2,7 @@ import { useState, useContext, Fragment } from "react";
 import Image from "next/image";
 import { FaCog, FaFlagCheckered } from "react-icons/fa";
 import { GameContext, type Config } from "../../store/GameContext";
-import styles from "./Dialog.module.css";
+import styles from "./Dialog.module.scss";
 
 type ConfMeta = {
   field: keyof Config;

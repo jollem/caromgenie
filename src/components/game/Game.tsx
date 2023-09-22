@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { GameContext } from "../../store/GameContext";
 import StatusDisplay from "../statusdisplay";
 import PlayerCard from "../playercard";
-import styles from "./Game.module.css";
+import styles from "./Game.module.scss";
 
 const Game = () => {
   const gameState = useContext(GameContext);
