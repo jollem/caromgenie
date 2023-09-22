@@ -1,10 +1,5 @@
 import { useContext } from "react";
-import {
-  FaHourglassEnd,
-  FaHandPointRight,
-  FaHandPointLeft,
-  FaUser,
-} from "react-icons/fa";
+import { FaHourglassEnd, FaHandPointRight, FaUser } from "react-icons/fa";
 import classnames from "classnames";
 import { GameContext } from "../../store/GameContext";
 import styles from "./ShotClock.module.scss";
@@ -51,7 +46,6 @@ const ShotClockContainer = () => {
     <div className={styles.info}>
       <FaHandPointRight />
       <FaUser />
-      <FaHandPointLeft />
     </div>
   );
 
