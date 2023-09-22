@@ -1,5 +1,15 @@
 @import "../../app/_variables.scss";
 
+.bordered-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  color: $hilite;
+  border: $border-thick-hilite;
+  border-radius: 1rem;
+}
+
 .status {
   height: 100%;
   border: $border-thick;
@@ -15,37 +25,20 @@
   align-items: center;
 
   div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80%;
-    color: $hilite;
-    border: $border-thick-hilite;
-    border-radius: 1rem;
+    @extend .bordered-box;
     font-size: calc(25vw / 3);
   }
 
   button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80%;
-    color: $hilite;
-    border: $border-thick-hilite;
-    border-radius: 1rem;
+    @extend .bordered-box;
     font-size: 2rem;
+    padding: 2rem 0;
     background-color: map-get($colors, ok);
     cursor: pointer;
-    padding: 2rem 0;
 
     &:disabled {
       background-color: map-get($colors, main);
       cursor: default;
-    }
-
-    &:active {
-      filter: brightness(120%);
-      transform: scale(1.1);
     }
   }
 }

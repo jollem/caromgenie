@@ -42,25 +42,23 @@
   background-color: map-get($colors, nok) !important;
 }
 
-.timeover {
+.fit-to-box {
   flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: map-get($colors, nok);
-  color: $hilite;
   font-size: 2rem;
   font-weight: bold;
   border-radius: 0.5rem;
 }
 
+.timeover {
+  @extend .fit-to-box;
+  background: map-get($colors, nok);
+  color: $hilite;
+}
+
 .info {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
-  font-weight: bold;
-  border-radius: 0.5rem;
+  @extend .fit-to-box;
   color: map-get($colors, main);
 }

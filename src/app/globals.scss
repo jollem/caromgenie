@@ -13,3 +13,14 @@ body {
 .hide {
   visibility: hidden;
 }
+
+button {
+  &:disabled {
+    opacity: 0.6;
+  }
+
+  &:active {
+    filter: brightness(120%);
+    transform: scale(1.1);
+  }
+}

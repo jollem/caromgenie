@@ -54,23 +54,24 @@
   background-color: $red;
 }
 
-.overlayTop {
+.overlay {
   position: absolute;
-  top: 0;
-  left: 0;
   z-index: 1;
   width: 100%;
   height: 50%;
+}
+
+.overlayTop {
+  @extend .overlay;
+  top: 0;
+  left: 0;
   border-bottom: map-get($colors, font) thin solid;
 }
 
 .overlayBottom {
-  position: absolute;
+  @extend .overlay;
   bottom: 0;
   right: 0;
-  z-index: 1;
-  width: 100%;
-  height: 50%;
   border-top: map-get($colors, font) thin solid;
 }
 
