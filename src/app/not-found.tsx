@@ -1,11 +1,12 @@
-import Image from "next/image";
+"use client";
+
+import { FaThumbsDown } from "react-icons/fa";
 import styles from "../components/dialog/Dialog.module.scss";
 
 const NotFound = () => (
-  <div className={styles.dialog}>
+  <div className={styles.dialog} onClick={() => (location.href = "/")}>
     <h1>CaromGenie</h1>
-    <Image src="carom.svg" alt="logo" width="200" height="200" />
-    <h2>404 - You missed!</h2>
+    <FaThumbsDown />
   </div>
 );
 

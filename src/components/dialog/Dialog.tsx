@@ -1,12 +1,19 @@
-import { useState, useContext, Fragment } from "react";
-import Image from "next/image";
-import { FaCog, FaFlagCheckered } from "react-icons/fa";
+import { useState, useContext } from "react";
+import {
+  FaCog,
+  FaFlagCheckered,
+  FaCheck,
+  FaCrosshairs,
+  FaRegHourglass,
+  FaStopwatch,
+  FaHourglassStart,
+} from "react-icons/fa";
 import { GameContext, type Config } from "../../store/GameContext";
 import styles from "./Dialog.module.scss";
 
 type ConfMeta = {
   field: keyof Config;
-  label: string;
+  label: React.ReactNode;
   min: number;
   max: number;
 };
@@ -14,25 +21,25 @@ type ConfMeta = {
 const meta: ConfMeta[] = [
   {
     field: "innings",
-    label: "Innings",
+    label: <FaCrosshairs />,
     min: 1,
     max: 99,
   },
   {
     field: "shotclock",
-    label: "Shotclock duration",
+    label: <FaRegHourglass />,
     min: 1,
     max: 99,
   },
   {
     field: "extensions",
-    label: "Extensions",
+    label: <FaStopwatch />,
     min: 0,
     max: 10,
   },
   {
     field: "extension",
-    label: "Extension length",
+    label: <FaHourglassStart />,
     min: 1,
     max: 99,
   },
@@ -51,14 +58,11 @@ const Dialog = () => {
   return (
     <div className={styles.dialog}>
       <h1>CaromGenie</h1>
-      <Image src="carom.svg" alt="logo" width="200" height="200" />
       {config ? (
         <>
           {meta.map((conf) => (
-            <Fragment key={conf.field}>
-              <label htmlFor={conf.field}>
-                {conf.label} ({configState[conf.field]}):
-              </label>
+            <div key={conf.field} className={styles.slider}>
+              <label htmlFor={conf.field}>{conf.label}</label>
               <input
                 id={conf.field}
                 type="range"
@@ -72,42 +76,43 @@ const Dialog = () => {
                   }))
                 }
               />
-            </Fragment>
+              <span>{configState[conf.field]}</span>
+            </div>
           ))}
+
           <button
             onClick={() => {
               gameState.configure?.(configState);
               setConfig(false);
             }}
           >
-            Apply
+            <FaCheck />
           </button>
         </>
       ) : (
         <>
-          {["Player 1", "Player 2", "Player 3 (Optional)"].map(
-            (placeholder, index) => (
-              <input
-                value={formState[index]}
-                key={placeholder}
-                placeholder={placeholder}
-                onChange={(e) =>
-                  setFromState((prev) => {
-                    const copy = [...prev];
-                    copy[index] = e.target.value;
-                    return copy;
-                  })
-                }
-              />
-            )
-          )}
+          {["⚪️", "🟡", "🔴"].map((placeholder, index) => (
+            <input
+              type="text"
+              value={formState[index]}
+              key={placeholder}
+              placeholder={placeholder}
+              onChange={(e) =>
+                setFromState((prev) => {
+                  const copy = [...prev];
+                  copy[index] = e.target.value;
+                  return copy;
+                })
+              }
+            />
+          ))}
           <button
             disabled={formState.filter(Boolean).length < 2}
             onClick={() => gameState.start?.(formState)}
           >
             <FaFlagCheckered />
           </button>
-          <button onClick={() => setConfig(true)}>
+          <button onClick={() => setConfig(true)} className={styles.settings}>
             <FaCog />
           </button>
         </>
