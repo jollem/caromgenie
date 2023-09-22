@@ -95,6 +95,7 @@ const Dialog = () => {
             <input
               type="text"
               value={formState[index]}
+              disabled={formState.filter(Boolean).length < index}
               key={placeholder}
               placeholder={placeholder}
               onChange={(e) =>

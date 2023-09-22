@@ -5,27 +5,18 @@
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
-}
 
-.bordered-box {
-  height: 100%;
-  color: map-get($colors, main);
-  border: $border-thick;
-  border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-}
-
-.menu {
-  @extend .bordered-box;
-  aspect-ratio: 1;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.timebox {
-  @extend .bordered-box;
-  gap: 0.5rem;
-  padding: 0 1rem;
-  font-weight: bold;
+  button {
+    height: 100%;
+    color: map-get($colors, main);
+    background-color: map-get($colors, bg);
+    border: $border-thick;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
