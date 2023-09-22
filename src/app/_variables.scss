@@ -1,0 +1,14 @@
+$white: white;
+$yellow: yellow;
+$red: red;
+
+$colors: (
+  font: black,
+  main: gray,
+  ok: green,
+  nok: $red,
+);
+
+$border-thick: map-get($colors, main) solid thick;
+$hilite: lighten(map-get($colors, main), 40);
+$border-thick-hilite: $hilite solid thick;

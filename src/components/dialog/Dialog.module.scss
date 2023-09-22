@@ -1,3 +1,5 @@
+@import "../../app/_variables.scss";
+
 .dialog {
   position: absolute;
   top: 0;
@@ -10,33 +12,32 @@
   height: 100vh;
   width: 100vw;
   font-size: 2rem;
-  color: lightgray;
-  background-color: gray;
-  border: lightgray solid thick;
-  border-radius: 1rem;
-}
+  color: $hilite;
+  background-color: map-get($colors, main);
 
-.hide {
-  display: none;
-}
+  input {
+    max-width: 90vw;
+    font-size: 2rem;
+    border-radius: 1rem;
+    padding: 0.5rem;
+  }
 
-.dialog > input {
-  max-width: 90vw;
-  font-size: 2rem;
-  border-radius: 1rem;
-  padding: 0.5rem;
-}
+  button {
+    font-size: 2rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: none;
+    background-color: $hilite;
+    display: flex;
 
-.dialog > button {
-  font-size: 2rem;
-  border-radius: 1rem;
-  padding: 1rem;
-  margin-top: 1rem;
-  border: none;
-  background-color: lightgrey;
-  display: flex;
-}
+    &:disabled {
+      opacity: 0.6;
+    }
 
-.dialog > button:disabled {
-  opacity: 0.6;
+    &:active {
+      filter: brightness(120%);
+      transform: scale(1.1);
+    }
+  }
 }

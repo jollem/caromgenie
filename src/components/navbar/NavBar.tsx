@@ -81,7 +81,7 @@ const PauseToggle = ({
 }) => (
   <div
     onClick={toggle}
-    className={classnames(styles.menu, { [styles.hide]: !timestamp })}
+    className={classnames(styles.menu, { hide: !timestamp })}
   >
     {running ? <FaPause /> : <FaPlay />}
   </div>

@@ -1,47 +1,53 @@
+@import "../../app/_variables.scss";
+
 .status {
   height: 100%;
-  border: gray solid thick;
+  border: $border-thick;
   border-radius: 1rem;
-  background-color: gray;
+  background-color: map-get($colors, main);
   display: flex;
   flex-direction: column;
   gap: 1rem;
   padding: 0.5rem;
   flex-grow: 3;
   font-weight: bold;
-  color: white;
   justify-content: center;
   align-items: center;
-}
 
-.status > div {
-  width: 80%;
-  color: darkgray;
-  border: darkgray solid thick;
-  border-radius: 1rem;
-  font-size: calc(25vw / 3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    color: $hilite;
+    border: $border-thick-hilite;
+    border-radius: 1rem;
+    font-size: calc(25vw / 3);
+  }
 
-.status > button {
-  width: 80%;
-  font-size: 2rem;
-  color: darkgray;
-  background-color: green;
-  border: darkgray solid thick;
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  padding: 2rem 0;
-}
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    color: $hilite;
+    border: $border-thick-hilite;
+    border-radius: 1rem;
+    font-size: 2rem;
+    background-color: map-get($colors, ok);
+    cursor: pointer;
+    padding: 2rem 0;
 
-.status > button:disabled {
-  background-color: gray;
-  cursor: default;
+    &:disabled {
+      background-color: map-get($colors, main);
+      cursor: default;
+    }
+
+    &:active {
+      filter: brightness(120%);
+      transform: scale(1.1);
+    }
+  }
 }
 
 .middle {

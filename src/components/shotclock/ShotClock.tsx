@@ -31,7 +31,7 @@ const ShotClockContainer = () => {
               key={index}
               className={classnames({
                 [styles.warn]: index < 10,
-                [styles.hide]: index >= (gameState.shotclock || 0),
+                hide: index >= (gameState.shotclock || 0),
               })}
             />
           );

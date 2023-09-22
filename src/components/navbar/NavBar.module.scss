@@ -1,3 +1,5 @@
+@import "../../app/_variables.scss";
+
 .navbar {
   flex-grow: 1;
   display: flex;
@@ -6,9 +8,9 @@
 }
 
 .menu {
-  color: gray;
   height: 100%;
-  border: gray solid thick;
+  color: map-get($colors, main);
+  border: $border-thick;
   border-radius: 0.5rem;
   aspect-ratio: 1;
   display: flex;
@@ -19,16 +21,12 @@
 
 .timebox {
   height: 100%;
-  border: gray solid thick;
+  color: map-get($colors, main);
+  border: $border-thick;
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0 1rem;
   font-weight: bold;
-  color: gray;
-}
-
-.hide {
-  visibility: hidden;
 }

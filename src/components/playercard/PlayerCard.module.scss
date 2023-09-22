@@ -1,8 +1,10 @@
+@import "../../app/_variables.scss";
+
 .player {
   height: 100%;
-  border: gray solid thick;
+  border: $border-thick;
   border-radius: 1rem;
-  background-color: gray;
+  background-color: map-get($colors, main);
   display: flex;
   flex-direction: column;
   padding: 0.5rem;
@@ -22,7 +24,11 @@
 }
 
 .active {
-  border: red solid thick;
+  border: map-get($colors, nok) solid thick;
+}
+
+.actionable {
+  cursor: pointer;
 }
 
 .scoreCard {
@@ -37,15 +43,15 @@
 }
 
 .white {
-  background: white;
+  background-color: $white;
 }
 
 .yellow {
-  background: yellow;
+  background-color: $yellow;
 }
 
 .red {
-  background: red;
+  background-color: $red;
 }
 
 .overlayTop {
@@ -55,7 +61,7 @@
   z-index: 1;
   width: 100%;
   height: 50%;
-  border-bottom: thin black solid;
+  border-bottom: map-get($colors, font) thin solid;
 }
 
 .overlayBottom {
@@ -65,16 +71,12 @@
   z-index: 1;
   width: 100%;
   height: 50%;
-  border-top: thin black solid;
-}
-
-.actionable {
-  cursor: pointer;
+  border-top: map-get($colors, font) thin solid;
 }
 
 .statusRow {
   font-weight: bold;
-  color: white;
+  color: $hilite;
   flex-grow: 1;
   display: flex;
   justify-content: space-between;
