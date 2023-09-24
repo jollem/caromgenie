@@ -27,17 +27,26 @@
     font-weight: bold;
     flex-grow: 1;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: left;
     align-items: center;
+
+    @include desktop() {
+      flex-direction: row;
+      justify-content: space-between;
+    }
 
     span {
       display: flex;
       justify-content: space-between;
       align-items: bottom;
       gap: 0.2rem;
+      white-space: nowrap;
 
       &.big {
         font-size: 2rem;
+        max-width: 25vw;
+        overflow: hidden;
       }
     }
   }

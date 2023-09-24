@@ -21,7 +21,8 @@ const Innings = () => {
 
   const data = [hours, minutes, seconds]
     .map((item) => item.toString().padStart(2, "0"))
-    .join(":");
+    .join(":")
+    .replace(/^00:/, "");
 
   return <InfoLine icon={<FaHourglass />} data={data} />;
 };

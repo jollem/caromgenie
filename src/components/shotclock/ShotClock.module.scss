@@ -10,7 +10,7 @@
   border: $border-thick;
   border-radius: 0.5rem;
   display: flex;
-  padding: 0.5rem;
+  min-height: 5rem;
 
   .centerSelf {
     height: 100%;
@@ -37,6 +37,7 @@
         align-items: center;
         min-width: 3rem;
         border-radius: 50%;
+        aspect-ratio: 1;
         background-color: map-get($colors, bg);
       }
     }
