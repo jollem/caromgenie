@@ -7,11 +7,9 @@ import styles from "./PlayerCard.module.scss";
 
 const PlayerCard = ({
   player,
-
   playerIndex,
 }: {
   player: Player;
-
   playerIndex: number;
 }) => {
   const gameState = useContext(GameContext);
@@ -23,15 +21,12 @@ const PlayerCard = ({
     <div
       className={classnames(styles.player, {
         [styles.active]: isActive,
-        [styles.first]: playerIndex === 0,
-        [styles.second]: playerIndex === 1,
-        [styles.third]: playerIndex === 2,
         [styles.actionable]: isNext,
       })}
       onClick={() => isNext && gameState.setNextActive?.()}
     >
       <div className={styles.statusRow}>
-        <span>
+        <span className={styles.big}>
           <FaUser /> {player.name}
         </span>
         {!!gameState.config.extensions && (
@@ -40,13 +35,7 @@ const PlayerCard = ({
           </span>
         )}
       </div>
-      <div
-        className={classnames(styles.scoreCard, {
-          [styles.white]: playerIndex === 0,
-          [styles.yellow]: playerIndex === 1,
-          [styles.red]: playerIndex === 2,
-        })}
-      >
+      <div className={styles.scoreCard}>
         <div
           className={classnames(styles.overlayTop, {
             [styles.actionable]: isActive,

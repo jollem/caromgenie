@@ -7,28 +7,40 @@
   background-color: map-get($colors, main);
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
+  padding: 0 0.5rem;
   flex-grow: 4;
-}
+  color: $hilite;
+  overflow-x: hidden;
 
-.first {
-  order: 2;
-}
+  &.active {
+    border: map-get($colors, nok) solid thick;
+    background-color: $hilite;
+    color: map-get($colors, font);
+  }
 
-.second {
-  order: 4;
-}
+  &.actionable {
+    cursor: pointer;
+  }
 
-.third {
-  order: 6;
-}
+  .statusRow {
+    font-size: 1.2rem;
+    font-weight: bold;
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-.active {
-  border: map-get($colors, nok) solid thick;
-}
+    span {
+      display: flex;
+      justify-content: space-between;
+      align-items: bottom;
+      gap: 0.2rem;
 
-.actionable {
-  cursor: pointer;
+      &.big {
+        font-size: 2rem;
+      }
+    }
+  }
 }
 
 .scoreCard {
@@ -36,50 +48,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: calc(75vw / 3);
-  border-radius: 1rem;
-  position: relative;
-  margin: 0.5rem 0;
-}
-
-.white {
-  background-color: $white;
-}
-
-.yellow {
-  background-color: $yellow;
-}
-
-.red {
-  background-color: $red;
-}
-
-.overlay {
-  position: absolute;
-  z-index: 1;
-  width: 100%;
-  height: 50%;
-}
-
-.overlayTop {
-  @extend .overlay;
-  top: 0;
-  left: 0;
-  border-bottom: map-get($colors, font) thin solid;
-}
-
-.overlayBottom {
-  @extend .overlay;
-  bottom: 0;
-  right: 0;
-  border-top: map-get($colors, font) thin solid;
-}
-
-.statusRow {
+  color: map-get($colors, font);
+  font-size: clamp(5rem, 0.7143rem + 19.0476vw, 15rem);
   font-weight: bold;
-  color: $hilite;
-  flex-grow: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  border-radius: 1rem;
+  border: map-get($colors, font) thin solid;
+  position: relative;
+
+  .overlay {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 50%;
+  }
+
+  .overlayTop {
+    @extend .overlay;
+    top: 0;
+    left: 0;
+    border-bottom: map-get($colors, font) thin solid;
+  }
+
+  .overlayBottom {
+    @extend .overlay;
+    bottom: 0;
+    right: 0;
+    border-top: map-get($colors, font) thin solid;
+  }
 }
