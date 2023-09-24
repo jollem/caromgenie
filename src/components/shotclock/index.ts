@@ -1,3 +1,3 @@
-import ShotClock from "./ShotClock";
+import ShotClockContainer from "./ShotClockContainer";
 
-export default ShotClock;
+export default ShotClockContainer;

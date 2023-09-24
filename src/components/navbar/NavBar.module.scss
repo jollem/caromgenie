@@ -5,9 +5,10 @@
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
+  border: $border-thick;
+  border-radius: 0.5rem;
 
   button {
-    height: 100%;
     color: map-get($colors, main);
     background-color: map-get($colors, bg);
     border: $border-thick;

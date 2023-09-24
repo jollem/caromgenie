@@ -31,6 +31,10 @@
     border: $border-thick-hilite;
     border-radius: 1rem;
     padding: 0.5rem;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 
   button {

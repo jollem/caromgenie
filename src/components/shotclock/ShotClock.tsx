@@ -1,61 +1,42 @@
 import { useContext } from "react";
-import { FaHourglassEnd, FaHandPointRight, FaUser } from "react-icons/fa";
 import classnames from "classnames";
 import { GameContext } from "../../store/GameContext";
 import styles from "./ShotClock.module.scss";
 
-const ShotClockContainer = () => {
+const ShotClock = () => {
   const gameState = useContext(GameContext);
 
-  const ShotClock = () => (
-    <>
-      <div
-        className={classnames(styles.shotclock, {
-          [styles.hurry]: (gameState.shotclock || 0) < 10,
-        })}
-      >
-        {gameState.shotclock}
-      </div>
-      <div className={styles.shotclockBar}>
-        {Array.from(
-          { length: gameState.config.shotclock },
-          (value, _index) => value
-        ).map((_, index) => {
-          return (
-            <span
-              key={index}
-              className={classnames({
-                [styles.warn]: index < 10,
-                hide: index >= (gameState.shotclock || 0),
-              })}
-            />
-          );
-        })}
-      </div>
-    </>
+  if (!gameState.timestamp || !gameState.shotclock) {
+    return null;
+  }
+
+  const timeLeft = Math.floor(
+    Math.min(
+      100,
+      ((gameState.shotclock - 1) * 100) / (gameState.config.shotclock - 1)
+    )
   );
 
-  const TimeOver = () => (
-    <div className={styles.timeover}>
-      {" "}
-      <FaHourglassEnd />{" "}
-    </div>
-  );
+  const backgroundImage =
+    timeLeft > 40
+      ? `linear-gradient(90deg, ${styles.sliderStart} 0%, ${styles.sliderStart} 100%)`
+      : `linear-gradient(90deg, ${styles.sliderStart} 0%, ${styles.sliderEnd} ${
+          2 * timeLeft
+        }%, ${styles.sliderEnd} 100%)`;
 
-  const InfoBlock = () => (
-    <div className={styles.info}>
-      <FaHandPointRight />
-      <FaUser />
-    </div>
-  );
+  const backgroundSize = timeLeft + "%";
 
   return (
-    <div className={styles.shotclockContainer}>
-      {!gameState.timestamp && <InfoBlock />}
-      {gameState.timestamp && (gameState.shotclock ?? 0) > 0 && <ShotClock />}
-      {gameState.timestamp && (gameState.shotclock ?? 0) <= 0 && <TimeOver />}
+    <div
+      className={classnames(styles.centerSelf, styles.slider)}
+      style={{
+        backgroundImage,
+        backgroundSize,
+      }}
+    >
+      <div className={styles.counter}>{gameState.shotclock}</div>
     </div>
   );
 };
 
-export default ShotClockContainer;
+export default ShotClock;
