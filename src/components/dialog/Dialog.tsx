@@ -22,14 +22,14 @@ const meta: ConfMeta[] = [
   {
     field: "innings",
     label: <FaCrosshairs />,
-    min: 1,
+    min: 10,
     max: 99,
   },
   {
     field: "shotclock",
     label: <FaRegHourglass />,
-    min: 1,
-    max: 99,
+    min: 20,
+    max: 90,
   },
   {
     field: "extensions",
@@ -40,8 +40,8 @@ const meta: ConfMeta[] = [
   {
     field: "extension",
     label: <FaHourglassStart />,
-    min: 1,
-    max: 99,
+    min: 20,
+    max: 90,
   },
 ];
 
