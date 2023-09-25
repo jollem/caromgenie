@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, SetStateAction } from "react";
 
 export type Player = {
   name: string;
@@ -16,7 +16,8 @@ export type Config = {
 type GameState = {
   config: Config;
   running: boolean;
-  timestamp?: number;
+  started?: number;
+  ended?: number;
   shotclock?: number;
   players: Player[];
   active?: (state: GameState) => number;
@@ -39,9 +40,9 @@ const initialValues = {
     extensions: 1,
   },
   running: false,
-  timestamp: undefined,
+  started: undefined,
+  ended: undefined,
   shotclock: undefined,
-  innings: 0,
   players: [],
 };
 
@@ -89,8 +90,13 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
+  const gameOver = (state: GameState): Boolean =>
+    state.players.some(
+      (player) => player.innings.length > state.config.innings
+    );
+
   const active = (state: GameState): number => {
-    if (!state?.timestamp) {
+    if (!state?.started && !gameOver(state)) {
       return -1;
     }
     return (
@@ -104,6 +110,9 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
 
   const increment = () =>
     setGameState((prev) => {
+      if (gameOver(prev)) {
+        return prev;
+      }
       const state = clone(prev);
       state.players[active(prev)].innings[
         state.players[active(prev)].innings.length - 1
@@ -115,6 +124,9 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
 
   const decrement = () =>
     setGameState((prev) => {
+      if (gameOver(prev)) {
+        return prev;
+      }
       const state = clone(prev);
       state.players[active(prev)].innings[
         state.players[active(prev)].innings.length - 1
@@ -124,6 +136,9 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
 
   const extension = () =>
     setGameState((prev) => {
+      if (gameOver(prev)) {
+        return prev;
+      }
       const state = clone(prev);
       if (state.shotclock) {
         state.shotclock += prev.config.extension;
@@ -134,25 +149,40 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
 
   const setNextActive = () =>
     setGameState((prev) => {
+      if (gameOver(prev)) {
+        return prev;
+      }
       const state = clone(prev);
 
       state.running = true;
 
-      if (!state.timestamp) {
-        state.timestamp = Date.now();
+      if (!state.started) {
+        state.started = Date.now();
       }
 
-      startShotClock(state.config.shotclock);
       const nextPlayer = next(state);
       state.players[nextPlayer].innings = [
         ...state.players[nextPlayer].innings,
         0,
       ];
+
+      if (gameOver(state)) {
+        clearInterval(shotclock);
+        state.shotclock = undefined;
+        state.running = false;
+        state.ended = Date.now();
+      } else {
+        startShotClock(state.config.shotclock);
+      }
+
       return state;
     });
 
   const pauseToggle = () => {
     setGameState((prev) => {
+      if (gameOver(prev)) {
+        return prev;
+      }
       const state = clone(prev);
       state.running
         ? clearInterval(shotclock)

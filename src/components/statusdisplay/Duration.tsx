@@ -10,11 +10,12 @@ const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * SECONDS_IN_MINUTE;
 const Innings = () => {
   const gameState = useContext(GameContext);
 
-  if (!gameState.timestamp) {
+  if (!gameState.started) {
     return null;
   }
 
-  const duration = (Date.now() - gameState.timestamp) / MILLIS_IN_SECOND;
+  const duration =
+    ((gameState.ended || Date.now()) - gameState.started) / MILLIS_IN_SECOND;
   const hours = Math.floor(duration / SECONDS_IN_HOUR);
   const minutes = Math.floor((duration % SECONDS_IN_HOUR) / SECONDS_IN_MINUTE);
   const seconds = Math.floor(duration % SECONDS_IN_MINUTE);

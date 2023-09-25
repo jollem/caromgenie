@@ -9,7 +9,7 @@ const PauseToggle = () => {
   return (
     <button
       onClick={gameState.pauseToggle}
-      className={classnames({ hide: !gameState.timestamp })}
+      className={classnames({ hide: !gameState.started || gameState.ended })}
     >
       {gameState.running ? <FaPause /> : <FaPlay />}
     </button>

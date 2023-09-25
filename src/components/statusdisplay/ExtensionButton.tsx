@@ -11,7 +11,7 @@ const ExtensionButton = () => {
       onClick={() => gameState.extension?.()}
       disabled={
         !gameState.running ||
-        !gameState.timestamp ||
+        !gameState.started ||
         !!!gameState.shotclock ||
         gameState.players[gameState.active?.(gameState) || 0]?.extensions <= 0
       }

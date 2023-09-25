@@ -6,7 +6,8 @@ const Innings = () => {
 
   return (
     <div>
-      {Math.max(...gameState.players.map((player) => player.innings.length))}
+      {Math.max(...gameState.players.map((player) => player.innings.length)) -
+        (gameState.ended ? 1 : 0)}
     </div>
   );
 };

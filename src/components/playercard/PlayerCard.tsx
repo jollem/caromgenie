@@ -14,8 +14,10 @@ const PlayerCard = ({
 }) => {
   const gameState = useContext(GameContext);
 
-  const isActive = gameState.active?.(gameState) === playerIndex;
-  const isNext = gameState.next?.(gameState) === playerIndex;
+  const isActive =
+    !gameState.ended && gameState.active?.(gameState) === playerIndex;
+  const isNext =
+    !gameState.ended && gameState.next?.(gameState) === playerIndex;
 
   return (
     <div

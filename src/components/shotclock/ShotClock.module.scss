@@ -22,10 +22,6 @@
     font-size: 2rem;
     font-weight: bold;
 
-    &.overtime {
-      color: map-get($colors, bg);
-    }
-
     &.slider {
       background-repeat: no-repeat;
       background-position: right;
@@ -41,9 +37,15 @@
         background-color: map-get($colors, bg);
       }
     }
-  }
 
-  &.warn {
-    background-color: map-get($colors, nok);
+    &.overtime {
+      background-color: map-get($colors, nok);
+      color: map-get($colors, bg);
+    }
+
+    &.gameOver {
+      background-color: map-get($colors, main);
+      color: $hilite;
+    }
   }
 }

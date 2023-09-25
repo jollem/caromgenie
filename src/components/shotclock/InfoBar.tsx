@@ -5,7 +5,7 @@ import styles from "./ShotClock.module.scss";
 
 const InfoBar = () => {
   const gameState = useContext(GameContext);
-  return gameState.timestamp ? null : (
+  return gameState.started ? null : (
     <div className={styles.centerSelf}>
       <FaHandPointRight />
       <FaUser />

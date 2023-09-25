@@ -6,7 +6,7 @@ import styles from "./ShotClock.module.scss";
 const ShotClock = () => {
   const gameState = useContext(GameContext);
 
-  if (!gameState.timestamp || !gameState.shotclock) {
+  if (!gameState.started || !gameState.shotclock) {
     return null;
   }
 
