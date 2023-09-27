@@ -44,12 +44,6 @@ What _could_ be done in the future
 - Sharing the state
   - Different UI for observing running game
 - PWA support
-- SEO
-- Support for shotclock extension
-- Configurability
-  - Innings limit (game length)
-  - Shotclock duration
+- Winning / Statistics screen
 - "Raisa" support (in-house handicap system)
-- Winning screen (how to handle draw?)
-- Codebase cleanup
-- Tests!
+- Themes / Dark mode

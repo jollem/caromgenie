@@ -27,6 +27,7 @@ type GameState = {
   extension?: () => void;
   setNextActive?: () => void;
   pauseToggle?: () => void;
+  swapPlayers?: () => void;
   start?: (players: string[]) => void;
   reset?: () => void;
   configure?: (config: Config) => void;
@@ -192,6 +193,19 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
     });
   };
 
+  const swapPlayers = () => {
+    setGameState((prev) => {
+      const state = clone(prev);
+      if (state.players.length === 2 && !state.started) {
+        [state.players[0], state.players[1]] = [
+          state.players[1],
+          state.players[0],
+        ];
+      }
+      return state;
+    });
+  };
+
   const start = (formData: string[]) =>
     setGameState((prev) => {
       const players = formData.filter(Boolean).map((name) => ({
@@ -216,6 +230,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
     extension,
     setNextActive,
     pauseToggle,
+    swapPlayers,
     start,
     reset,
     configure,

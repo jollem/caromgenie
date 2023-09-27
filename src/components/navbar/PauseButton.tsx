@@ -3,7 +3,7 @@ import { FaPlay, FaPause } from "react-icons/fa";
 import classnames from "classnames";
 import { GameContext } from "../../store/GameContext";
 
-const PauseToggle = () => {
+const PauseButton = () => {
   const gameState = useContext(GameContext);
 
   return (
@@ -16,4 +16,4 @@ const PauseToggle = () => {
   );
 };
 
-export default PauseToggle;
+export default PauseButton;
