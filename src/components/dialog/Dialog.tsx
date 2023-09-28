@@ -46,10 +46,11 @@ const meta: ConfMeta[] = [
 ];
 
 type ThemeSwitch = {
+  resetScoreBoard: () => void;
   children: React.ReactNode;
 };
 
-const Dialog: React.FC<ThemeSwitch> = ({ children }) => {
+const Dialog: React.FC<ThemeSwitch> = ({ resetScoreBoard, children }) => {
   const gameState = useContext(GameContext);
   const [config, setConfig] = useState(false);
   const [formState, setFromState] = useState<string[]>(["", "", ""]);
@@ -126,7 +127,10 @@ const Dialog: React.FC<ThemeSwitch> = ({ children }) => {
           ))}
           <button
             disabled={formState.filter(Boolean).length < 2}
-            onClick={() => gameState.start?.(formState)}
+            onClick={() => {
+              resetScoreBoard();
+              gameState.start?.(formState);
+            }}
           >
             <FaFlagCheckered />
           </button>

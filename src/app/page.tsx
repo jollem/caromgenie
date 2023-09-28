@@ -8,6 +8,7 @@ import Dialog from "../components/dialog";
 import NavBar from "../components/navbar";
 import ScoreBoard from "../components/scoreboard";
 import ShotClock from "../components/shotclock";
+import Statistics from "../components/statistics";
 import styles from "./page.module.scss";
 
 type ThemeSpec = {
@@ -36,6 +37,7 @@ const themes: ThemeSpec[] = [
 
 const Page = () => {
   const [theme, toggleTheme] = useState<ThemeSpec>(themes[0]);
+  const [showStats, setShowStats] = useState<boolean>(false);
 
   const getThemeClasses = () =>
     themes.reduce(
@@ -49,7 +51,7 @@ const Page = () => {
   return (
     <div className={classnames(getThemeClasses())}>
       <GameContextProvider>
-        <Dialog>
+        <Dialog resetScoreBoard={() => setShowStats(false)}>
           <div className={styles.buttonContainer}>
             {themes.map((themeSpec) => (
               <button
@@ -62,8 +64,8 @@ const Page = () => {
             ))}
           </div>
         </Dialog>
-        <NavBar />
-        <ScoreBoard />
+        <NavBar statsToggle={() => setShowStats((prev) => !prev)} />
+        {showStats ? <Statistics /> : <ScoreBoard />}
         <ShotClock />
       </GameContextProvider>
     </div>
