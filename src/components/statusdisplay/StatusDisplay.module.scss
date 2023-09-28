@@ -46,7 +46,10 @@
     }
 
     &:nth-child(2) {
-      font-size: calc(25vw / 3);
+      flex-grow: 1;
+      font-size: clamp(5rem, 0.7143rem + 19.0476vw, 15rem);
+      background-color: $hilite;
+      color: map-get($colors, font);
     }
   }
 

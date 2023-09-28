@@ -9,7 +9,9 @@ const Overtime = () => {
 
   return gameState.started && !gameState.ended && !!!gameState.shotclock ? (
     <div className={classnames(styles.centerSelf, styles.overtime)}>
-      <FaHourglassEnd />
+      <div>
+        <FaHourglassEnd />
+      </div>
     </div>
   ) : null;
 };

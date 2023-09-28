@@ -5,6 +5,16 @@
   sliderEnd: map-get($colors, nok);
 }
 
+.roundedArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  background-color: map-get($colors, bg);
+}
+
 .shotclockContainer {
   flex-grow: 1;
   border: $border-thick;
@@ -18,8 +28,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: map-get($colors, main);
-    font-size: 2rem;
+    color: map-get($colors, font);
+    font-size: 3rem;
     font-weight: bold;
 
     &.slider {
@@ -28,24 +38,24 @@
       transition: background-size linear 1s;
 
       & div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-width: 3rem;
-        border-radius: 50%;
-        aspect-ratio: 1;
-        background-color: map-get($colors, bg);
+        @extend .roundedArea;
       }
     }
 
     &.overtime {
       background-color: map-get($colors, nok);
-      color: map-get($colors, bg);
+      & div {
+        @extend .roundedArea;
+      }
     }
 
     &.gameOver {
       background-color: map-get($colors, main);
       color: $hilite;
+
+      & span {
+        transform: rotate(30deg);
+      }
     }
   }
 }

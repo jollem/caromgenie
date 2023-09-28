@@ -2,7 +2,7 @@
 
 .player {
   height: 100%;
-  border: $border-thick;
+  border: $border-wide;
   border-radius: 1rem;
   background-color: map-get($colors, main);
   display: flex;
@@ -11,9 +11,10 @@
   flex-grow: 4;
   color: $hilite;
   overflow-x: hidden;
+  max-width: 40vw;
 
   &.active {
-    border: map-get($colors, nok) solid thick;
+    border: $border-wide-active;
     background-color: $hilite;
     color: map-get($colors, font);
   }
@@ -44,9 +45,11 @@
       white-space: nowrap;
 
       &.big {
-        font-size: 2rem;
-        max-width: 25vw;
-        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+        font-size: 3rem;
+        max-width: 40vw;
+        overflow-x: hidden;
       }
     }
   }
@@ -58,7 +61,7 @@
   justify-content: center;
   align-items: center;
   color: map-get($colors, font);
-  font-size: clamp(5rem, 0.7143rem + 19.0476vw, 15rem);
+  font-size: clamp(5rem, -6.25rem + 50vw, 20rem);
   font-weight: bold;
   border-radius: 1rem;
   border: map-get($colors, font) thin solid;

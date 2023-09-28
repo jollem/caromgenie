@@ -14,6 +14,9 @@ $border-thick: map-get($colors, main) solid thick;
 $hilite: lighten(map-get($colors, main), 40);
 $border-thick-hilite: $hilite solid thick;
 
+$border-wide: map-get($colors, main) solid 1rem;
+$border-wide-active: map-get($colors, nok) solid 1rem;
+
 @mixin desktop() {
   @media (min-width: 40rem) {
     @content;
