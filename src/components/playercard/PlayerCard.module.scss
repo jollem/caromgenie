@@ -7,7 +7,6 @@
   background-color: map-get($colors, main);
   display: flex;
   flex-direction: column;
-  padding: 0 0.5rem;
   flex-grow: 4;
   color: $hilite;
   overflow-x: hidden;
@@ -24,7 +23,7 @@
   }
 
   .statusRow {
-    font-size: 1.2rem;
+    font-size: 2rem;
     font-weight: bold;
     flex-grow: 1;
     display: flex;
@@ -50,6 +49,10 @@
         font-size: 3rem;
         max-width: 40vw;
         overflow-x: hidden;
+
+        & svg {
+          font-size: 2rem;
+        }
       }
     }
   }
@@ -64,7 +67,7 @@
   font-size: clamp(5rem, -6.25rem + 50vw, 20rem);
   font-weight: bold;
   border-radius: 1rem;
-  border: map-get($colors, font) thin solid;
+  border: map-get($colors, font) 0.25rem solid;
   position: relative;
 
   .overlay {
