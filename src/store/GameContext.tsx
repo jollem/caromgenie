@@ -92,6 +92,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const gameOver = (state: GameState): Boolean =>
+    !!state.ended ||
     state.players.some(
       (player) => player.innings.length > state.config.innings
     );
@@ -172,6 +173,10 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
         state.shotclock = undefined;
         state.running = false;
         state.ended = Date.now();
+        state.players.forEach(
+          (player) =>
+            (player.innings = player.innings.slice(0, state.config.innings))
+        );
       } else {
         startShotClock(state.config.shotclock);
       }
