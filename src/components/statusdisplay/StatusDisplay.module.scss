@@ -5,17 +5,17 @@
   align-items: center;
   justify-content: center;
   width: 80%;
-  color: $hilite;
-  border: $border-thick-hilite;
-  border-radius: 1rem;
+  color: map-get($theme, secondary-color);
+  border: map-get($theme, border-thick-secondary);
+  border-radius: map-get($theme, border-radius);
   padding: 0.5rem;
 }
 
 .status {
   height: 100%;
-  border: $border-thick;
-  border-radius: 1rem;
-  background-color: map-get($colors, main);
+  border: map-get($theme, border-thick);
+  border-radius: map-get($theme, border-radius);
+  background-color: map-get($theme, primary-color);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -48,8 +48,8 @@
     &:nth-child(2) {
       flex-grow: 1;
       font-size: clamp(5rem, 0.7143rem + 19.0476vw, 15rem);
-      background-color: $hilite;
-      color: map-get($colors, font);
+      background-color: map-get($theme, secondary-color);
+      color: map-get($theme, font-color);
     }
   }
 
@@ -57,10 +57,10 @@
     @extend .bordered-box;
     font-size: 2rem;
     padding: 2rem 0;
-    background-color: map-get($colors, ok);
+    background-color: map-get($theme, ok-color);
 
     &:disabled {
-      background-color: map-get($colors, main);
+      background-color: map-get($theme, primary-color);
     }
   }
 }

@@ -5,14 +5,14 @@
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
-  border: $border-thick;
-  border-radius: 0.5rem;
+  border: map-get($theme, border-thick);
+  border-radius: map-get($theme, border-radius);
 
   button {
-    color: map-get($colors, main);
-    background-color: map-get($colors, bg);
-    border: $border-thick;
-    border-radius: 0.5rem;
+    color: map-get($theme, primary-color);
+    background-color: map-get($theme, background-color);
+    border: map-get($theme, border-thick);
+    border-radius: map-get($theme, border-radius-tight);
     font-size: 1.5rem;
     font-weight: bold;
     aspect-ratio: 1;

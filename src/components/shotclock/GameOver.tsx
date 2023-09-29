@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { FaHandshake, FaCrown } from "react-icons/fa";
+import { FaHandshake, FaTrophy } from "react-icons/fa";
 import classnames from "classnames";
 import ConfettiExplosion from "react-confetti-explosion";
 import { GameContext } from "../../store/GameContext";
@@ -27,7 +27,7 @@ const GameOver = () => {
             width={window.innerWidth * 1.2}
             duration={3000}
           />
-          <FaCrown /> {balls[scores.indexOf(max)]} <FaCrown />
+          <FaTrophy /> {balls[scores.indexOf(max)]} <FaTrophy />
         </>
       ) : (
         <FaHandshake />

@@ -13,8 +13,8 @@
   height: 100vh;
   width: 100vw;
   font-size: 2rem;
-  color: $hilite;
-  background-color: map-get($colors, main);
+  color: map-get($theme, secondary-color);
+  background-color: map-get($theme, primary-color);
   overflow-x: hidden;
 
   h1 {
@@ -29,8 +29,8 @@
   input {
     max-width: 90vw;
     font-size: 2rem;
-    border: $border-thick-hilite;
-    border-radius: 1rem;
+    border: map-get($theme, border-thick-secondary);
+    border-radius: map-get($theme, border-radius);
     padding: 0.5rem;
 
     &:disabled {
@@ -40,11 +40,11 @@
 
   button {
     font-size: 2rem;
-    border-radius: 1rem;
+    border-radius: map-get($theme, border-radius);
     padding: 1rem;
     margin-top: 1rem;
     border: none;
-    background-color: $hilite;
+    background-color: map-get($theme, secondary-color);
     display: flex;
   }
 

@@ -2,20 +2,20 @@
 
 .player {
   height: 100%;
-  border: $border-wide;
-  border-radius: 1rem;
-  background-color: map-get($colors, main);
+  border: map-get($theme, border-wide);
+  border-radius: map-get($theme, border-radius);
+  background-color: map-get($theme, primary-color);
   display: flex;
   flex-direction: column;
   flex-grow: 4;
-  color: $hilite;
+  color: map-get($theme, secondary-color);
   overflow-x: hidden;
   max-width: 40vw;
 
   &.active {
-    border: $border-wide-active;
-    background-color: $hilite;
-    color: map-get($colors, font);
+    border-color: map-get($theme, alert-color);
+    background-color: map-get($theme, secondary-color);
+    color: map-get($theme, font-color);
   }
 
   &.actionable {
@@ -63,11 +63,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: map-get($colors, font);
+  color: map-get($theme, font-color);
   font-size: clamp(5rem, -6.25rem + 50vw, 20rem);
   font-weight: bold;
-  border-radius: 1rem;
-  border: map-get($colors, font) 0.25rem solid;
+  border-radius: map-get($theme, border-radius);
+  border: map-get($theme, font-color) 0.25rem solid;
   position: relative;
 
   .overlay {
@@ -81,13 +81,13 @@
     @extend .overlay;
     top: 0;
     left: 0;
-    border-bottom: map-get($colors, font) thin solid;
+    border-bottom: map-get($theme, font-color) thin solid;
   }
 
   .overlayBottom {
     @extend .overlay;
     bottom: 0;
     right: 0;
-    border-top: map-get($colors, font) thin solid;
+    border-top: map-get($theme, font-color) thin solid;
   }
 }

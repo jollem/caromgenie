@@ -10,7 +10,7 @@
     order: 2;
 
     & > div:nth-child(2) {
-      background-color: $white;
+      background-color: map-get($theme, white);
     }
   }
 
@@ -18,7 +18,7 @@
     order: 4;
 
     & > div:nth-child(2) {
-      background-color: $yellow;
+      background-color: map-get($theme, yellow);
     }
   }
 
@@ -26,7 +26,7 @@
     order: 5;
 
     & > div:nth-child(2) {
-      background-color: $red;
+      background-color: map-get($theme, red);
     }
   }
 }

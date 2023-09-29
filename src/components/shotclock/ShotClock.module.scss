@@ -1,8 +1,8 @@
 @import "../../app/_variables.scss";
 
 :export {
-  sliderStart: map-get($colors, ok);
-  sliderEnd: map-get($colors, nok);
+  sliderStart: map-get($theme, slider-start-color);
+  sliderEnd: map-get($theme, slider-end-color);
 }
 
 .roundedArea {
@@ -10,15 +10,15 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  border-radius: 50%;
+  border-radius: map-get($theme, border-radius-round);
   aspect-ratio: 1;
-  background-color: map-get($colors, bg);
+  background-color: map-get($theme, background-color);
 }
 
 .shotclockContainer {
   flex-grow: 1;
-  border: $border-thick;
-  border-radius: 0.5rem;
+  border: map-get($theme, border-thick);
+  border-radius: map-get($theme, border-radius);
   display: flex;
   min-height: 5rem;
 
@@ -28,7 +28,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: map-get($colors, font);
+    color: map-get($theme, shotclock-color);
     font-size: 3rem;
     font-weight: bold;
 
@@ -43,15 +43,16 @@
     }
 
     &.overtime {
-      background-color: map-get($colors, nok);
+      background-color: map-get($theme, slider-end-color);
+      border-radius: map-get($theme, border-radius-tight);
       & div {
         @extend .roundedArea;
       }
     }
 
     &.gameOver {
-      background-color: map-get($colors, main);
-      color: $hilite;
+      background-color: map-get($theme, primary-color);
+      color: map-get($theme, secondary-color);
 
       & span {
         transform: rotate(30deg);
