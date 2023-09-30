@@ -1,18 +1,16 @@
-@import "../../app/_variables.scss";
-
 .navbar {
   flex-grow: 1;
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
-  border: map-get($theme, border-thick);
-  border-radius: map-get($theme, border-radius);
+  border: var(--border-thick);
+  border-radius: var(--border-radius);
 
   button {
-    color: map-get($theme, primary-color);
-    background-color: map-get($theme, background-color);
-    border: map-get($theme, border-thick);
-    border-radius: map-get($theme, border-radius-tight);
+    color: var(--primary-color);
+    background-color: var(--background-color);
+    border: var(--border-thick);
+    border-radius: var(--border-radius-tight);
     font-size: 1.5rem;
     font-weight: bold;
     aspect-ratio: 1;

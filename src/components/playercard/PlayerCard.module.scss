@@ -1,21 +1,21 @@
-@import "../../app/_variables.scss";
+@import "../../app/_mixins.scss";
 
 .player {
   height: 100%;
-  border: map-get($theme, border-wide);
-  border-radius: map-get($theme, border-radius);
-  background-color: map-get($theme, primary-color);
+  border: var(--border-wide);
+  border-radius: var(--border-radius);
+  background-color: var(--primary-color);
   display: flex;
   flex-direction: column;
   flex-grow: 4;
-  color: map-get($theme, secondary-color);
+  color: var(--secondary-color);
   overflow-x: hidden;
   max-width: 40vw;
 
   &.active {
-    border-color: map-get($theme, alert-color);
-    background-color: map-get($theme, secondary-color);
-    color: map-get($theme, font-color);
+    border-color: var(--alert-color);
+    background-color: var(--secondary-color);
+    color: var(--font-color);
   }
 
   &.actionable {
@@ -63,11 +63,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: map-get($theme, font-color);
+  color: var(--font-color);
   font-size: clamp(5rem, -6.25rem + 50vw, 20rem);
   font-weight: bold;
-  border-radius: map-get($theme, border-radius);
-  border: map-get($theme, font-color) 0.25rem solid;
+  border-radius: var(--border-radius);
+  border: var(--font-color) 0.25rem solid;
   position: relative;
 
   .overlay {
@@ -81,13 +81,13 @@
     @extend .overlay;
     top: 0;
     left: 0;
-    border-bottom: map-get($theme, font-color) thin solid;
+    border-bottom: var(--font-color) thin solid;
   }
 
   .overlayBottom {
     @extend .overlay;
     bottom: 0;
     right: 0;
-    border-top: map-get($theme, font-color) thin solid;
+    border-top: var(--font-color) thin solid;
   }
 }

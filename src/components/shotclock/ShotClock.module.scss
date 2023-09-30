@@ -1,8 +1,6 @@
-@import "../../app/_variables.scss";
-
 :export {
-  sliderStart: map-get($theme, slider-start-color);
-  sliderEnd: map-get($theme, slider-end-color);
+  sliderStart: var(--slider-start-color);
+  sliderEnd: var(--slider-end-color);
 }
 
 .roundedArea {
@@ -10,15 +8,15 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  border-radius: map-get($theme, border-radius-round);
+  border-radius: var(--border-radius-round);
   aspect-ratio: 1;
-  background-color: map-get($theme, background-color);
+  background-color: var(--background-color);
 }
 
 .shotclockContainer {
   flex-grow: 1;
-  border: map-get($theme, border-thick);
-  border-radius: map-get($theme, border-radius);
+  border: var(--border-thick);
+  border-radius: var(--border-radius);
   display: flex;
   min-height: 5rem;
 
@@ -28,7 +26,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: map-get($theme, shotclock-color);
+    color: var(--shotclock-color);
     font-size: 3rem;
     font-weight: bold;
 
@@ -43,16 +41,16 @@
     }
 
     &.overtime {
-      background-color: map-get($theme, slider-end-color);
-      border-radius: map-get($theme, border-radius-tight);
+      background-color: var(--slider-end-color);
+      border-radius: var(--border-radius-tight);
       & div {
         @extend .roundedArea;
       }
     }
 
     &.gameOver {
-      background-color: map-get($theme, primary-color);
-      color: map-get($theme, secondary-color);
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
 
       & span {
         transform: rotate(30deg);

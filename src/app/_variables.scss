@@ -1,40 +1,34 @@
 $players: (
-  white: white,
-  yellow: yellow,
-  red: red,
+  --white: white,
+  --yellow: yellow,
+  --red: red,
 );
 
 $colors: (
-  background-color: map-get($players, white),
-  font-color: black,
-  primary-color: gray,
-  ok-color: green,
-  alert-color: map-get($players, red),
+  --background-color: map-get($players, --white),
+  --font-color: black,
+  --primary-color: gray,
+  --ok-color: green,
+  --alert-color: map-get($players, --red),
 );
 
 $variants: (
-  secondary-color: lighten(map-get($colors, primary-color), 40),
-  slider-start-color: map-get($colors, ok-color),
-  slider-end-color: map-get($colors, alert-color),
-  shotclock-color: invert(map-get($colors, background-color)),
+  --secondary-color: lighten(map-get($colors, --primary-color), 40),
+  --slider-start-color: map-get($colors, --ok-color),
+  --slider-end-color: map-get($colors, --alert-color),
+  --shotclock-color: invert(map-get($colors, --background-color)),
 );
 
 $elements: (
-  border-thick: map-get($colors, primary-color) solid thick,
-  border-thick-secondary: map-get($variants, secondary-color) solid thick,
-  border-wide: map-get($colors, primary-color) solid 1rem,
-  border-radius: 1rem,
-  border-radius-tight: 0.5rem,
-  border-radius-round: 50%,
+  --border-thick: map-get($colors, --primary-color) solid thick,
+  --border-thick-secondary: map-get($variants, --secondary-color) solid thick,
+  --border-wide: map-get($colors, --primary-color) solid 1rem,
+  --border-radius: 1rem,
+  --border-radius-tight: 0.5rem,
+  --border-radius-round: 50%,
 );
 
 $theme: map-merge(
   map-merge($players, $colors),
   map-merge($elements, $variants)
 );
-
-@mixin desktop() {
-  @media (min-width: 40rem) {
-    @content;
-  }
-}

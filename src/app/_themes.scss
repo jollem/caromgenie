@@ -1,0 +1,12 @@
+@import "./_variables.scss";
+
+$theme-light: $theme;
+
+$theme-dark: map-merge(
+  $theme,
+  (
+    --background-color: black,
+    --shotclock-color: white,
+    --border-radius: 0,
+  )
+);

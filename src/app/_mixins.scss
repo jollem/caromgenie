@@ -1,0 +1,11 @@
+@mixin desktop() {
+  @media (min-width: 40rem) {
+    @content;
+  }
+}
+
+@mixin spread-map($map: ()) {
+  @each $key, $value in $map {
+    #{$key}: $value;
+  }
+}
