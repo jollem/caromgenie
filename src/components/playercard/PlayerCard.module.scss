@@ -1,7 +1,6 @@
 @import "../../app/_mixins.scss";
 
 .player {
-  height: 100%;
   border: var(--border-thick);
   border-radius: var(--border-radius);
   background-color: var(--primary-color);
@@ -69,7 +68,7 @@
 }
 
 .scoreCard {
-  flex-grow: 10;
+  flex-grow: 100;
   display: flex;
   justify-content: center;
   align-items: center;
