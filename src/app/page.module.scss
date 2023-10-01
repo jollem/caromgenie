@@ -1,0 +1,18 @@
+@import "./_themes.scss";
+
+.themeContainer {
+  @include spread-map($theme-light);
+
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: var(--gap);
+  padding: var(--gap);
+
+  &.dark {
+    @include spread-map($theme-dark);
+  }
+}

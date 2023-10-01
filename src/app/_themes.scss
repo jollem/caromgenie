@@ -1,5 +1,11 @@
 @import "./_variables.scss";
 
+@mixin spread-map($map: ()) {
+  @each $key, $value in $map {
+    #{$key}: $value;
+  }
+}
+
 $theme-light: $theme;
 
 $theme-dark: map-merge(

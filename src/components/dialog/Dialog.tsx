@@ -45,7 +45,12 @@ const meta: ConfMeta[] = [
   },
 ];
 
-const Dialog = () => {
+type DialogProps = {
+  themeSwitch: () => void;
+  children: React.ReactNode;
+};
+
+const Dialog: React.FC<DialogProps> = ({ themeSwitch, children }) => {
   const gameState = useContext(GameContext);
   const [config, setConfig] = useState(false);
   const [formState, setFromState] = useState<string[]>(["", "", ""]);
@@ -60,6 +65,7 @@ const Dialog = () => {
       <h1>CaromGenie</h1>
       {config ? (
         <>
+          <button onClick={themeSwitch}>{children}</button>
           {meta.map((conf) => (
             <div key={conf.field} className={styles.slider}>
               <label htmlFor={conf.field}>{conf.label}</label>

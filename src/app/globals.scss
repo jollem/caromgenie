@@ -1,16 +1,3 @@
-@import "./_themes.scss";
-@import "./_mixins.scss";
-
-:root {
-  @include spread-map($theme-light);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    @include spread-map($theme-dark);
-  }
-}
-
 * {
   box-sizing: border-box;
   padding: 0;
@@ -21,7 +8,6 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  background-color: var(--background-color);
 }
 
 .hide {
