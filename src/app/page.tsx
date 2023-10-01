@@ -10,19 +10,40 @@ import ScoreBoard from "../components/scoreboard";
 import ShotClock from "../components/shotclock";
 import styles from "./page.module.scss";
 
-const Page = () => {
-  const [dark, toggleTheme] = useState<boolean>(false);
+type ThemeSpec = {
+  name: string;
+  icon: React.ReactNode;
+};
 
-  const themeSwitch = () => toggleTheme((prev) => !prev);
+const themes: ThemeSpec[] = [
+  {
+    name: "default",
+    icon: <FaSun />,
+  },
+  {
+    name: "nightshift",
+    icon: <FaMoon />,
+  },
+];
+
+const Page = () => {
+  const [theme, toggleTheme] = useState<number>(0);
+
+  const themeSwitch = () => toggleTheme((prev) => (prev + 1) % themes.length);
+
+  const getThemeClasses = () =>
+    themes.reduce(
+      (acc, themeSpec, index) => ({
+        ...acc,
+        [styles[themeSpec.name]]: index === theme,
+      }),
+      { [styles.themeContainer]: true }
+    );
 
   return (
-    <div
-      className={classnames([styles.themeContainer, { [styles.dark]: dark }])}
-    >
+    <div className={classnames(getThemeClasses())}>
       <GameContextProvider>
-        <Dialog themeSwitch={themeSwitch}>
-          {dark ? <FaMoon /> : <FaSun />}
-        </Dialog>
+        <Dialog themeSwitch={themeSwitch}>{themes[theme].icon}</Dialog>
         <NavBar />
         <ScoreBoard />
         <ShotClock />
