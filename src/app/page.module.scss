@@ -15,4 +15,8 @@
   &.nightshift {
     @include spread-map($theme-dark);
   }
+
+  &.water {
+    @include spread-map($theme-water);
+  }
 }

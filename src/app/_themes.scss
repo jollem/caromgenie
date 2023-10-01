@@ -16,3 +16,20 @@ $theme-dark: map-merge(
     --border-radius: 0,
   )
 );
+
+$theme-water: map-merge(
+  $theme,
+  (
+    --background-color: #07485b,
+    --primary-color: #0d6986,
+    --secondary-color: #8ec7d2,
+    --border-thick: #0d6986 solid thick,
+    --border-thick-secondary: #8ec7d2 solid thick,
+    --border-wide: #0d6986 solid 1rem,
+    --shotclock-color: #8ec7d2,
+    --ok-color: #dba507,
+    --slider-start-color: #dba507,
+    --slider-end-color: #db073d,
+    --alert-color: #dba507,
+  )
+);

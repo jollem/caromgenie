@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import classnames from "classnames";
-import { FaSun, FaMoon } from "react-icons/fa";
+import { FaSun, FaMoon, FaWater } from "react-icons/fa";
 import GameContextProvider from "../store/GameContext";
 import Dialog from "../components/dialog";
 import NavBar from "../components/navbar";
@@ -23,6 +23,10 @@ const themes: ThemeSpec[] = [
   {
     name: "nightshift",
     icon: <FaMoon />,
+  },
+  {
+    name: "water",
+    icon: <FaWater />,
   },
 ];
 
