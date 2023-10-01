@@ -19,4 +19,8 @@
   &.water {
     @include spread-map($theme-water);
   }
+
+  &.green {
+    @include spread-map($theme-green);
+  }
 }

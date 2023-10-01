@@ -33,3 +33,20 @@ $theme-water: map-merge(
     --alert-color: #dba507,
   )
 );
+
+$theme-green: map-merge(
+  $theme,
+  (
+    --background-color: #001f11,
+    --primary-color: #204709,
+    --secondary-color: #0c8558,
+    --border-thick: #204709 solid thick,
+    --border-thick-secondary: #0c8558 solid thick,
+    --border-wide: #204709 solid 1rem,
+    --shotclock-color: #0c8558,
+    --ok-color: #b58600,
+    --slider-start-color: #b58600,
+    --slider-end-color: #ff4533,
+    --alert-color: #b81000,
+  )
+);
