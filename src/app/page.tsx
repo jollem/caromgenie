@@ -37,8 +37,6 @@ const themes: ThemeSpec[] = [
 const Page = () => {
   const [theme, toggleTheme] = useState<number>(0);
 
-  const themeSwitch = () => toggleTheme((prev) => (prev + 1) % themes.length);
-
   const getThemeClasses = () =>
     themes.reduce(
       (acc, themeSpec, index) => ({
@@ -51,7 +49,13 @@ const Page = () => {
   return (
     <div className={classnames(getThemeClasses())}>
       <GameContextProvider>
-        <Dialog themeSwitch={themeSwitch}>{themes[theme].icon}</Dialog>
+        <Dialog>
+          <button
+            onClick={() => toggleTheme((prev) => (prev + 1) % themes.length)}
+          >
+            {themes[theme].icon}
+          </button>
+        </Dialog>
         <NavBar />
         <ScoreBoard />
         <ShotClock />
