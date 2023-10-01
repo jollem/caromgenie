@@ -7,6 +7,7 @@ import styles from "./layout.module.scss";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   title: "CaromGenie",
   description: "Free webapp for three cushion carom billiards score keeping",
   keywords: [
