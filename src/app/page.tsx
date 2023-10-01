@@ -35,13 +35,13 @@ const themes: ThemeSpec[] = [
 ];
 
 const Page = () => {
-  const [theme, toggleTheme] = useState<number>(0);
+  const [theme, toggleTheme] = useState<ThemeSpec>(themes[0]);
 
   const getThemeClasses = () =>
     themes.reduce(
-      (acc, themeSpec, index) => ({
+      (acc, themeSpec) => ({
         ...acc,
-        [styles[themeSpec.name]]: index === theme,
+        [styles[themeSpec.name]]: themeSpec === theme,
       }),
       { [styles.themeContainer]: true }
     );
@@ -50,11 +50,17 @@ const Page = () => {
     <div className={classnames(getThemeClasses())}>
       <GameContextProvider>
         <Dialog>
-          <button
-            onClick={() => toggleTheme((prev) => (prev + 1) % themes.length)}
-          >
-            {themes[theme].icon}
-          </button>
+          <div className={styles.buttonContainer}>
+            {themes.map((themeSpec) => (
+              <button
+                key={themeSpec.name}
+                onClick={() => toggleTheme(themeSpec)}
+                disabled={themeSpec === theme}
+              >
+                {themeSpec.icon}
+              </button>
+            ))}
+          </div>
         </Dialog>
         <NavBar />
         <ScoreBoard />

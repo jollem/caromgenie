@@ -23,4 +23,9 @@
   &.green {
     @include spread-map($theme-green);
   }
+
+  .buttonContainer {
+    display: flex;
+    gap: var(--gap);
+  }
 }
