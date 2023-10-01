@@ -1,3 +1,5 @@
+@import "../../app/_mixins.scss";
+
 :export {
   sliderStart: var(--slider-start-color);
   sliderEnd: var(--slider-end-color);
@@ -18,7 +20,11 @@
   border: var(--border-thick);
   border-radius: var(--border-radius);
   display: flex;
-  min-height: 5rem;
+  min-height: 3rem;
+
+  @include desktop() {
+    min-height: 5rem;
+  }
 
   .centerSelf {
     height: 100%;
@@ -27,8 +33,12 @@
     justify-content: center;
     align-items: center;
     color: var(--shotclock-color);
-    font-size: 3rem;
+    font-size: 1.5rem;
     font-weight: bold;
+
+    @include desktop() {
+      font-size: 3rem;
+    }
 
     &.slider {
       background-repeat: no-repeat;

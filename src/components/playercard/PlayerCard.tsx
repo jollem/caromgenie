@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { FaStopwatch, FaChartLine, FaStar, FaUser } from "react-icons/fa";
+import { FaStopwatch, FaChartLine, FaStar } from "react-icons/fa";
 import classnames from "classnames";
 import { GameContext } from "../../store/GameContext";
 import type { Player } from "../../store/GameContext";
@@ -28,12 +28,10 @@ const PlayerCard = ({
       onClick={() => isNext && gameState.setNextActive?.()}
     >
       <div className={styles.statusRow}>
-        <span className={styles.big}>
-          <FaUser /> {player.name}
-        </span>
+        <span className={styles.big}>{player.name}</span>
         {!!gameState.config.extensions && (
           <span>
-            {player.extensions} x <FaStopwatch />
+            {player.extensions} <FaStopwatch />
           </span>
         )}
       </div>

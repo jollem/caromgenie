@@ -2,7 +2,7 @@
 
 .player {
   height: 100%;
-  border: var(--border-wide);
+  border: var(--border-thick);
   border-radius: var(--border-radius);
   background-color: var(--primary-color);
   display: flex;
@@ -11,6 +11,10 @@
   color: var(--secondary-color);
   overflow-x: hidden;
   max-width: 40vw;
+
+  @include desktop() {
+    border: var(--border-wide);
+  }
 
   &.active {
     border-color: var(--alert-color);
@@ -23,35 +27,41 @@
   }
 
   .statusRow {
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: bold;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: left;
-    align-items: center;
+    align-items: flex-end;
+    padding-right: var(--gap);
+    overflow-y: hidden;
 
-    @include desktop() {
+    @include tablet() {
       flex-direction: row;
       justify-content: space-between;
+      align-items: center;
+    }
+
+    @include desktop() {
+      font-size: 2rem;
     }
 
     span {
       display: flex;
       justify-content: space-between;
-      align-items: bottom;
-      gap: 0.2rem;
+      gap: var(--gap);
       white-space: nowrap;
+      z-index: 2;
 
       &.big {
+        z-index: 1;
         display: inline-block;
         width: 100%;
-        font-size: 3rem;
-        max-width: 40vw;
+        font-size: 2rem;
         overflow-x: hidden;
 
-        & svg {
-          font-size: 2rem;
+        @include desktop() {
+          font-size: 4rem;
         }
       }
     }
