@@ -51,7 +51,7 @@
     &:nth-child(2) {
       flex-grow: 1;
       max-height: 40%;
-      font-size: clamp(5rem, 0.7143rem + 19.0476vw, 15rem);
+      font-size: 10rem;
       background-color: var(--secondary-color);
       color: var(--font-color);
     }

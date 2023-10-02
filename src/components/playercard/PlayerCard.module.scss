@@ -1,7 +1,7 @@
 @import "../../app/_mixins.scss";
 
 .player {
-  border: var(--border-thick);
+  border: var(--border-wide);
   border-radius: var(--border-radius);
   background-color: var(--primary-color);
   display: flex;
@@ -10,10 +10,6 @@
   color: var(--secondary-color);
   overflow-x: hidden;
   max-width: 40vw;
-
-  @include desktop() {
-    border: var(--border-wide);
-  }
 
   &.active {
     border-color: var(--alert-color);
@@ -26,7 +22,7 @@
   }
 
   .statusRow {
-    font-size: 1rem;
+    font-size: 2rem;
     font-weight: bold;
     flex-grow: 1;
     display: flex;
@@ -39,10 +35,6 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-    }
-
-    @include desktop() {
-      font-size: 2rem;
     }
 
     span {
@@ -58,10 +50,6 @@
         width: 100%;
         font-size: 2rem;
         overflow-x: hidden;
-
-        @include desktop() {
-          font-size: 4rem;
-        }
       }
     }
   }
@@ -73,7 +61,7 @@
   justify-content: center;
   align-items: center;
   color: var(--font-color);
-  font-size: clamp(5rem, -6.25rem + 50vw, 20rem);
+  font-size: 16rem;
   font-weight: bold;
   border-radius: var(--border-radius);
   border: var(--font-color) 0.25rem solid;

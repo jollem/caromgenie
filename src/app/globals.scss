@@ -1,3 +1,13 @@
+@import "./_mixins.scss";
+
+:root {
+  font-size: clamp(12px, 2vw, 16px);
+
+  @include desktop() {
+    font-size: clamp(16px, 3vw, 20px);
+  }
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
