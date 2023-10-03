@@ -5,7 +5,7 @@ const InfoLine = ({
   icon: React.ReactNode;
   data: string | number;
 }) => (
-  <div className="infoline">
+  <div>
     {icon}
     <span>{data}</span>
   </div>

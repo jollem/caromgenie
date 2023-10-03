@@ -34,12 +34,10 @@
 
     &:nth-child(1) {
       display: flex;
+      flex-shrink: 1;
       flex-direction: column;
       gap: 0.3rem;
-
-      @include desktop() {
-        font-size: 2rem;
-      }
+      overflow-y: hidden;
 
       div {
         display: flex;
@@ -50,6 +48,7 @@
 
     &:nth-child(2) {
       flex-grow: 1;
+      flex-shrink: 1;
       max-height: 40%;
       font-size: clamp(6rem, 15vw, 10rem);
       background-color: var(--secondary-color);
@@ -59,16 +58,9 @@
 
   button {
     @extend .bordered-box;
-    padding: 1rem 0;
+    flex-shrink: 1;
+    width: 80%;
     background-color: var(--ok-color);
-
-    @include tablet() {
-      font-size: 2rem;
-    }
-
-    @include desktop() {
-      padding: 2rem 0;
-    }
 
     &:disabled {
       background-color: var(--primary-color);
