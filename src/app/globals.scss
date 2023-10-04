@@ -1,11 +1,7 @@
 @import "./_mixins.scss";
 
 :root {
-  font-size: clamp(12px, 2vw, 16px);
-
-  @include desktop() {
-    font-size: clamp(16px, 3vw, 20px);
-  }
+  font-size: clamp(0.5rem, 1.25vw, 3rem);
 }
 
 * {
