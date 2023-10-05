@@ -28,11 +28,15 @@ const ShotClock = () => {
 
   return (
     <div
-      className={classnames(styles.centerSelf, styles.slider)}
+      className={classnames(styles.centerSelf, styles.slider, {
+        [styles.actionable]:
+          gameState.players[gameState.active?.(gameState) || 0]?.extensions > 0,
+      })}
       style={{
         backgroundImage,
         backgroundSize,
       }}
+      onClick={() => gameState.extension?.()}
     >
       <div className={styles.counter}>{gameState.shotclock}</div>
     </div>

@@ -1,16 +1,5 @@
 @import "../../app/_mixins.scss";
 
-.bordered-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80%;
-  color: var(--secondary-color);
-  border: var(--border-thick-secondary);
-  border-radius: var(--border-radius);
-  padding: 0.5rem;
-}
-
 .status {
   border: var(--border-thick);
   border-radius: var(--border-radius);
@@ -30,7 +19,14 @@
   }
 
   & > div {
-    @extend .bordered-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    color: var(--secondary-color);
+    border: var(--border-thick-secondary);
+    border-radius: var(--border-radius);
+    padding: 0.5rem;
 
     &:nth-child(1) {
       display: flex;
@@ -54,16 +50,9 @@
       background-color: var(--secondary-color);
       color: var(--font-color);
     }
-  }
 
-  button {
-    @extend .bordered-box;
-    aspect-ratio: 2;
-    flex-shrink: 1;
-    background-color: var(--ok-color);
-
-    &:disabled {
-      background-color: var(--primary-color);
+    &:nth-child(3) {
+      visibility: hidden;
     }
   }
 }
