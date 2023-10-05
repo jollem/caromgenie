@@ -22,9 +22,17 @@ body {
 
 button {
   cursor: pointer;
+  border: none;
+  border-radius: var(--border-radius-tight);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  padding: 0 0.5rem;
+  aspect-ratio: 1;
 
   &:disabled {
-    opacity: 0.6;
+    filter: brightness(80%);
     cursor: not-allowed;
   }
 

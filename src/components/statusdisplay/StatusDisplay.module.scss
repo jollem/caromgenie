@@ -58,8 +58,8 @@
 
   button {
     @extend .bordered-box;
+    aspect-ratio: 2;
     flex-shrink: 1;
-    width: 80%;
     background-color: var(--ok-color);
 
     &:disabled {
