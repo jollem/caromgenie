@@ -7,7 +7,7 @@
   & > div:nth-child(2) {
     order: 2;
 
-    & > div:nth-child(2) {
+    button {
       background-color: var(--white);
     }
   }
@@ -15,7 +15,7 @@
   & > div:nth-child(3) {
     order: 4;
 
-    & > div:nth-child(2) {
+    button {
       background-color: var(--yellow);
     }
   }
@@ -23,7 +23,7 @@
   & > div:nth-child(4) {
     order: 5;
 
-    & > div:nth-child(2) {
+    button {
       background-color: var(--red);
     }
   }

@@ -32,12 +32,12 @@ button {
   aspect-ratio: 1;
 
   &:disabled {
-    filter: brightness(80%);
+    filter: brightness(90%);
     cursor: not-allowed;
   }
 
   &:active {
-    filter: brightness(120%);
+    filter: brightness(110%);
     transform: scale(1.1);
   }
 }

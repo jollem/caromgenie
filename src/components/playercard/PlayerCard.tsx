@@ -14,6 +14,7 @@ const PlayerCard = ({
 }) => {
   const gameState = useContext(GameContext);
 
+  const innings = player.innings.reduce((acc, curr) => acc + curr, 0);
   const isActive =
     !gameState.ended && gameState.active?.(gameState) === playerIndex;
   const isNext =
@@ -23,10 +24,14 @@ const PlayerCard = ({
     <div
       className={classnames(styles.player, {
         [styles.active]: isActive,
-        [styles.actionable]: isNext,
       })}
-      onClick={() => isNext && gameState.setNextActive?.()}
     >
+      {isNext && (
+        <div
+          className={styles.activationOverlay}
+          onClick={gameState.setNextActive}
+        />
+      )}
       <div className={styles.statusRow}>
         <span className={styles.big}>{player.name}</span>
         {!!gameState.config.extensions && (
@@ -36,27 +41,23 @@ const PlayerCard = ({
         )}
       </div>
       <div className={styles.scoreCard}>
-        <div
-          className={classnames(styles.overlayTop, {
-            [styles.actionable]: isActive,
-          })}
+        <button
+          disabled={!isActive}
           onClick={() => {
             if (isActive) {
               gameState.increment?.();
             }
           }}
         />
-        <div
-          className={classnames(styles.overlayBottom, {
-            [styles.actionable]: isActive,
-          })}
+        <button
+          disabled={!isActive}
           onClick={() => {
             if (isActive) {
               gameState.decrement?.();
             }
           }}
         />
-        {player.innings.reduce((acc, curr) => acc + curr, 0)}
+        <div className={styles.inningsOverlay}>{innings}</div>
       </div>
       <div className={styles.statusRow}>
         <span>

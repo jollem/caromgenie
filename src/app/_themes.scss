@@ -17,7 +17,8 @@ $theme-dark: map-merge(
     --shotclock-color: white,
     --border-radius: 0,
     --border-thick-secondary: gray solid thick,
-    --border-wide: gray solid 0.5rem,
+    --border-wide: black solid 0.5rem,
+    --alert-color: gray,
   )
 );
 
