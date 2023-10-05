@@ -11,9 +11,13 @@ $theme-light: $theme;
 $theme-dark: map-merge(
   $theme,
   (
+    --primary-color: black,
+    --secondary-color: gray,
     --background-color: black,
     --shotclock-color: white,
     --border-radius: 0,
+    --border-thick-secondary: gray solid thick,
+    --border-wide: gray solid 0.5rem,
   )
 );
 
