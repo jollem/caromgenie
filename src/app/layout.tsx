@@ -1,10 +1,11 @@
 import "./globals.scss";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Urbanist } from "next/font/google";
+import classnames from "classnames";
 import styles from "./layout.module.scss";
 
-const inter = Inter({ subsets: ["latin"] });
+const font = Urbanist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   viewport: "width=device-width, initial-scale=1, maximum-scale=1",
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang="en">
-    <body className={`${inter.className}, ${styles.layout}`}>
+    <body className={classnames(font.className, styles.layout)}>
       {children}
       <Analytics />
     </body>
