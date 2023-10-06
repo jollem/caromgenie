@@ -61,7 +61,19 @@ const Dialog: React.FC<ThemeSwitch> = ({ children }) => {
 
   return (
     <div className={styles.dialog}>
-      <h1>CaromGenie</h1>
+      <details>
+        <summary>
+          <h1>CaromGenie</h1>
+        </summary>
+        <p>
+          CaromGenie is completely free simple webapplication for carom
+          billiards game management. Full source code available @{" "}
+          <a href="https://github.com/jollem/caromgenie" target="_new">
+            Github
+          </a>
+          .
+        </p>
+      </details>
       {config ? (
         <>
           {children}
