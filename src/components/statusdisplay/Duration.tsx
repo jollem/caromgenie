@@ -10,18 +10,13 @@ const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * SECONDS_IN_MINUTE;
 const Innings = () => {
   const gameState = useContext(GameContext);
 
-  const [timeElapsed, setTimeElapsed] = useState<number>(0);
+  const diff = () =>
+    (gameState.ended || Date.now()) - (gameState.started || Date.now());
+
+  const [timeElapsed, setTimeElapsed] = useState<number>(diff());
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (gameState.started && gameState.ended) {
-        setTimeElapsed(gameState.ended - gameState.started);
-      } else if (gameState.started) {
-        setTimeElapsed(Date.now() - gameState.started);
-      } else {
-        setTimeElapsed(0);
-      }
-    }, 1000);
+    const timer = setInterval(() => setTimeElapsed(diff()), 1000);
     return () => clearInterval(timer);
   }, [gameState.started, gameState.ended]);
 
