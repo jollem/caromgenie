@@ -31,28 +31,26 @@ const Statistics = () => {
         ? [0, ...gameState.players[0].innings.map((_, i) => i + 1)]
         : undefined,
       datasets: gameState.players.map((player, index) => ({
-        label: player.name,
         data: player.innings.reduce(
           (acc, innings) => [...acc, Number(acc.slice(-1)) + innings],
           [0]
         ),
-
         borderColor: colors[index],
       })),
     };
 
     const options = {
+      layout: {
+        padding: 20,
+      },
       datasets: {
         line: {
-          borderWidth: 10,
+          borderWidth: 5,
           tension: 0.2,
         },
       },
       responsive: true,
       maintainAspectRatio: false,
-      animation: {
-        duration: 1000,
-      },
       scales: {
         x: {
           min: 0,
