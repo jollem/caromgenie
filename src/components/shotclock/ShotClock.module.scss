@@ -1,10 +1,5 @@
 @import "../../app/_mixins.scss";
 
-:export {
-  sliderStart: var(--slider-start-color);
-  sliderEnd: var(--slider-end-color);
-}
-
 .roundedArea {
   display: flex;
   justify-content: center;
@@ -21,6 +16,7 @@
   border-radius: var(--border-radius);
   display: flex;
   min-height: 3rem;
+  overflow: hidden;
 
   @include desktop() {
     min-height: 5rem;
@@ -34,20 +30,33 @@
     color: var(--shotclock-color);
     font-size: 3rem;
     font-weight: bold;
+    position: relative;
 
-    &.slider {
-      background-repeat: no-repeat;
-      background-position: right;
-      transition: background-size linear 1s;
+    &.gradient {
+      background-image: linear-gradient(
+        90deg,
+        var(--slider-start-color) 60%,
+        var(--slider-end-color) 100%
+      );
 
-      & div {
+      .counter {
         @extend .roundedArea;
+        z-index: 2;
       }
+    }
+
+    .slider {
+      background-color: var(--background-color);
+      height: 100%;
+      position: absolute;
+      left: 0;
+      z-index: 1;
+      transition: width linear 1s;
     }
 
     &.overtime {
       background-color: var(--slider-end-color);
-      border-radius: var(--border-radius-tight);
+
       & div {
         @extend .roundedArea;
       }

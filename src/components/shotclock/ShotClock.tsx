@@ -17,27 +17,15 @@ const ShotClock = () => {
     )
   );
 
-  const backgroundImage =
-    timeLeft > 40
-      ? `linear-gradient(90deg, ${styles.sliderStart} 0%, ${styles.sliderStart} 100%)`
-      : `linear-gradient(90deg, ${styles.sliderStart} 0%, ${styles.sliderEnd} ${
-          2 * timeLeft
-        }%, ${styles.sliderEnd} 100%)`;
-
-  const backgroundSize = timeLeft + "%";
-
   return (
     <div
-      className={classnames(styles.centerSelf, styles.slider, {
+      className={classnames(styles.centerSelf, styles.gradient, {
         [styles.actionable]:
           gameState.players[gameState.active?.(gameState) || 0]?.extensions > 0,
       })}
-      style={{
-        backgroundImage,
-        backgroundSize,
-      }}
       onClick={() => gameState.extension?.()}
     >
+      <div className={styles.slider} style={{ width: 100 - timeLeft + "%" }} />
       <div className={styles.counter}>{gameState.shotclock}</div>
     </div>
   );
