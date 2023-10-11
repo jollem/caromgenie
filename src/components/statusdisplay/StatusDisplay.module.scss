@@ -39,6 +39,10 @@
         display: flex;
         justify-content: space-between;
         width: 100%;
+        span {
+          width: 3rem;
+          text-align: right;
+        }
       }
     }
 

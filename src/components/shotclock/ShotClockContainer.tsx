@@ -13,7 +13,6 @@ const ShotClockContainer = () => {
     <div className={styles.shotclockContainer}>
       <InfoBar />
       <ShotClock />
-      <Overtime />
       <GameOver />
     </div>
   );

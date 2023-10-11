@@ -13,12 +13,17 @@ export type Config = {
   extensions: number;
 };
 
+type ShotClock = {
+  milliseconds: number;
+  timestamp: number;
+};
+
 type GameState = {
   config: Config;
   running: boolean;
   started?: number;
   ended?: number;
-  shotclock: number;
+  shotclock: ShotClock;
   players: Player[];
   active?: (state: GameState) => number;
   next?: (state: GameState) => number;
@@ -43,7 +48,10 @@ const initialValues = {
   running: false,
   started: undefined,
   ended: undefined,
-  shotclock: 0,
+  shotclock: {
+    milliseconds: 0,
+    timestamp: 0,
+  },
   players: [],
 };
 
@@ -58,30 +66,11 @@ const clone = (state: GameState): GameState => ({
 
 export const GameContext = createContext<GameState>({ ...initialValues });
 
-let shotclock: ReturnType<typeof setInterval> | undefined = undefined;
-
 const Provider = ({ children }: { children: React.ReactNode }) => {
-  const startShotClock = (state: GameState): GameState => {
-    clearInterval(shotclock);
-    shotclock = setInterval(
-      () =>
-        setGameState((prev) => {
-          if (!prev.running) {
-            return prev;
-          }
-          if (prev.shotclock <= 0) {
-            clearInterval(shotclock);
-            return prev;
-          }
-          const state = clone(prev);
-          state.shotclock--;
-          return state;
-        }),
-      1000
-    );
-    state.shotclock = state.config.shotclock;
-    return state;
-  };
+  const initalizeShotClock = (seconds: number): ShotClock => ({
+    milliseconds: seconds * 1000,
+    timestamp: Date.now(),
+  });
 
   const gameOver = (state: GameState): Boolean =>
     !!state.ended ||
@@ -112,7 +101,8 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
         state.players[active(prev)].innings.length - 1
       ]++;
       state.running = true;
-      return startShotClock(state);
+      state.shotclock = initalizeShotClock(state.config.shotclock);
+      return state;
     });
 
   const decrement = () =>
@@ -135,12 +125,12 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
       const activePlayer = active(prev);
       const availableExtensions = prev.players[active(prev)].extensions;
 
-      if (availableExtensions <= 0 || prev.shotclock <= 0 || !prev.running) {
+      if (availableExtensions <= 0 || !prev.running) {
         return prev;
       }
 
       const state = clone(prev);
-      state.shotclock += prev.config.extension;
+      state.shotclock.milliseconds += prev.config.extension * 1000;
       state.players[activePlayer].extensions--;
 
       return state;
@@ -166,8 +156,6 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
       ];
 
       if (gameOver(state)) {
-        clearInterval(shotclock);
-        state.shotclock = 0;
         state.running = false;
         state.ended = Date.now();
         state.players.forEach(
@@ -175,7 +163,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
             (player.innings = player.innings.slice(0, state.config.innings))
         );
       } else {
-        startShotClock(state);
+        state.shotclock = initalizeShotClock(state.config.shotclock);
       }
 
       return state;
@@ -188,6 +176,11 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
       }
       const state = clone(prev);
       state.running = !state.running;
+      if (state.running) {
+        state.shotclock.timestamp = Date.now();
+      } else {
+        state.shotclock.milliseconds -= Date.now() - state.shotclock.timestamp;
+      }
       return state;
     });
   };

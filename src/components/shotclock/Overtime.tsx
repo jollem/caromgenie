@@ -7,7 +7,11 @@ import styles from "./ShotClock.module.scss";
 const Overtime = () => {
   const gameState = useContext(GameContext);
 
-  return gameState.started && !gameState.ended && !!!gameState.shotclock ? (
+  const overtime =
+    Date.now() - gameState.shotclock.timestamp >
+    gameState.shotclock.milliseconds;
+
+  return gameState.started && !gameState.ended && overtime ? (
     <div className={classnames(styles.centerSelf, styles.overtime)}>
       <div>
         <FaHourglassEnd />
