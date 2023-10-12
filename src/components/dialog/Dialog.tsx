@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import {
   FaCog,
   FaFlagCheckered,
+  FaCircle,
   FaCheck,
   FaCrosshairs,
   FaRegHourglass,
@@ -21,6 +22,12 @@ type ConfMeta = {
 const meta: ConfMeta[] = [
   {
     field: "innings",
+    label: <FaCircle />,
+    min: 10,
+    max: 99,
+  },
+  {
+    field: "caroms",
     label: <FaCrosshairs />,
     min: 10,
     max: 99,

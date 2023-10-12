@@ -8,6 +8,7 @@ export type Player = {
 
 export type Config = {
   innings: number;
+  caroms: number;
   shotclock: number;
   extension: number;
   extensions: number;
@@ -41,6 +42,7 @@ type GameState = {
 const initialValues = {
   config: {
     innings: 40,
+    caroms: 30,
     shotclock: 40,
     extension: 40,
     extensions: 1,
@@ -78,6 +80,18 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
       (player) => player.innings.length > state.config.innings
     );
 
+  const hitCaromLimit = (player: Player, limit: number): Boolean =>
+    player.innings.reduce((acc, curr) => acc + curr, 0) >= limit;
+
+  const endGame = (state: GameState): void => {
+    state.running = false;
+    state.ended = Date.now();
+    state.players.forEach(
+      (player) =>
+        (player.innings = player.innings.slice(0, state.config.innings))
+    );
+  };
+
   const active = (state: GameState): number => {
     if (!state?.started && !gameOver(state)) {
       return -1;
@@ -97,9 +111,15 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
         return prev;
       }
       const state = clone(prev);
-      state.players[active(prev)].innings[
-        state.players[active(prev)].innings.length - 1
-      ]++;
+
+      const player = state.players[active(prev)];
+      player.innings[player.innings.length - 1]++;
+
+      if (hitCaromLimit(player, state.config.caroms)) {
+        endGame(state);
+        return state;
+      }
+
       state.running = true;
       state.shotclock = initalizeShotClock(state.config.shotclock);
       return state;
@@ -156,12 +176,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
       ];
 
       if (gameOver(state)) {
-        state.running = false;
-        state.ended = Date.now();
-        state.players.forEach(
-          (player) =>
-            (player.innings = player.innings.slice(0, state.config.innings))
-        );
+        endGame(state);
       } else {
         state.shotclock = initalizeShotClock(state.config.shotclock);
       }
