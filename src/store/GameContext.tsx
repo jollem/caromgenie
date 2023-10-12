@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export type Player = {
   name: string;
@@ -26,6 +26,9 @@ type GameState = {
   ended?: number;
   shotclock: ShotClock;
   players: Player[];
+};
+
+type Game = GameState & {
   active?: (state: GameState) => number;
   next?: (state: GameState) => number;
   increment?: () => void;
@@ -66,7 +69,7 @@ const clone = (state: GameState): GameState => ({
   })),
 });
 
-export const GameContext = createContext<GameState>({ ...initialValues });
+export const GameContext = createContext<Game>({ ...initialValues });
 
 const Provider = ({ children }: { children: React.ReactNode }) => {
   const initalizeShotClock = (seconds: number): ShotClock => ({
@@ -230,21 +233,43 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
 
   const [gameState, setGameState] = useState<GameState>({
     ...initialValues,
-    active,
-    next,
-    increment,
-    decrement,
-    extension,
-    setNextActive,
-    pauseToggle,
-    swapPlayers,
-    start,
-    reset,
-    configure,
   });
 
+  const plain = (state: Game): GameState => {
+    const { config, running, started, ended, shotclock, players } = {
+      ...state,
+    };
+    return {
+      config,
+      running,
+      started,
+      ended,
+      shotclock,
+      players,
+    };
+  };
+
+  useEffect(() => console.log(JSON.stringify(plain(gameState))), [gameState]);
+
   return (
-    <GameContext.Provider value={gameState}>{children}</GameContext.Provider>
+    <GameContext.Provider
+      value={{
+        ...gameState,
+        active,
+        next,
+        increment,
+        decrement,
+        extension,
+        setNextActive,
+        pauseToggle,
+        swapPlayers,
+        start,
+        reset,
+        configure,
+      }}
+    >
+      {children}
+    </GameContext.Provider>
   );
 };
 
