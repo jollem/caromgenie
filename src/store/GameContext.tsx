@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import sync from "../app/api/sync/[game]/client";
 
 export type Player = {
   name: string;
@@ -19,7 +20,7 @@ type ShotClock = {
   timestamp: number;
 };
 
-type GameState = {
+export type GameState = {
   config: Config;
   running: boolean;
   started?: number;
@@ -222,7 +223,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
     };
   };
 
-  useEffect(() => console.log(JSON.stringify(plain(gameState))), [gameState]);
+  useEffect(() => sync(plain(gameState)), [gameState]);
 
   return (
     <GameContext.Provider
