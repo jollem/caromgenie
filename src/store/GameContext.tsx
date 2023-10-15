@@ -1,33 +1,12 @@
 import { createContext, useState, useEffect } from "react";
+import { type Output } from "valibot";
+import Schema from "./schema";
 import sync from "../app/api/sync/[game]/client";
 
-export type Player = {
-  name: string;
-  innings: number[];
-  extensions: number;
-};
-
-export type Config = {
-  innings: number;
-  caroms: number;
-  shotclock: number;
-  extension: number;
-  extensions: number;
-};
-
-type ShotClock = {
-  milliseconds: number;
-  timestamp: number;
-};
-
-export type GameState = {
-  config: Config;
-  running: boolean;
-  started?: number;
-  ended?: number;
-  shotclock: ShotClock;
-  players: Player[];
-};
+type Player = Output<typeof Schema.Player>;
+type Config = Output<typeof Schema.Config>;
+type ShotClock = Output<typeof Schema.ShotClock>;
+type GameState = Output<typeof Schema.GameState>;
 
 type Game = GameState & {
   active?: (state: GameState) => number;
@@ -52,8 +31,8 @@ const initialValues = {
     extensions: 1,
   },
   running: false,
-  started: undefined,
-  ended: undefined,
+  started: 0,
+  ended: 0,
   shotclock: {
     milliseconds: 0,
     timestamp: 0,

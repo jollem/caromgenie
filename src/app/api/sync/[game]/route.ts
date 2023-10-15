@@ -1,12 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import type { GameState } from "../../../../store/GameContext";
+import { parse } from "valibot";
+import Schema from "../../../../store/schema";
 
 export async function POST(
   req: NextRequest,
   { params }: { params: { game: string } }
 ) {
-  const payload: GameState = await req.json();
-  console.log(`${params.game}: ${JSON.stringify(payload)}`);
-
-  return NextResponse.json({ status: "ok" });
+  const data = await req.json();
+  try {
+    const gameState = parse(Schema.GameState, data);
+    console.log(`${params.game}: ${JSON.stringify(gameState)}`);
+    return NextResponse.json({ status: "synced" });
+  } catch (err) {
+    return NextResponse.json(err, { status: 400 });
+  }
 }
