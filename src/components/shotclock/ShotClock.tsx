@@ -20,7 +20,7 @@ const ShotClock = () => {
         setMillisecondsLeft((prev) => prev - TIMER_RESOLUTION);
     }, TIMER_RESOLUTION);
     return () => clearInterval(timer);
-  }, [gameState.running, gameState.shotclock.milliseconds, player]);
+  }, [gameState.running, gameState.shotclock, player]);
 
   if (!gameState.started || gameState.ended) {
     return null;
