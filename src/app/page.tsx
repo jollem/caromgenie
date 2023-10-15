@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import classnames from "classnames";
+import clsx from "clsx";
 import { FaSun, FaMoon, FaWater, FaLeaf } from "react-icons/fa";
 import GameContextProvider from "../store/GameContext";
 import Dialog from "../components/dialog";
@@ -49,7 +49,7 @@ const Page = () => {
     );
 
   return (
-    <div className={classnames(getThemeClasses())}>
+    <div className={clsx(getThemeClasses())}>
       <GameContextProvider>
         <Dialog resetScoreBoard={() => setShowStats(false)}>
           <div className={styles.buttonContainer}>

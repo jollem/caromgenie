@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import classnames from "classnames";
+import clsx from "clsx";
 import { FaHourglassEnd } from "react-icons/fa";
 import { GameContext } from "../../store/GameContext";
 import styles from "./ShotClock.module.scss";
@@ -12,7 +12,7 @@ const Overtime = () => {
     gameState.shotclock.milliseconds;
 
   return gameState.started && !gameState.ended && overtime ? (
-    <div className={classnames(styles.centerSelf, styles.overtime)}>
+    <div className={clsx(styles.centerSelf, styles.overtime)}>
       <div>
         <FaHourglassEnd />
       </div>

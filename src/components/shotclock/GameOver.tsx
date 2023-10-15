@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { FaHandshake, FaTrophy } from "react-icons/fa";
-import classnames from "classnames";
+import clsx from "clsx";
 import ConfettiExplosion from "react-confetti-explosion";
 import { GameContext } from "../../store/GameContext";
 import styles from "./ShotClock.module.scss";
@@ -19,7 +19,7 @@ const GameOver = () => {
   const max = Math.max(...scores);
 
   return (
-    <div className={classnames(styles.centerSelf, styles.gameOver)}>
+    <div className={clsx(styles.centerSelf, styles.gameOver)}>
       {scores.indexOf(max) === scores.lastIndexOf(max) ? (
         <>
           <ConfettiExplosion

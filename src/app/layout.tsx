@@ -2,7 +2,7 @@ import "./globals.scss";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Urbanist } from "next/font/google";
-import classnames from "classnames";
+import clsx from "clsx";
 import styles from "./layout.module.scss";
 
 const font = Urbanist({ subsets: ["latin"] });
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang="en">
-    <body className={classnames(font.className, styles.layout)}>
+    <body className={clsx(font.className, styles.layout)}>
       {children}
       <Analytics />
     </body>

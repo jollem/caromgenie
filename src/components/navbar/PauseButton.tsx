@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { FaPlay, FaPause } from "react-icons/fa";
-import classnames from "classnames";
+import clsx from "clsx";
 import { GameContext } from "../../store/GameContext";
 
 const PauseButton = () => {
@@ -9,7 +9,7 @@ const PauseButton = () => {
   return (
     <button
       onClick={gameState.pauseToggle}
-      className={classnames({ hide: !gameState.started || gameState.ended })}
+      className={clsx({ hide: !gameState.started || gameState.ended })}
     >
       {gameState.running ? <FaPause /> : <FaPlay />}
     </button>

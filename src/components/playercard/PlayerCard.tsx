@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { FaStopwatch, FaChartLine, FaStar } from "react-icons/fa";
-import classnames from "classnames";
+import clsx from "clsx";
 import { GameContext } from "../../store/GameContext";
 import type { Player } from "../../store/GameContext";
 import styles from "./PlayerCard.module.scss";
@@ -22,7 +22,7 @@ const PlayerCard = ({
 
   return (
     <div
-      className={classnames(styles.player, {
+      className={clsx(styles.player, {
         [styles.active]: isActive,
       })}
     >

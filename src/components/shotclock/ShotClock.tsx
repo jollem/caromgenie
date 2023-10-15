@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import classnames from "classnames";
+import clsx from "clsx";
 import { GameContext } from "../../store/GameContext";
 import Overtime from "./Overtime";
 import styles from "./ShotClock.module.scss";
@@ -37,7 +37,7 @@ const ShotClock = () => {
 
   return (
     <div
-      className={classnames(styles.centerSelf, styles.gradient, {
+      className={clsx(styles.centerSelf, styles.gradient, {
         [styles.actionable]:
           gameState.players[gameState.active?.(gameState) || 0]?.extensions > 0,
       })}
