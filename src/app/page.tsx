@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import clsx from "clsx";
 import { FaSun, FaMoon, FaWater, FaLeaf } from "react-icons/fa";
 import GameContextProvider from "../store/GameContext";
+import CacheKeys from "../store/localStorage";
 import Dialog from "../components/dialog";
 import NavBar from "../components/navbar";
 import ScoreBoard from "../components/scoreboard";
@@ -36,8 +37,21 @@ const themes: ThemeSpec[] = [
 ];
 
 const Page = () => {
-  const [theme, toggleTheme] = useState<ThemeSpec>(themes[0]);
+  const [theme, setTheme] = useState<ThemeSpec>(themes[0]);
   const [showStats, setShowStats] = useState<boolean>(false);
+
+  useEffect(() => {
+    useTheme(
+      themes.find(
+        (theme) => theme.name === localStorage.getItem(CacheKeys.THEME)
+      ) || themes[0]
+    );
+  }, []);
+
+  const useTheme = (theme: ThemeSpec) => {
+    localStorage.setItem(CacheKeys.THEME, theme.name);
+    setTheme(theme);
+  };
 
   const getThemeClasses = () =>
     themes.reduce(
@@ -56,7 +70,7 @@ const Page = () => {
             {themes.map((themeSpec) => (
               <button
                 key={themeSpec.name}
-                onClick={() => toggleTheme(themeSpec)}
+                onClick={() => useTheme(themeSpec)}
                 disabled={themeSpec === theme}
               >
                 {themeSpec.icon}
