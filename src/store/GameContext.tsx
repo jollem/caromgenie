@@ -6,7 +6,7 @@ import sync from "../app/api/sync/[game]/client";
 type Player = Output<typeof Schema.Player>;
 type Config = Output<typeof Schema.Config>;
 type ShotClock = Output<typeof Schema.ShotClock>;
-type GameState = Output<typeof Schema.GameState>;
+export type GameState = Output<typeof Schema.GameState>;
 
 type Game = GameState & {
   active?: (state: GameState) => number;
@@ -188,21 +188,13 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
     ...initialValues,
   });
 
-  const plain = (state: Game): GameState => {
-    const { config, running, started, ended, shotclock, players } = {
-      ...state,
-    };
-    return {
-      config,
-      running,
-      started,
-      ended,
-      shotclock,
-      players,
-    };
-  };
-
-  useEffect(() => sync(plain(gameState)), [gameState]);
+  useEffect(() => {
+    localStorage.setItem(
+      "id",
+      localStorage.getItem("id") || crypto.randomUUID()
+    );
+  }, []);
+  useEffect(() => sync(gameState), [gameState]);
 
   return (
     <GameContext.Provider
