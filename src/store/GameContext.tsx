@@ -2,9 +2,10 @@ import { createContext, useState, useEffect } from "react";
 import { type Output } from "valibot";
 import Schema from "./schema";
 import sync from "../app/api/sync/[game]/client";
+import CacheKeys from "./localStorage";
 
 type Player = Output<typeof Schema.Player>;
-type Config = Output<typeof Schema.Config>;
+export type Config = Output<typeof Schema.Config>;
 type ShotClock = Output<typeof Schema.ShotClock>;
 export type GameState = Output<typeof Schema.GameState>;
 
@@ -181,20 +182,33 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
 
   const reset = () => setGameState((prev) => ({ ...prev, players: [] }));
 
-  const configure = (config: Config) =>
+  const configure = (config: Config) => {
+    localStorage.setItem(CacheKeys.CONFIG, JSON.stringify(config));
     setGameState((prev) => ({ ...prev, config }));
+  };
 
   const [gameState, setGameState] = useState<GameState>({
     ...initialValues,
   });
 
+  const [gameId, setGameId] = useState<string | null>(null);
+
   useEffect(() => {
     localStorage.setItem(
-      "id",
-      localStorage.getItem("id") || crypto.randomUUID()
+      CacheKeys.ID,
+      localStorage.getItem(CacheKeys.ID) || crypto.randomUUID()
     );
+    setGameId(localStorage.getItem(CacheKeys.ID));
+    setGameState((prev) => ({
+      ...prev,
+      config: JSON.parse(
+        localStorage.getItem(CacheKeys.CONFIG) ||
+          JSON.stringify(initialValues.config)
+      ),
+    }));
   }, []);
-  useEffect(() => sync(gameState), [gameState]);
+
+  useEffect(() => sync(gameId, gameState), [gameState]);
 
   return (
     <GameContext.Provider

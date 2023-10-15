@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   FaCog,
   FaFlagCheckered,
@@ -62,6 +62,8 @@ const Dialog: React.FC<ThemeSwitch> = ({ resetScoreBoard, children }) => {
   const [config, setConfig] = useState(false);
   const [formState, setFromState] = useState<string[]>(["", "", ""]);
   const [configState, setConfigState] = useState<Config>(gameState.config);
+
+  useEffect(() => setConfigState(gameState.config), [gameState.config]);
 
   if (gameState.players.length) {
     return null;
