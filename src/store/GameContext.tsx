@@ -60,15 +60,6 @@ const initialValues = {
   players: [],
 };
 
-const clone = (state: GameState): GameState => ({
-  ...state,
-  config: { ...state.config },
-  players: state.players.map((player) => ({
-    ...player,
-    innings: [...player.innings],
-  })),
-});
-
 export const GameContext = createContext<Game>({ ...initialValues });
 
 const Provider = ({ children }: { children: React.ReactNode }) => {
@@ -78,153 +69,135 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
   });
 
   const gameOver = (state: GameState): Boolean =>
-    !!state.ended ||
-    state.players.some(
-      (player) => player.innings.length > state.config.innings
-    );
+    !next(state) &&
+    state.players
+      .map((player) =>
+        player.innings.reduce(
+          (acc, caroms) => ({
+            innings: acc.innings + 1,
+            caroms: acc.caroms + caroms,
+          }),
+          { innings: 0, caroms: 0 }
+        )
+      )
+      .some(
+        (result) =>
+          result.innings >= state.config.innings ||
+          result.caroms >= state.config.caroms
+      );
 
-  const hitCaromLimit = (player: Player, limit: number): Boolean =>
-    player.innings.reduce((acc, curr) => acc + curr, 0) >= limit;
-
-  const endGame = (state: GameState): void => {
-    state.running = false;
-    state.ended = Date.now();
-    state.players.forEach(
-      (player) =>
-        (player.innings = player.innings.slice(0, state.config.innings))
-    );
-  };
-
-  const active = (state: GameState): number => {
-    if (!state?.started && !gameOver(state)) {
-      return -1;
-    }
-    return (
-      state.players.reduce((acc, player) => acc + player.innings.length, -1) %
-      state.players.length
-    );
-  };
+  const active = (state: GameState): number =>
+    state.ended
+      ? -1
+      : state.players.reduce((acc, player) => acc + player.innings.length, -1) %
+        state.players.length;
 
   const next = (state: GameState): number =>
     (active(state) + 1) % state.players.length;
 
+  const ifRunning = (
+    state: GameState,
+    nextState: (state: GameState) => GameState
+  ): void => {
+    !state.ended && setGameState(nextState);
+  };
+
+  const addToCaroms = (player: Player, change: number): void => {
+    const current = player.innings.length - 1;
+    const caroms = player.innings[current] + change;
+    if (caroms >= 0) {
+      player.innings[current] = caroms;
+    }
+  };
+
   const increment = () =>
-    setGameState((prev) => {
-      if (gameOver(prev)) {
-        return prev;
-      }
-      const state = clone(prev);
-
-      const player = state.players[active(prev)];
-      player.innings[player.innings.length - 1]++;
-
-      if (hitCaromLimit(player, state.config.caroms)) {
-        endGame(state);
-        return state;
-      }
-
-      state.running = true;
-      state.shotclock = initalizeShotClock(state.config.shotclock);
-      return state;
+    ifRunning(gameState, (prev) => {
+      addToCaroms(prev.players[active(prev)], 1);
+      return {
+        ...prev,
+        running: true,
+        shotclock: initalizeShotClock(prev.config.shotclock),
+      };
     });
 
   const decrement = () =>
-    setGameState((prev) => {
-      if (gameOver(prev)) {
-        return prev;
-      }
-      const state = clone(prev);
-      state.players[active(prev)].innings[
-        state.players[active(prev)].innings.length - 1
-      ]--;
-      return state;
+    ifRunning(gameState, (prev) => {
+      addToCaroms(prev.players[active(prev)], -1);
+      return { ...prev };
     });
 
   const extension = () =>
-    setGameState((prev) => {
-      if (gameOver(prev)) {
-        return prev;
-      }
+    ifRunning(gameState, (prev) => {
       const activePlayer = active(prev);
-      const availableExtensions = prev.players[active(prev)].extensions;
 
-      if (availableExtensions <= 0 || !prev.running) {
-        return prev;
+      if (prev.players[activePlayer].extensions <= 0 || !prev.running) {
+        return { ...prev };
       }
 
-      const state = clone(prev);
-      state.shotclock.milliseconds += prev.config.extension * 1000;
-      state.players[activePlayer].extensions--;
-
-      return state;
+      return {
+        ...prev,
+        shotclock: {
+          timestamp: Date.now(),
+          milliseconds:
+            prev.shotclock.milliseconds -
+            (Date.now() - prev.shotclock.timestamp) +
+            prev.config.extension * 1000,
+        },
+        players: prev.players.map((player, index) => ({
+          ...player,
+          extensions: player.extensions - (activePlayer === index ? 1 : 0),
+        })),
+      };
     });
 
   const setNextActive = () =>
-    setGameState((prev) => {
-      if (gameOver(prev)) {
-        return prev;
-      }
-      const state = clone(prev);
+    ifRunning(gameState, (state) =>
+      gameOver(state)
+        ? { ...state, ended: Date.now() }
+        : {
+            ...state,
+            running: true,
+            started: state.started || Date.now(),
+            shotclock: initalizeShotClock(state.config.shotclock),
+            players: state.players.map((player, index) => ({
+              ...player,
+              innings:
+                index === next(state)
+                  ? [...player.innings, 0]
+                  : [...player.innings],
+            })),
+          }
+    );
 
-      state.running = true;
+  const pauseToggle = () =>
+    ifRunning(gameState, (prev) => ({
+      ...prev,
+      running: !prev.running,
+      shotclock: {
+        timestamp: prev.running ? prev.shotclock.timestamp : Date.now(),
+        milliseconds: prev.running
+          ? prev.shotclock.milliseconds -
+            (Date.now() - prev.shotclock.timestamp)
+          : prev.shotclock.milliseconds,
+      },
+    }));
 
-      if (!state.started) {
-        state.started = Date.now();
-      }
+  const swapPlayers = () =>
+    setGameState((prev) => ({
+      ...prev,
+      players: [prev.players[1], prev.players[0]],
+    }));
 
-      const nextPlayer = next(state);
-      state.players[nextPlayer].innings = [
-        ...state.players[nextPlayer].innings,
-        0,
-      ];
-
-      if (gameOver(state)) {
-        endGame(state);
-      } else {
-        state.shotclock = initalizeShotClock(state.config.shotclock);
-      }
-
-      return state;
-    });
-
-  const pauseToggle = () => {
-    setGameState((prev) => {
-      if (gameOver(prev)) {
-        return prev;
-      }
-      const state = clone(prev);
-      state.running = !state.running;
-      if (state.running) {
-        state.shotclock.timestamp = Date.now();
-      } else {
-        state.shotclock.milliseconds -= Date.now() - state.shotclock.timestamp;
-      }
-      return state;
-    });
-  };
-
-  const swapPlayers = () => {
-    setGameState((prev) => {
-      const state = clone(prev);
-      if (state.players.length === 2 && !state.started) {
-        [state.players[0], state.players[1]] = [
-          state.players[1],
-          state.players[0],
-        ];
-      }
-      return state;
-    });
-  };
-
-  const start = (formData: string[]) =>
-    setGameState((prev) => {
-      const players = formData.filter(Boolean).map((name) => ({
+  const start = (players: string[]) =>
+    setGameState((prev) => ({
+      ...initialValues,
+      config: { ...prev.config },
+      players: players.filter(Boolean).map((name) => ({
         name,
         innings: [],
         extensions: prev.config.extensions,
-      }));
-      return { ...prev, ...initialValues, config: prev.config, players };
-    });
+      })),
+    }));
 
   const reset = () => setGameState((prev) => ({ ...prev, players: [] }));
 
