@@ -4,7 +4,7 @@ import Schema from "./schema";
 import sync from "../app/api/sync/[game]/client";
 import CacheKeys from "./localStorage";
 
-type Player = Output<typeof Schema.Player>;
+export type Player = Output<typeof Schema.Player>;
 export type Config = Output<typeof Schema.Config>;
 type ShotClock = Output<typeof Schema.ShotClock>;
 export type GameState = Output<typeof Schema.GameState>;
