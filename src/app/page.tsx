@@ -41,14 +41,14 @@ const Page = () => {
   const [showStats, setShowStats] = useState<boolean>(false);
 
   useEffect(() => {
-    useTheme(
+    applyTheme(
       themes.find(
         (theme) => theme.name === localStorage.getItem(CacheKeys.THEME)
       ) || themes[0]
     );
   }, []);
 
-  const useTheme = (theme: ThemeSpec) => {
+  const applyTheme = (theme: ThemeSpec) => {
     localStorage.setItem(CacheKeys.THEME, theme.name);
     setTheme(theme);
   };
@@ -70,7 +70,7 @@ const Page = () => {
             {themes.map((themeSpec) => (
               <button
                 key={themeSpec.name}
-                onClick={() => useTheme(themeSpec)}
+                onClick={() => applyTheme(themeSpec)}
                 disabled={themeSpec === theme}
               >
                 {themeSpec.icon}

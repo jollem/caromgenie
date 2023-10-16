@@ -1,12 +1,4 @@
-import {
-  type Output,
-  object,
-  array,
-  string,
-  number,
-  integer,
-  boolean,
-} from "valibot";
+import { object, array, string, number, integer, boolean } from "valibot";
 
 const Player = object({
   name: string(),
@@ -36,9 +28,11 @@ const GameState = object({
   players: array(Player),
 });
 
-export default {
+const Schema = {
   Player,
   Config,
   ShotClock,
   GameState,
 };
+
+export default Schema;

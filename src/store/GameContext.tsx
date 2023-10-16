@@ -208,7 +208,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
     }));
   }, []);
 
-  useEffect(() => sync(gameId, gameState), [gameState]);
+  useEffect(() => sync(gameId, gameState), [gameId, gameState]);
 
   return (
     <GameContext.Provider

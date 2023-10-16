@@ -18,7 +18,7 @@ const Innings = () => {
   useEffect(() => {
     const timer = setInterval(() => setTimeElapsed(diff()), 1000);
     return () => clearInterval(timer);
-  }, [gameState.started, gameState.ended]);
+  }, [gameState.started, gameState.ended, diff]);
 
   if (!gameState.started) {
     return null;
