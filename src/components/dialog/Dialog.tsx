@@ -64,14 +64,20 @@ const Dialog: React.FC<ThemeSwitch> = ({ resetScoreBoard, children }) => {
   const [config, setConfig] = useState(false);
   const [formState, setFromState] = useState<string[]>(["", "", ""]);
   const [configState, setConfigState] = useState<Config>(gameState.config);
-  const [prefill, setPrefill] = useState<string[]>(
-    parse(
-      array(string()),
-      JSON.parse(localStorage.getItem(CacheKeys.PREFILL) || "[]")
-    )
-  );
+  const [prefill, setPrefill] = useState<string[]>([]);
 
   useEffect(() => setConfigState(gameState.config), [gameState.config]);
+
+  useEffect(
+    () =>
+      setPrefill(
+        parse(
+          array(string()),
+          JSON.parse(localStorage.getItem(CacheKeys.PREFILL) || "[]")
+        )
+      ),
+    []
+  );
 
   const storePlayerNames = () =>
     setPrefill((prev) => {
