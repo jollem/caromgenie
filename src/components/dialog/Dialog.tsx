@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { parse, string, array } from "valibot";
 import {
   FaCog,
   FaFlagCheckered,
@@ -11,6 +12,7 @@ import {
 } from "react-icons/fa";
 import { GameContext, type Config } from "../../store/GameContext";
 import styles from "./Dialog.module.scss";
+import CacheKeys from "@/store/localStorage";
 
 type ConfMeta = {
   field: keyof Config;
@@ -62,8 +64,21 @@ const Dialog: React.FC<ThemeSwitch> = ({ resetScoreBoard, children }) => {
   const [config, setConfig] = useState(false);
   const [formState, setFromState] = useState<string[]>(["", "", ""]);
   const [configState, setConfigState] = useState<Config>(gameState.config);
+  const [prefill, setPrefill] = useState<string[]>(
+    parse(
+      array(string()),
+      JSON.parse(localStorage.getItem(CacheKeys.PREFILL) || "[]")
+    )
+  );
 
   useEffect(() => setConfigState(gameState.config), [gameState.config]);
+
+  const storePlayerNames = () =>
+    setPrefill((prev) => {
+      const uniq = Array.from(new Set([...prev, ...formState].filter(Boolean)));
+      localStorage.setItem(CacheKeys.PREFILL, JSON.stringify(uniq));
+      return uniq;
+    });
 
   if (gameState.players.length) {
     return null;
@@ -120,6 +135,7 @@ const Dialog: React.FC<ThemeSwitch> = ({ resetScoreBoard, children }) => {
         <>
           {["⚪️", "🟡", "🔴"].map((placeholder, index) => (
             <input
+              list="prefill"
               type="text"
               value={formState[index]}
               disabled={formState.filter(Boolean).length < index}
@@ -134,10 +150,17 @@ const Dialog: React.FC<ThemeSwitch> = ({ resetScoreBoard, children }) => {
               }
             />
           ))}
+          <datalist id="prefill">
+            {prefill.map((name) => (
+              <option key={name} value={name} />
+            ))}
+          </datalist>
+
           <button
             disabled={formState.filter(Boolean).length < 2}
             onClick={() => {
               resetScoreBoard();
+              storePlayerNames();
               gameState.start?.(formState);
             }}
           >
