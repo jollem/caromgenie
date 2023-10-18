@@ -81,7 +81,9 @@ const Dialog: React.FC<ThemeSwitch> = ({ resetScoreBoard, children }) => {
 
   const storePlayerNames = () =>
     setPrefill((prev) => {
-      const uniq = Array.from(new Set([...prev, ...formState].filter(Boolean)));
+      const uniq = Array.from(new Set([...prev, ...formState]))
+        .filter(Boolean)
+        .sort((a, b) => a.localeCompare(b));
       localStorage.setItem(CacheKeys.PREFILL, JSON.stringify(uniq));
       return uniq;
     });
@@ -100,7 +102,7 @@ const Dialog: React.FC<ThemeSwitch> = ({ resetScoreBoard, children }) => {
           CaromGenie is completely free simple webapplication for carom
           billiards game management. Full source code available @{" "}
           <a href="https://github.com/jollem/caromgenie" target="_new">
-            Github
+            GitHub
           </a>
           .
         </p>

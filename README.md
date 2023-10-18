@@ -16,6 +16,8 @@ Some extra features that were requested:
 - Support for three players (Optional) ✅
 - Possibility to pause the game ✅
 - Shotclock extension ✅
+- Statistics for game over screen ✅
+- Remeber stuff across sessions ✅
 
 ## Tech
 
@@ -56,5 +58,4 @@ What _could_ be done in the future
 - Sharing the state
   - Different UI for observing running game
 - PWA support
-- Statistics for game over screen
 - "Raisa" support (in-house handicap system)
