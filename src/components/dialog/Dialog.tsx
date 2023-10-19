@@ -9,6 +9,7 @@ import {
   FaRegHourglass,
   FaStopwatch,
   FaHourglassStart,
+  FaTrashAlt,
 } from "react-icons/fa";
 import { GameContext, type Config } from "../../store/GameContext";
 import styles from "./Dialog.module.scss";
@@ -88,6 +89,12 @@ const Dialog: React.FC<ThemeSwitch> = ({ resetScoreBoard, children }) => {
       return uniq;
     });
 
+  const purgePlayerNames = () =>
+    setPrefill(() => {
+      localStorage.setItem(CacheKeys.PREFILL, JSON.stringify([]));
+      return [];
+    });
+
   if (gameState.players.length) {
     return null;
   }
@@ -137,6 +144,9 @@ const Dialog: React.FC<ThemeSwitch> = ({ resetScoreBoard, children }) => {
             }}
           >
             <FaCheck />
+          </button>
+          <button onClick={purgePlayerNames} className={styles.settings}>
+            <FaTrashAlt />
           </button>
         </>
       ) : (
