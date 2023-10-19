@@ -78,7 +78,10 @@ const Page = () => {
             ))}
           </div>
         </Dialog>
-        <NavBar statsToggle={() => setShowStats((prev) => !prev)} />
+        <NavBar
+          stats={showStats}
+          statsToggle={() => setShowStats((prev) => !prev)}
+        />
         {showStats ? <Statistics /> : <ScoreBoard />}
         <ShotClock />
       </GameContextProvider>

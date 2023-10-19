@@ -4,11 +4,17 @@ import SwapButton from "./SwapButton";
 import StatsButton from "./StatsButton";
 import styles from "./NavBar.module.scss";
 
-const NavBar = ({ statsToggle }: { statsToggle: () => void }) => (
+const NavBar = ({
+  stats,
+  statsToggle,
+}: {
+  stats: boolean;
+  statsToggle: () => void;
+}) => (
   <nav className={styles.navbar}>
     <ResetButton />
     <SwapButton />
-    <StatsButton statsToggle={statsToggle} />
+    <StatsButton stats={stats} statsToggle={statsToggle} />
     <PauseButton />
   </nav>
 );

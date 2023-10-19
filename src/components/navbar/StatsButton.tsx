@@ -1,13 +1,19 @@
 import { useContext } from "react";
-import { FaChartBar } from "react-icons/fa";
+import { FaCalculator, FaChartBar } from "react-icons/fa";
 import { GameContext } from "../../store/GameContext";
 
-const StatsButton = ({ statsToggle }: { statsToggle: () => void }) => {
+const StatsButton = ({
+  stats,
+  statsToggle,
+}: {
+  stats: boolean;
+  statsToggle: () => void;
+}) => {
   const gameState = useContext(GameContext);
 
   return !gameState.ended ? null : (
     <button onClick={statsToggle}>
-      <FaChartBar />
+      {stats ? <FaCalculator /> : <FaChartBar />}
     </button>
   );
 };
