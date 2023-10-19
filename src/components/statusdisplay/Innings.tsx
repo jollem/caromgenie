@@ -5,7 +5,7 @@ const Innings = () => {
   const gameState = useContext(GameContext);
 
   return (
-    <div>
+    <div id="innings">
       {Math.max(...gameState.players.map((player) => player.innings.length))}
     </div>
   );
