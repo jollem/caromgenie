@@ -83,29 +83,35 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
     !state.ended && setGameState(nextState);
   };
 
-  const addToCaroms = (player: Player, change: number): void => {
-    const current = player.innings.length - 1;
-    const caroms = player.innings[current] + change;
-    if (caroms >= 0) {
-      player.innings[current] = caroms;
-    }
-  };
+  const addToCaroms = (
+    players: Player[],
+    active: number,
+    change: number
+  ): Player[] =>
+    players.map((player, playerIndex) => ({
+      ...player,
+      innings: player.innings.map(
+        (inning, inningIndex, innings) =>
+          inning +
+          (playerIndex === active && inningIndex === innings.length - 1
+            ? change
+            : 0)
+      ),
+    }));
 
   const increment = () =>
-    ifRunning(gameState, (prev) => {
-      addToCaroms(prev.players[active(prev)], 1);
-      return {
-        ...prev,
-        running: true,
-        shotclock: initalizeShotClock(prev.config.shotclock),
-      };
-    });
+    ifRunning(gameState, (prev) => ({
+      ...prev,
+      players: addToCaroms(prev.players, active(prev), 1),
+      running: true,
+      shotclock: initalizeShotClock(prev.config.shotclock),
+    }));
 
   const decrement = () =>
-    ifRunning(gameState, (prev) => {
-      addToCaroms(prev.players[active(prev)], -1);
-      return { ...prev };
-    });
+    ifRunning(gameState, (prev) => ({
+      ...prev,
+      players: addToCaroms(prev.players, active(prev), -1),
+    }));
 
   const extension = () =>
     ifRunning(gameState, (prev) => {
