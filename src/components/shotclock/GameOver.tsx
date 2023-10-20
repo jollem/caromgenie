@@ -12,6 +12,7 @@ const GameOver = () => {
     elementCount: 100,
     spread: 90,
     startVelocity: 30,
+    zIndex: 100,
   });
 
   useEffect(() => {
