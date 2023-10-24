@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaHandshake, FaTrophy } from "react-icons/fa";
 import clsx from "clsx";
 import { useReward } from "react-rewards";
@@ -14,29 +14,31 @@ const GameOver = () => {
     startVelocity: 30,
     zIndex: 100,
   });
-
+  const [winner, setWinner] = useState<number>(-1);
   useEffect(() => {
-    const [second, first] = gameState.players
-      .map((player) => player.innings.reduce((acc, inning) => acc + inning, 0))
-      .sort()
-      .slice(-2);
-    gameState.ended && first !== second && reward();
+    if (gameState.ended) {
+      const scores = gameState.players.map((player) =>
+        player.innings.reduce((acc, inning) => acc + inning, 0)
+      );
+      const [second, first] = [...scores].sort((a, b) => a - b).slice(-2);
+      if (first !== second) {
+        setWinner(scores.indexOf(first));
+        reward();
+      }
+    } else {
+      setWinner(-1);
+    }
   }, [gameState.ended]);
 
-  if (!gameState.started || !gameState.ended) {
+  if (!gameState.ended) {
     return null;
   }
 
-  const scores = gameState.players.map((player) =>
-    player.innings.reduce((acc, inning) => acc + inning, 0)
-  );
-  const [second, first] = [...scores].sort().slice(-2);
-
   return (
     <div className={clsx(styles.centerSelf, styles.gameOver)}>
-      {first !== second ? (
+      {winner >= 0 ? (
         <>
-          <FaTrophy /> {["⚪️", "🟡", "🔴"][scores.indexOf(first)]} <FaTrophy />
+          <FaTrophy /> {["⚪️", "🟡", "🔴"][winner]} <FaTrophy />
         </>
       ) : (
         <FaHandshake />
