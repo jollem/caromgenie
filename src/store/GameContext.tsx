@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import { type Output } from "valibot";
 import Schema from "./schema";
 import CacheKeys from "./localStorage";
+import Pusher, { Channel } from "pusher-js";
 
 export type Player = Output<typeof Schema.Player>;
 export type Config = Output<typeof Schema.Config>;
@@ -22,7 +23,10 @@ type Game = GameState & {
   configure?: (config: Config) => void;
 };
 
-const initialValues = {
+export const pusherChannel = (gameId: string) => `private-${gameId}`;
+export const PUSHER_EVENT = "client-sync";
+
+export const initialValues = {
   config: {
     innings: 40,
     caroms: 30,
@@ -196,14 +200,9 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
     ...initialValues,
   });
 
-  const [gameId, setGameId] = useState<string | null>(null);
+  const [channel, setChannel] = useState<Channel | null>(null);
 
-  useEffect(() => {
-    localStorage.setItem(
-      CacheKeys.ID,
-      localStorage.getItem(CacheKeys.ID) || crypto.randomUUID()
-    );
-    setGameId(localStorage.getItem(CacheKeys.ID));
+  const restoreConfig = () =>
     setGameState((prev) => ({
       ...prev,
       config: JSON.parse(
@@ -211,7 +210,34 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
           JSON.stringify(initialValues.config)
       ),
     }));
+
+  const resolveGameId = () => {
+    const stored = localStorage.getItem(CacheKeys.ID);
+    if (stored) {
+      return stored;
+    } else {
+      const id = crypto.randomUUID();
+      localStorage.setItem(CacheKeys.ID, id);
+      return id;
+    }
+  };
+
+  useEffect(() => {
+    restoreConfig();
+    const gameId = resolveGameId();
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_pusher_key || "", {
+      cluster: process.env.NEXT_PUBLIC_pusher_cluster || "",
+    });
+    setChannel(pusher.subscribe(pusherChannel(gameId)));
+
+    return () => {
+      pusher.disconnect();
+    };
   }, []);
+
+  useEffect(() => {
+    channel?.trigger(PUSHER_EVENT, gameState);
+  }, [gameState, channel]);
 
   return (
     <GameContext.Provider
