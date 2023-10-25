@@ -28,7 +28,7 @@ const GameOver = () => {
     } else {
       setWinner(-1);
     }
-  }, [gameState.ended]);
+  }, [gameState.ended, gameState.players, reward]);
 
   if (!gameState.ended) {
     return null;

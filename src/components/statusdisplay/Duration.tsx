@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useMemo } from "react";
 import { FaHourglass } from "react-icons/fa";
 import { GameContext } from "../../store/GameContext";
 import InfoLine from "./InfoLine";
@@ -10,15 +10,20 @@ const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * SECONDS_IN_MINUTE;
 const Innings = () => {
   const gameState = useContext(GameContext);
 
-  const diff = () =>
-    (gameState.ended || Date.now()) - (gameState.started || Date.now());
+  const diff = (start: number, end: number) =>
+    (end || Date.now()) - (start || Date.now());
 
-  const [timeElapsed, setTimeElapsed] = useState<number>(diff());
+  const [timeElapsed, setTimeElapsed] = useState<number>(
+    diff(gameState.started, gameState.ended)
+  );
 
   useEffect(() => {
-    const timer = setInterval(() => setTimeElapsed(diff()), 200);
+    const timer = setInterval(
+      () => setTimeElapsed(diff(gameState.started, gameState.ended)),
+      200
+    );
     return () => clearInterval(timer);
-  }, [gameState.started, gameState.ended, diff]);
+  }, [gameState.started, gameState.ended]);
 
   if (!gameState.started) {
     return null;

@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { type Output } from "valibot";
 import Schema from "./schema";
-import sync from "../app/api/sync/[game]/client";
 import CacheKeys from "./localStorage";
 
 export type Player = Output<typeof Schema.Player>;
@@ -213,8 +212,6 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
       ),
     }));
   }, []);
-
-  useEffect(() => sync(gameId, gameState), [gameId, gameState]);
 
   return (
     <GameContext.Provider
