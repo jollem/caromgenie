@@ -7,14 +7,15 @@ import styles from "./ShotClock.module.scss";
 
 const GameOver = () => {
   const gameState = useContext(GameContext);
-  const { reward } = useReward("innings", "confetti", {
-    lifetime: 1000,
+  const [winner, setWinner] = useState<number>(-1);
+  const { reward } = useReward("confetti", "confetti", {
+    lifetime: 1500,
     elementCount: 100,
     spread: 90,
-    startVelocity: 30,
+    startVelocity: 40,
     zIndex: 100,
   });
-  const [winner, setWinner] = useState<number>(-1);
+
   useEffect(() => {
     if (gameState.ended) {
       const scores = gameState.players.map((player) =>
@@ -22,8 +23,12 @@ const GameOver = () => {
       );
       const [second, first] = [...scores].sort((a, b) => a - b).slice(-2);
       if (first !== second) {
-        setWinner(scores.indexOf(first));
-        reward();
+        setWinner((prev) => {
+          if (prev < 0) {
+            reward();
+          }
+          return scores.indexOf(first);
+        });
       }
     } else {
       setWinner(-1);
@@ -35,11 +40,11 @@ const GameOver = () => {
   }
 
   return (
-    <div className={clsx(styles.centerSelf, styles.gameOver)}>
+    <div className={clsx(styles.centerSelf, styles.gameOver)} id="confetti">
       {winner >= 0 ? (
-        <>
+        <div>
           <FaTrophy /> {["⚪️", "🟡", "🔴"][winner]} <FaTrophy />
-        </>
+        </div>
       ) : (
         <FaHandshake />
       )}
