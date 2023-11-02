@@ -11,6 +11,7 @@
   justify-content: space-evenly;
   gap: var(--gap);
   padding: var(--gap);
+  outline: 0;
 
   &.nightshift {
     @include spread-map($theme-dark);

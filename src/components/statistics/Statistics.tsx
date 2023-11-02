@@ -15,69 +15,65 @@ Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
 const Statistics = () => {
   const gameState = useContext(GameContext);
 
-  if (!gameState.players) {
-    return null;
-  } else {
-    const colors = ["white", "yellow", "red"];
+  const colors = ["white", "yellow", "red"];
 
-    const max = Math.max(
-      ...gameState.players.map((player) =>
-        player.innings.reduce((acc, inning) => acc + inning, 0)
-      )
-    );
+  const max = Math.max(
+    ...gameState.players.map((player) =>
+      player.innings.reduce((acc, inning) => acc + inning, 0)
+    )
+  );
 
-    const data = {
-      labels: gameState.players.length
-        ? [0, ...gameState.players[0].innings.map((_, i) => i + 1)]
-        : undefined,
-      datasets: gameState.players.map((player, index) => ({
-        data: player.innings.reduce(
-          (acc, innings) => [...acc, Number(acc.slice(-1)) + innings],
-          [0]
-        ),
-        borderColor: colors[index],
-      })),
-    };
+  const data = {
+    labels: gameState.players.length
+      ? [0, ...gameState.players[0].innings.map((_, i) => i + 1)]
+      : undefined,
+    datasets: gameState.players.map((player, index) => ({
+      data: player.innings.reduce(
+        (acc, innings) => [...acc, Number(acc.slice(-1)) + innings],
+        [0]
+      ),
+      borderColor: colors[index],
+    })),
+  };
 
-    const options = {
-      layout: {
-        padding: 20,
+  const options = {
+    layout: {
+      padding: 20,
+    },
+    datasets: {
+      line: {
+        borderWidth: 5,
+        tension: 0.2,
       },
-      datasets: {
-        line: {
-          borderWidth: 5,
-          tension: 0.2,
-        },
-      },
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: {
-          min: 0,
-          max: gameState.config.innings,
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        min: 0,
+        max: gameState.config.innings,
+        display: false,
+        grid: {
           display: false,
-          grid: {
-            display: false,
-          },
-        },
-        y: {
-          beginAtZero: true,
-          min: 0,
-          max,
-          display: false,
-          grid: {
-            display: false,
-          },
         },
       },
-    };
+      y: {
+        beginAtZero: true,
+        min: 0,
+        max,
+        display: false,
+        grid: {
+          display: false,
+        },
+      },
+    },
+  };
 
-    return (
-      <div className={styles.statistics}>
-        <Line data={data} options={options} />
-      </div>
-    );
-  }
+  return (
+    <div className={styles.statistics}>
+      <Line data={data} options={options} />
+    </div>
+  );
 };
 
 export default Statistics;

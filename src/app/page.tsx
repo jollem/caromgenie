@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext, KeyboardEvent, useRef } from "react";
 import clsx from "clsx";
 import { FaSun, FaMoon, FaWater, FaLeaf } from "react-icons/fa";
-import GameContextProvider from "../store/GameContext";
+import GameContextProvider, { GameContext } from "../store/GameContext";
 import CacheKeys from "../store/localStorage";
 import Dialog from "../components/dialog";
 import NavBar from "../components/navbar";
@@ -62,30 +62,68 @@ const Page = () => {
       { [styles.themeContainer]: true }
     );
 
+  const Game: React.FC = () => {
+    const state = useContext(GameContext);
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      state.players.length && ref.current && ref.current.focus();
+    }, [state.players]);
+
+    const keyBindings: Record<string, (() => void) | undefined> = {
+      " ": state.started ? state.increment : state.swapPlayers,
+      "+": state.started ? state.increment : undefined,
+      "-": state.started ? state.decrement : undefined,
+      Enter: state.setNextActive,
+      Escape: state.pauseToggle,
+      Shift: state.extension,
+      ArrowLeft: state.reset,
+    };
+
+    return (
+      <div
+        className={clsx(getThemeClasses())}
+        tabIndex={-1}
+        onKeyDown={(e: KeyboardEvent) => {
+          state.players.length && keyBindings[e.key]?.();
+        }}
+        ref={ref}
+      >
+        {[
+          !state.players.length && (
+            <Dialog resetScoreBoard={() => setShowStats(false)} key="dialog">
+              <div className={styles.buttonContainer}>
+                {themes.map((themeSpec) => (
+                  <button
+                    key={themeSpec.name}
+                    onClick={() => applyTheme(themeSpec)}
+                    disabled={themeSpec === theme}
+                  >
+                    {themeSpec.icon}
+                  </button>
+                ))}
+              </div>
+            </Dialog>
+          ),
+          state.players.length && (
+            <NavBar
+              stats={showStats}
+              statsToggle={() => setShowStats((prev) => !prev)}
+              key="navbar"
+            />
+          ),
+          state.players.length && showStats && <Statistics key="stats" />,
+          state.players.length && !showStats && <ScoreBoard key="score" />,
+          state.players.length && <ShotClock key="shotclock" />,
+        ].filter(Boolean)}
+      </div>
+    );
+  };
+
   return (
-    <div className={clsx(getThemeClasses())}>
-      <GameContextProvider>
-        <Dialog resetScoreBoard={() => setShowStats(false)}>
-          <div className={styles.buttonContainer}>
-            {themes.map((themeSpec) => (
-              <button
-                key={themeSpec.name}
-                onClick={() => applyTheme(themeSpec)}
-                disabled={themeSpec === theme}
-              >
-                {themeSpec.icon}
-              </button>
-            ))}
-          </div>
-        </Dialog>
-        <NavBar
-          stats={showStats}
-          statsToggle={() => setShowStats((prev) => !prev)}
-        />
-        {showStats ? <Statistics /> : <ScoreBoard />}
-        <ShotClock />
-      </GameContextProvider>
-    </div>
+    <GameContextProvider>
+      <Game />
+    </GameContextProvider>
   );
 };
 
