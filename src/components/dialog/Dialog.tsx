@@ -1,4 +1,5 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
+import QRCode from "react-qr-code";
 import {
   FaCog,
   FaFlagCheckered,
@@ -8,6 +9,7 @@ import {
   FaRegHourglass,
   FaStopwatch,
   FaHourglassStart,
+  FaShareAlt,
 } from "react-icons/fa";
 import { GameContext, type Config } from "../../store/GameContext";
 import styles from "./Dialog.module.scss";
@@ -62,6 +64,7 @@ const Dialog: React.FC<ThemeSwitch> = ({ resetScoreBoard, children }) => {
   const [config, setConfig] = useState(false);
   const [formState, setFromState] = useState<string[]>(["", "", ""]);
   const [configState, setConfigState] = useState<Config>(gameState.config);
+  const modal = useRef<HTMLDialogElement>(null);
 
   useEffect(() => setConfigState(gameState.config), [gameState.config]);
 
@@ -86,7 +89,6 @@ const Dialog: React.FC<ThemeSwitch> = ({ resetScoreBoard, children }) => {
       </details>
       {config ? (
         <>
-          {children}
           {meta.map((conf) => (
             <div key={conf.field} className={styles.slider}>
               <label htmlFor={conf.field}>{conf.label}</label>
@@ -115,9 +117,35 @@ const Dialog: React.FC<ThemeSwitch> = ({ resetScoreBoard, children }) => {
           >
             <FaCheck />
           </button>
+          <button
+            className={styles.settings}
+            onClick={() => {
+              modal.current?.showModal();
+              modal.current?.addEventListener("click", (e) => {
+                const dialogDimensions = modal.current?.getBoundingClientRect();
+                if (
+                  dialogDimensions &&
+                  (e.clientX < dialogDimensions.left ||
+                    e.clientX > dialogDimensions.right ||
+                    e.clientY < dialogDimensions.top ||
+                    e.clientY > dialogDimensions.bottom)
+                ) {
+                  modal.current?.close();
+                }
+              });
+            }}
+          >
+            <FaShareAlt />
+          </button>
+          <dialog ref={modal} className={styles.modal}>
+            <QRCode
+              value={`${window.location.href}follow/${gameState.gameId}`}
+            />
+          </dialog>
         </>
       ) : (
         <>
+          {children}
           {["⚪️", "🟡", "🔴"].map((placeholder, index) => (
             <input
               type="text"

@@ -21,6 +21,7 @@ type Game = GameState & {
   start?: (players: string[]) => void;
   reset?: () => void;
   configure?: (config: Config) => void;
+  gameId?: string;
 };
 
 export const pusherChannel = (gameId: string) => `private-${gameId}`;
@@ -201,6 +202,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
   });
 
   const [channel, setChannel] = useState<Channel | null>(null);
+  const [gameId, setGameId] = useState<string>("");
 
   const restoreConfig = () =>
     setGameState((prev) => ({
@@ -229,6 +231,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
       cluster: process.env.NEXT_PUBLIC_pusher_cluster || "",
     });
     setChannel(pusher.subscribe(pusherChannel(gameId)));
+    setGameId(gameId);
 
     return () => {
       pusher.disconnect();
@@ -254,6 +257,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
         start,
         reset,
         configure,
+        gameId,
       }}
     >
       {children}
