@@ -2,6 +2,7 @@ import { useContext } from "react";
 import clsx from "clsx";
 import { FaHourglass } from "react-icons/fa";
 import { ObserverContext } from "@/store/ObserverContext";
+import Inning from "./Inning";
 import styles from "./ScoreBoard.module.scss";
 
 const ScoreBoard = () => {
@@ -32,12 +33,11 @@ const ScoreBoard = () => {
             >
               {player.innings.reduce((acc, curr) => acc + curr, 0)}
             </div>,
-            <div
+            <Inning
               key={`${player.name}-inning`}
-              className={clsx(styles[`player${index}`], styles.inning)}
-            >
-              {active === index && !state.ended ? player.innings.slice(-1) : ""}
-            </div>,
+              index={index}
+              active={active}
+            />,
             <div key={`${player.name}-avg`} className={styles.name}>
               {(
                 player.innings.reduce((acc, curr) => acc + curr, 0) /
