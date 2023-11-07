@@ -3,6 +3,7 @@ import PauseButton from "./PauseButton";
 import SwapButton from "./SwapButton";
 import StatsButton from "./StatsButton";
 import styles from "./NavBar.module.scss";
+import RevertButton from "./RevertButton";
 
 const NavBar = ({
   stats,
@@ -14,6 +15,7 @@ const NavBar = ({
   <nav className={styles.navbar}>
     <ResetButton />
     <SwapButton />
+    <RevertButton />
     <StatsButton stats={stats} statsToggle={statsToggle} />
     <PauseButton />
   </nav>
