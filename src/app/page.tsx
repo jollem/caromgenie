@@ -78,6 +78,7 @@ const Page = () => {
       Escape: state.pauseToggle,
       Shift: state.extension,
       ArrowLeft: state.reset,
+      Backspace: state.revert,
     };
 
     return (

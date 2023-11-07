@@ -16,6 +16,7 @@ type Game = GameState & {
   decrement?: () => void;
   extension?: () => void;
   setNextActive?: () => void;
+  revert?: () => void;
   pauseToggle?: () => void;
   swapPlayers?: () => void;
   start?: (players: string[]) => void;
@@ -160,6 +161,20 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
           }
     );
 
+  const revert = () =>
+    ifRunning(gameState, (state) => ({
+      ...state,
+      running: true,
+      shotclock: initalizeShotClock(state.config.shotclock),
+      players: state.players.map((player, index) => ({
+        ...player,
+        innings:
+          index === active(state)
+            ? player.innings.slice(0, -1)
+            : [...player.innings],
+      })),
+    }));
+
   const pauseToggle = () =>
     ifRunning(gameState, (prev) => ({
       ...prev,
@@ -252,6 +267,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
         decrement,
         extension,
         setNextActive,
+        revert,
         pauseToggle,
         swapPlayers,
         start,
