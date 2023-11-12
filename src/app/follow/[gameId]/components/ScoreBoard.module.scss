@@ -20,6 +20,11 @@
     justify-content: center;
     align-items: center;
     background-color: var(--background-color);
+
+    & span {
+      font-size: 1rem;
+      font-weight: normal;
+    }
   }
 
   .players {

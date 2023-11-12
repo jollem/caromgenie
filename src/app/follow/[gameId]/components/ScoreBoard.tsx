@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import clsx from "clsx";
-import { FaHourglass } from "react-icons/fa";
+import { FaHourglass, FaAngleRight } from "react-icons/fa";
 import { ObserverContext } from "@/store/ObserverContext";
 import styles from "./ScoreBoard.module.scss";
 import ShotClock from "./ShotClock";
@@ -20,11 +20,13 @@ const ScoreBoard = () => {
     <div className={styles.container}>
       <div key="innings" className={styles.innings}>
         {innings}
+        <span>/{state.config.innings}</span>
       </div>
       {state.players.length ? (
         <div key="players" className={styles.players}>
           {state.players.map((player, index) => [
             <div key={`${player.name}-name`} className={styles.name}>
+              {!state.ended && active === index && <FaAngleRight />}
               {player.name}
             </div>,
             <div

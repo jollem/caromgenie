@@ -12,7 +12,8 @@ const ShotClock: React.FC = () => {
   useEffect(() => {
     setMillisecondsLeft(state.shotclock.milliseconds);
     const timer = setInterval(() => {
-      state.running &&
+      !state.ended &&
+        state.running &&
         setMillisecondsLeft((prev) => {
           if (prev > TIMER_RESOLUTION) {
             return prev - TIMER_RESOLUTION;
@@ -22,10 +23,11 @@ const ShotClock: React.FC = () => {
         });
     }, TIMER_RESOLUTION);
     return () => clearInterval(timer);
-  }, [state.running, state.shotclock]);
+  }, [state.ended, state.running, state.shotclock]);
 
-  const percentage =
-    Math.max(0, 1 - millisecondsLeft / (state.config.shotclock * 1000)) * 100;
+  const percentage = state.ended
+    ? 100
+    : Math.max(0, 1 - millisecondsLeft / (state.config.shotclock * 1000)) * 100;
 
   return (
     <div
