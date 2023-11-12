@@ -74,10 +74,10 @@ const Page = () => {
       " ": state.started ? state.increment : state.swapPlayers,
       "+": state.started ? state.increment : undefined,
       "-": state.started ? state.decrement : undefined,
+      p: state.started ? state.pauseToggle : undefined,
       Enter: state.setNextActive,
-      Escape: state.pauseToggle,
+      Escape: state.reset,
       Shift: state.extension,
-      ArrowLeft: state.reset,
       Backspace: state.revert,
     };
 
