@@ -109,7 +109,7 @@ const Page = () => {
           state.players.length && (
             <NavBar
               stats={showStats}
-              statsToggle={() => setShowStats((prev) => !prev)}
+              setShowStats={setShowStats}
               key="navbar"
             />
           ),
