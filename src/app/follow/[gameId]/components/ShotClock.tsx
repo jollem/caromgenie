@@ -1,14 +1,10 @@
 import { useContext, useState, useEffect } from "react";
-import clsx from "clsx";
 import { ObserverContext } from "@/store/ObserverContext";
 import styles from "./ScoreBoard.module.scss";
 
-const TIMER_RESOLUTION = 200;
+const TIMER_RESOLUTION = 1000;
 
-const Inning: React.FC<{ index: number; active: number }> = ({
-  index,
-  active,
-}) => {
+const ShotClock: React.FC = () => {
   const state = useContext(ObserverContext);
 
   const [millisecondsLeft, setMillisecondsLeft] = useState<number>(0);
@@ -33,16 +29,10 @@ const Inning: React.FC<{ index: number; active: number }> = ({
 
   return (
     <div
-      className={clsx(styles[`player${index}`], styles.inning, {
-        [styles.shotclock]: active === index && !state.ended,
-      })}
+      className={styles.shotclock}
       style={{ "--percentage": `${percentage}%` } as React.CSSProperties}
-    >
-      {active === index && !state.ended
-        ? state.players[index].innings.slice(-1)
-        : ""}
-    </div>
+    />
   );
 };
 
-export default Inning;
+export default ShotClock;
