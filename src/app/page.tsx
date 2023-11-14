@@ -65,6 +65,7 @@ const Page = () => {
   const Game: React.FC = () => {
     const state = useContext(GameContext);
     const ref = useRef<HTMLDivElement>(null);
+    const [formState, setFromState] = useState<string[]>(["", "", ""]);
 
     useEffect(() => {
       state.players.length && ref.current && ref.current.focus();
@@ -92,7 +93,12 @@ const Page = () => {
       >
         {[
           !state.players.length && (
-            <Dialog resetScoreBoard={() => setShowStats(false)} key="dialog">
+            <Dialog
+              resetScoreBoard={() => setShowStats(false)}
+              formState={formState}
+              setFormState={setFromState}
+              key="dialog"
+            >
               <div className={styles.buttonContainer}>
                 {themes.map((themeSpec) => (
                   <button

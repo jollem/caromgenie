@@ -1,4 +1,11 @@
-import { useState, useEffect, useContext, useRef } from "react";
+import {
+  useState,
+  useEffect,
+  useContext,
+  useRef,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import QRCode from "react-qr-code";
 import {
   FaCog,
@@ -60,13 +67,19 @@ const meta: ConfMeta[] = [
 
 type ThemeSwitch = {
   resetScoreBoard: () => void;
+  formState: string[];
+  setFormState: Dispatch<SetStateAction<string[]>>;
   children: React.ReactNode;
 };
 
-const Dialog: React.FC<ThemeSwitch> = ({ resetScoreBoard, children }) => {
+const Dialog: React.FC<ThemeSwitch> = ({
+  resetScoreBoard,
+  children,
+  formState,
+  setFormState,
+}) => {
   const gameState = useContext(GameContext);
   const [config, setConfig] = useState(false);
-  const [formState, setFromState] = useState<string[]>(["", "", ""]);
   const [configState, setConfigState] = useState<Config>(gameState.config);
   const modal = useRef<HTMLDialogElement>(null);
 
@@ -163,7 +176,7 @@ const Dialog: React.FC<ThemeSwitch> = ({ resetScoreBoard, children }) => {
               key={placeholder}
               placeholder={placeholder}
               onChange={(e) =>
-                setFromState((prev) => {
+                setFormState((prev) => {
                   const copy = [...prev];
                   copy[index] = e.target.value;
                   return copy;
