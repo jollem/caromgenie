@@ -63,12 +63,18 @@ const NavBar = ({
         key="restart"
       />
     ),
-    gameState.started && !gameState.ended && gameState.running && (
-      <Button action={gameState.pauseToggle} Icon={FaPause} key="pause" />
-    ),
-    gameState.started && !gameState.ended && !gameState.running && (
-      <Button action={gameState.pauseToggle} Icon={FaPlay} key="play" />
-    ),
+    gameState.started &&
+      !gameState.ended &&
+      gameState.config.shotclock &&
+      gameState.running && (
+        <Button action={gameState.pauseToggle} Icon={FaPause} key="pause" />
+      ),
+    gameState.started &&
+      !gameState.ended &&
+      gameState.config.shotclock &&
+      !gameState.running && (
+        <Button action={gameState.pauseToggle} Icon={FaPlay} key="play" />
+      ),
   ].filter(Boolean);
 
   return (

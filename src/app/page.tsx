@@ -115,7 +115,9 @@ const Page = () => {
           ),
           state.players.length && showStats && <Statistics key="stats" />,
           state.players.length && !showStats && <ScoreBoard key="score" />,
-          state.players.length && <ShotClock key="shotclock" />,
+          state.players.length && state.config.shotclock && (
+            <ShotClock key="shotclock" />
+          ),
         ].filter(Boolean)}
       </div>
     );

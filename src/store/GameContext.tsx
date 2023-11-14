@@ -28,6 +28,9 @@ type Game = GameState & {
 export const pusherChannel = (gameId: string) => `private-${gameId}`;
 export const PUSHER_EVENT = "client-sync";
 
+export const MIN = 1;
+export const MAX = 99;
+
 export const initialValues = {
   config: {
     innings: 40,
@@ -68,8 +71,9 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
       )
       .some(
         (result) =>
-          result.innings >= state.config.innings ||
-          result.caroms >= state.config.caroms
+          (state.config.innings <= MAX &&
+            result.innings >= state.config.innings) ||
+          (state.config.innings <= MAX && result.caroms >= state.config.caroms)
       );
 
   const active = (state: GameState): number =>

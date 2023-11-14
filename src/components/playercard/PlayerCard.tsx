@@ -34,7 +34,7 @@ const PlayerCard = ({
       )}
       <div className={styles.statusRow}>
         <span className={styles.big}>{player.name}</span>
-        {!!gameState.config.extensions && (
+        {!!gameState.config.extensions && !!gameState.config.shotclock && (
           <span>
             {player.extensions} <FaStopwatch />
           </span>

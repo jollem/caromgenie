@@ -11,7 +11,7 @@ import {
   FaHourglassStart,
   FaShareAlt,
 } from "react-icons/fa";
-import { GameContext, type Config } from "../../store/GameContext";
+import { GameContext, MIN, MAX, type Config } from "../../store/GameContext";
 import styles from "./Dialog.module.scss";
 
 type ConfMeta = {
@@ -19,6 +19,7 @@ type ConfMeta = {
   label: React.ReactNode;
   min: number;
   max: number;
+  toggle?: boolean;
 };
 
 const meta: ConfMeta[] = [
@@ -26,19 +27,22 @@ const meta: ConfMeta[] = [
     field: "innings",
     label: <FaCircle />,
     min: 10,
-    max: 99,
+    max: 100,
+    toggle: true,
   },
   {
     field: "caroms",
     label: <FaCrosshairs />,
     min: 10,
-    max: 99,
+    max: 100,
+    toggle: true,
   },
   {
     field: "shotclock",
     label: <FaRegHourglass />,
-    min: 20,
+    min: 0,
     max: 90,
+    toggle: true,
   },
   {
     field: "extensions",
@@ -105,7 +109,12 @@ const Dialog: React.FC<ThemeSwitch> = ({ resetScoreBoard, children }) => {
                   }))
                 }
               />
-              <span>{configState[conf.field]}</span>
+              <span>
+                {conf.toggle &&
+                (configState[conf.field] > MAX || configState[conf.field] < MIN)
+                  ? "∞"
+                  : configState[conf.field]}
+              </span>
             </div>
           ))}
 

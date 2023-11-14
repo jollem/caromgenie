@@ -20,7 +20,7 @@ const ScoreBoard = () => {
     <div className={styles.container}>
       <div key="innings" className={styles.innings}>
         {innings}
-        <span>/{state.config.innings}</span>
+        {state.config.innings < 100 && <span>/{state.config.innings}</span>}
       </div>
       {state.players.length ? (
         <div key="players" className={styles.players}>
@@ -54,7 +54,7 @@ const ScoreBoard = () => {
           <FaHourglass />
         </div>
       )}
-      <ShotClock />
+      {!!state.config.shotclock && <ShotClock />}
     </div>
   );
 };
