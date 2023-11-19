@@ -74,12 +74,16 @@ const Page = () => {
     const keyBindings: Record<string, (() => void) | undefined> = {
       " ": state.started ? state.increment : state.swapPlayers,
       "+": state.started ? state.increment : undefined,
+      ArrowUp: state.started ? state.increment : undefined,
       "-": state.started ? state.decrement : undefined,
+      ArrowDown: state.started ? state.decrement : undefined,
       p: state.started ? state.pauseToggle : undefined,
       Enter: state.setNextActive,
+      ArrowRight: state.setNextActive,
       Escape: state.reset,
       Shift: state.extension,
       Backspace: state.revert,
+      ArrowLeft: state.revert,
     };
 
     return (
