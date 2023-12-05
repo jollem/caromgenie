@@ -39,6 +39,7 @@ const themes: ThemeSpec[] = [
 const Page = () => {
   const [theme, setTheme] = useState<ThemeSpec>(themes[0]);
   const [showStats, setShowStats] = useState<boolean>(false);
+  const [formState, setFromState] = useState<string[]>(["", "", ""]);
 
   useEffect(() => {
     applyTheme(
@@ -65,7 +66,6 @@ const Page = () => {
   const Game: React.FC = () => {
     const state = useContext(GameContext);
     const ref = useRef<HTMLDivElement>(null);
-    const [formState, setFromState] = useState<string[]>(["", "", ""]);
 
     useEffect(() => {
       state.players.length && ref.current && ref.current.focus();
