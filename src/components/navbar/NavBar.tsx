@@ -39,18 +39,11 @@ const NavBar = ({
     gameState.started && !gameState.ended && (
       <Button action={gameState.revert} Icon={FaEraser} key="revert" />
     ),
-    gameState.ended && stats && (
+    gameState.ended && (
       <Button
         action={() => setShowStats(!stats)}
-        Icon={FaCalculator}
-        key="hideStats"
-      />
-    ),
-    gameState.ended && !stats && (
-      <Button
-        action={() => setShowStats(!stats)}
-        Icon={FaChartBar}
-        key="showStats"
+        Icon={stats ? FaCalculator : FaChartBar}
+        key="statsToggle"
       />
     ),
     gameState.ended && (
@@ -63,18 +56,13 @@ const NavBar = ({
         key="restart"
       />
     ),
-    gameState.started &&
-      !gameState.ended &&
-      gameState.config.shotclock &&
-      gameState.running && (
-        <Button action={gameState.pauseToggle} Icon={FaPause} key="pause" />
-      ),
-    gameState.started &&
-      !gameState.ended &&
-      gameState.config.shotclock &&
-      !gameState.running && (
-        <Button action={gameState.pauseToggle} Icon={FaPlay} key="play" />
-      ),
+    gameState.started && !gameState.ended && gameState.config.shotclock && (
+      <Button
+        action={gameState.pauseToggle}
+        Icon={gameState.running ? FaPause : FaPlay}
+        key="pauseToggle"
+      />
+    ),
   ].filter(Boolean);
 
   return (
