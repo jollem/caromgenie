@@ -82,8 +82,13 @@ const Dialog: React.FC<ThemeSwitch> = ({
   const [config, setConfig] = useState(false);
   const [configState, setConfigState] = useState<Config>(gameState.config);
   const modal = useRef<HTMLDialogElement>(null);
+  const [observerUI, setObserverUI] = useState<string>("");
 
   useEffect(() => setConfigState(gameState.config), [gameState.config]);
+  useEffect(
+    () => setObserverUI(`${window.location.href}follow/${gameState.gameId}`),
+    [gameState.gameId]
+  );
 
   if (gameState.players.length) {
     return null;
@@ -160,9 +165,9 @@ const Dialog: React.FC<ThemeSwitch> = ({
             <FaShareAlt />
           </button>
           <dialog ref={modal} className={styles.modal}>
-            <QRCode
-              value={`${window.location.href}follow/${gameState.gameId}`}
-            />
+            <a href={observerUI} target="_blank">
+              <QRCode value={observerUI} />
+            </a>
           </dialog>
         </>
       ) : (
