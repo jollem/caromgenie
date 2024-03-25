@@ -7,8 +7,8 @@ the application is straightforward enough to use without those.
 One drawback / feature is that UI is language agnostic - all actions are described
 by icons instead of text. This might feel confusing at start.
 
-Event though application was supposed to be used via touch enabled devices, it
-soon became clear that keyboard support was must. [Keybingins](src/app/page.tsx#L74-L87) can be seen from
+Even though at first application was supposed to be used via touchscreen, it
+soon became clear that keyboard support is a must. [Keybingins](src/app/page.tsx#L74-L87) can be seen from
 source (action naming is rather poor :see_no_evil: - might get improved in the future).
 
 Note that configuration and theme settings are saved in local storage. Game ID, used for connecting Observer UI
@@ -48,4 +48,4 @@ is part of configuration and thus saved across sessions.
 | ![FaPlay](icons/FaPlay.svg)                             | Game on                                                                                         |
 | ![FaCalculator](icons/FaChartBar.svg)                   | Statistics screen (only available at game over)                                                 |
 | ![FaCalculator](icons/FaCalculator.svg)                 | Game screen (only available at statistics screen)                                               |
-| ![FaRecycle](icons/FaRecycle.svg)                       | Restart the game with current players & settings (only avaible at game over)                    |
+| ![FaRecycle](icons/FaRecycle.svg)                       | Restart the game with current players & settings (only available at game over)                  |
