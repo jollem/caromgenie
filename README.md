@@ -52,6 +52,8 @@ npm run build
 
 ### Getting involved
 
+This project is licensed under the terms of the [MIT license](LICENSE.txt).
+
 Fork, clone, do whatever you like; If you break it, you can keep all the pieces.
 
 One can send in improvement ideas via normal GitHub channels e.g. PR:s or issues.
