@@ -195,7 +195,10 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
   const swapPlayers = () =>
     setGameState((prev) => ({
       ...prev,
-      players: [prev.players[1], prev.players[0]],
+      players:
+        prev.players.length === 2
+          ? [prev.players[1], prev.players[0]]
+          : prev.players,
     }));
 
   const start = (players: string[]) =>
