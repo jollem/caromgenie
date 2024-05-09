@@ -8,6 +8,7 @@ const ExtensionButton = () => {
   const gameState = useContext(GameContext);
 
   const hasExtensions =
+    gameState.config.shotclock > 0 &&
     gameState.players[gameState.active?.(gameState) ?? 0]?.extensions > 0;
 
   return (
