@@ -37,6 +37,7 @@ const ShotClock = () => {
 
   return (
     <div
+      role="button"
       className={clsx(styles.centerSelf, styles.gradient, {
         [styles.actionable]:
           gameState.players[gameState.active?.(gameState) || 0]?.extensions > 0,

@@ -28,6 +28,7 @@ const PlayerCard = ({
     >
       {isNext && (
         <div
+          role="button"
           className={styles.activationOverlay}
           onClick={gameState.setNextActive}
         />
