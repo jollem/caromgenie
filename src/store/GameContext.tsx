@@ -59,22 +59,26 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
 
   const gameOver = (state: GameState): Boolean =>
     !next(state) &&
-    state.players
+    !!state.players
       .map((player) =>
         player.innings.reduce(
           (acc, caroms) => ({
-            innings: acc.innings + 1,
+            ...acc,
             caroms: acc.caroms + caroms,
           }),
-          { innings: 0, caroms: 0 }
+          { innings: player.innings.length, caroms: 0 }
         )
       )
-      .some(
+      .filter(
         (result) =>
-          (state.config.innings <= MAX &&
-            result.innings >= state.config.innings) ||
-          (state.config.innings <= MAX && result.caroms >= state.config.caroms)
-      );
+          result.innings >= state.config.innings ||
+          result.caroms >= state.config.caroms
+      )
+      .map((result) => result.caroms)
+      .sort((a, b) => b - a)
+      .filter(
+        (caroms, i, arr) => (!i && caroms > arr[i + 1]) || arr.length === 1
+      ).length;
 
   const active = (state: GameState): number =>
     state.ended
