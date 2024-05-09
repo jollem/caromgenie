@@ -1,10 +1,18 @@
 .navbar {
   display: flex;
+  flex-basis: 0;
+  flex-grow: 1;
   justify-content: space-between;
   align-items: stretch;
 
   button {
+    height: 100%;
     color: var(--secondary-color);
     background-color: var(--primary-color);
+  }
+
+  span {
+    height: 100%;
+    aspect-ratio: 1;
   }
 }

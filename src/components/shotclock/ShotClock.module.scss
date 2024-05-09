@@ -11,15 +11,12 @@
 }
 
 .shotclockContainer {
+  flex-basis: 0;
+  flex-grow: 1;
   border: var(--border-thick);
   border-radius: var(--border-radius);
   display: flex;
-  min-height: 3rem;
   overflow: hidden;
-
-  @include desktop() {
-    min-height: 5rem;
-  }
 
   .centerSelf {
     flex-grow: 1;

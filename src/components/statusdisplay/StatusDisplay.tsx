@@ -15,7 +15,6 @@ const StatusDisplay = () => {
     >
       <GameInfo />
       <Innings />
-      <div />
     </div>
   );
 };

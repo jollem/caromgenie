@@ -1,12 +1,15 @@
 @import "../../app/_mixins.scss";
 
 .player {
+  flex-basis: 0;
+  flex-grow: 1;
+
   border: var(--border-wide);
   border-radius: var(--border-radius);
   background-color: var(--primary-color);
   display: flex;
   flex-direction: column;
-  flex-grow: 4;
+  gap: var(--gap);
   color: var(--secondary-color);
   overflow: hidden;
   max-width: 40vw;
@@ -28,9 +31,8 @@
   }
 
   .statusRow {
-    font-size: 1rem;
+    font-size: 2rem;
     font-weight: bold;
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -49,20 +51,12 @@
       gap: var(--gap);
       white-space: nowrap;
       z-index: 2;
-
-      &.big {
-        z-index: 1;
-        display: inline-block;
-        width: 100%;
-        font-size: 2rem;
-        overflow-x: hidden;
-      }
     }
   }
 }
 
 .scoreCard {
-  flex-grow: 100;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

@@ -28,7 +28,6 @@
   }
 
   .players {
-    flex-grow: 1;
     display: grid;
     gap: var(--gap);
     grid-template-columns: auto 3rem 3rem 6rem;
@@ -75,7 +74,6 @@
 
   .wait {
     background-color: var(--background-color);
-    flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
