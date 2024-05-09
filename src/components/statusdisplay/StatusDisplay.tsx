@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { GameContext } from "../../store/GameContext";
 import GameInfo from "./GameInfo";
 import Innings from "./Innings";
+import ExtensionButton from "./ExtensionButton";
 import styles from "./StatusDisplay.module.scss";
 
 const StatusDisplay = () => {
@@ -15,6 +16,7 @@ const StatusDisplay = () => {
     >
       <GameInfo />
       <Innings />
+      <ExtensionButton />
     </div>
   );
 };

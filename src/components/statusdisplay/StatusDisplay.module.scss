@@ -48,10 +48,23 @@
     }
 
     &:nth-child(2) {
-      flex-grow: 1;
+      flex-grow: 2;
       font-size: 10rem;
       background-color: var(--secondary-color);
       color: var(--font-color);
     }
+
+    &:nth-child(3) {
+      flex-grow: 1;
+      border: none;
+
+      button {
+        height: 100%;
+      }
+    }
   }
+}
+
+.hide {
+  visibility: hidden;
 }
