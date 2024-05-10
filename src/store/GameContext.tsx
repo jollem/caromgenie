@@ -71,8 +71,9 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
       )
       .filter(
         (result) =>
-          result.innings >= state.config.innings ||
-          result.caroms >= state.config.caroms
+          (state.config.innings <= MAX &&
+            result.innings >= state.config.innings) ||
+          (state.config.caroms <= MAX && result.caroms >= state.config.caroms)
       )
       .map((result) => result.caroms)
       .sort((a, b) => b - a)
