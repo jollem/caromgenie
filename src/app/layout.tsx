@@ -5,7 +5,7 @@ import { Urbanist } from "next/font/google";
 import clsx from "clsx";
 import styles from "./layout.module.scss";
 
-const font = Urbanist({ subsets: ["latin"] });
+const font = Urbanist({ weight: "800", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   viewport: "width=device-width, initial-scale=1, maximum-scale=1",
